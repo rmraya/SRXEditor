@@ -13,8 +13,8 @@ package com.maxprograms.srxeditor;
 
 public class Constants {
 
-	public static final String build = "20191024_1327"; //$NON-NLS-1$
-	public static String version = "1.1.0"; //$NON-NLS-1$
+	public static final String build = "20191024_1517"; //$NON-NLS-1$
+	public static String version = "1.5.0"; //$NON-NLS-1$
 	public static final String preferences = "srxeditor.pref"; //$NON-NLS-1$
 	public static final String catalog = "catalog/catalog.xml"; //$NON-NLS-1$
 

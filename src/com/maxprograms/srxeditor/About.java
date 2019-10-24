@@ -44,18 +44,18 @@ public class About extends Dialog {
 
 		Label label = new Label(shell, SWT.CENTER);
 		label.setText(Messages.getString("About.1")); //$NON-NLS-1$
-		label.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+		label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		label.setBackground(white);
 
 		Label image = new Label(shell, SWT.CENTER);
 		image.setImage(SRXEditor.getResourceManager().getIcon());
-		image.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+		image.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		image.setBackground(white);
 
 		Label label2 = new Label(shell, SWT.CENTER);
 		MessageFormat mf = new MessageFormat(Messages.getString("About.2")); //$NON-NLS-1$
 		label2.setText(mf.format(new String[] { Constants.version, Constants.build }));
-		label2.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+		label2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		label2.setBackground(white);
 
 		Label empty = new Label(shell, SWT.NONE);
@@ -63,12 +63,12 @@ public class About extends Dialog {
 		empty.setBackground(white);
 
 		Label copyright = new Label(shell, SWT.CENTER);
-		copyright.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+		copyright.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		copyright.setText(Messages.getString("About.3")); //$NON-NLS-1$
 		copyright.setBackground(white);
 
 		Label website = new Label(shell, SWT.CENTER);
-		website.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_HORIZONTAL));
+		website.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		website.setText("https://www.maxprograms.com"); //$NON-NLS-1$
 		website.setBackground(white);
 		website.setForeground(display.getSystemColor(SWT.COLOR_LINK_FOREGROUND));

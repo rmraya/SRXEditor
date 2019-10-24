@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="edit_srx_file">
+    <title>Edit existing SRX File</title>
+    <shortdesc>Modify the content of an existing SRX file to segment text appropriately when using a tool that supports SRX 2.0</shortdesc>
+    <prolog/>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Open
+                        File</uicontrol> or click the <image href="../images/SRXEditor/open.png"
+                        placement="inline" height="16"/> button.</cmd>
+            </step>
+            <step>
+                <cmd>Locate and open the SRX file to be modified.</cmd>
+            </step>
+            <step>                
+                <cmd>Select a language rule for editing. </cmd>
+                <choices>
+                    <choice>In the <uicontrol>Language Rules</uicontrol> table, click on an existing language rule.</choice>
+                    <choice>Click the <uicontrol>Add Language Rule</uicontrol> button to add a new, empty, language rule.</choice>
+                </choices>                
+                <stepresult>The segmentation rules associated with the selected language rule are
+                    displayed in the <uicontrol>Rules</uicontrol> table.</stepresult>
+            </step>
+            <step>
+                <cmd>Update the segmentation rules.</cmd>
+                <choices>
+                    <choice>Click the <uicontrol>Add Rule</uicontrol> button to add a new
+                    segmentation rule. </choice>
+                    <choice>In the <uicontrol>Rules</uicontrol> table, click on an existing
+                        segmentation rule to select it. Click the <uicontrol>Edit Rule</uicontrol>
+                        button to modify its content or click the <uicontrol>Remove
+                            Rule</uicontrol> button to delete the selected rule.</choice>
+                </choices>                
+            </step>
+            <step>
+                <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Save
+                        File</uicontrol> or click the <image href="../images/SRXEditor/save.png"
+                        height="16"/> button to save your changes. Use the <uicontrol>Save File
+                        As...</uicontrol> option to save the modified SRX file under a different
+                    name.</cmd>
+            </step>            
+        </steps>
+        <result>The selected SRX file is saved with its content updated.</result>
+    </taskbody>
+</task>

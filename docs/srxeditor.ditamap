@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/bookmap.dtd">
+<bookmap id="taskbook" xml:lang="en-US" product="SRXEditor" toc="yes" print="yes" props="">
+    <booktitle>
+        <mainbooktitle>
+            <ph>SRXEditor User Guide</ph>
+            <image href="images/SRXEditor/Violet_squares.jpg" placement="break"/>
+        </mainbooktitle>
+        <booktitlealt>
+            <ph>Copyright © 2008 - 2019 Maxprograms</ph>
+        </booktitlealt>
+    </booktitle>
+    <frontmatter>
+        <booklists>
+            <toc/>
+        </booklists>
+    </frontmatter>
+    <chapter>
+        <topicmeta>
+            <navtitle>Introduction</navtitle>
+        </topicmeta>
+        <topicref href="concepts/srxeditor_introduction.dita" navtitle="Introduction"/>
+        <topicref href="concepts/supported_platforms.dita" navtitle="Supported Platforms"/>        
+        <topichead navtitle="Basic Concepts">
+            <topicref href="concepts/srx20.dita" navtitle="SRX"/>
+            <topicref href="concepts/regular_expressions.dita" navtitle="Regular Expressions"/>
+        </topichead>
+    </chapter>
+    <chapter>
+        <topicmeta>
+            <navtitle>User Interface</navtitle>
+        </topicmeta>
+        <topicref href="concepts/srxeditor_main_gui.dita"/>
+        <topichead navtitle="Menus">
+            <topicref href="references/srxeditor_file_menu.dita"/>
+            <topicref href="references/srxeditor_options_menu.dita"/>
+            <topicref href="references/srxeditor_help_menu.dita"/>
+        </topichead>
+    </chapter>
+    <chapter>
+        <topicmeta>
+            <navtitle>Common Tasks</navtitle>
+        </topicmeta>
+        <topicref href="tasks/create_srx_file.dita" navtitle="Create SRX File"/>
+        <topicref href="tasks/edit_srx_file.dita" navtitle="Edit SRX File"/>
+        <topicref href="tasks/test_srx_file.dita" navtitle="Test Segmentation Rules"/>
+    </chapter>
+    <backmatter>
+        <booklists>
+            <glossarylist>
+                <topicref href="glossaries/language_rule.dita" type="glossentry"/>
+                <topicref href="glossaries/regular_expression.dita" type="glossentry"/>
+                <topicref href="glossaries/segmentation_rule.dita" type="glossentry"/>
+                <topicref href="glossaries/SRX.dita" type="glossentry"/>
+            </glossarylist>
+        </booklists>
+    </backmatter>
+</bookmap>

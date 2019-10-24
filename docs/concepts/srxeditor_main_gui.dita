@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="srxeditor_main_gui">
+ <title>SRXEditor GUI</title>
+ <shortdesc></shortdesc>
+ <conbody>
+  <p>The following picture portrays SRXEditor: <image href="../images/SRXEditor/SRXEditor.png"
+                placement="break" scale="60"/></p>
+ </conbody>
+</concept>

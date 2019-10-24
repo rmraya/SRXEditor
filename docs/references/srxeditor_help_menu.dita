@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/reference.dtd">
+<reference id="srxeditor_help_menu">
+  <title>Help Menu</title>
+  <shortdesc/>
+  <refbody>
+    <properties relcolwidth="1.0* 2.18* 9.55*">
+      <property>
+        <proptype><image href="../images/SRXEditor/help.png" align="center"/></proptype>                
+        <propvalue>SRXEditor Help</propvalue>
+        <propdesc>Display SRXEditor User Guide in the default PDF viewer.</propdesc>
+      </property>
+      <property>
+        <proptype/>
+        <propvalue>About...</propvalue>
+        <propdesc>Display a dialog with copyright and program version information.</propdesc>
+      </property>
+    </properties>
+  </refbody>
+</reference>

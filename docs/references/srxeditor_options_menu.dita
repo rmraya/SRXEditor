@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/reference.dtd">
+<reference id="srxeditor_options_menu">
+  <title>Options Menu</title>
+  <shortdesc/>
+  <refbody>
+    <properties relcolwidth="1.0* 2.18* 9.55*">
+      <property>
+        <proptype/>
+        <propvalue>Language</propvalue>
+        <propdesc>Open a sub-menu for selecting the user interface language.</propdesc>
+      </property>
+    </properties>
+  </refbody>
+</reference>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="test_srx_file">
+    <title>Test Segmentation Rules</title>
+    <shortdesc>Test whether the rules contained in an SRX file can be used to segment text as expected or not.</shortdesc>
+    <prolog/>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>Click the <uicontrol>Test Rules</uicontrol> button (<image
+                        href="../images/SRXEditor/gear.png" height="16"/>) from the tool bar to
+                    display the <uicontrol>Rules Testing</uicontrol> dialog.</cmd>
+                <stepresult>The following dialog appears: <image
+                        href="../images/SRXEditor/test_rules.png" placement="break" scale="60"
+                    /></stepresult>
+            </step>
+            <step>
+                <cmd>In the <uicontrol>Sample Text</uicontrol> box, type or paste text to segment.</cmd>
+            </step>
+            <step>
+                <cmd>Select the language of the sample text in the <uicontrol>Source Language</uicontrol> drop-down list.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Test Rules</uicontrol> button.</cmd>
+            </step>
+        </steps>
+        <result>An HTML table with the sample text segmented according to the specified rules set is displayed in a new window.</result>
+    </taskbody>
+</task>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="srxeditor_introduction">
+    <title>SRXEditor</title>
+    <shortdesc/>
+    <conbody><p>SRXEditor is a cross-platform editor of segmentation rules, designed to use
+        Segmentation Rules eXchange (SRX) 2.0, the open XML-based standard published by
+        LISA.</p>
+        <p>You can use SRXEditor to create new SRX files or to edit existing ones. It
+            can also be used for testing segmentation rules to ensure that they break text as
+            expected.</p>
+        <p>SRXEditor includes a sample file in SRX 2.0 format with a default set
+            of segmentation rules supporting most standard cases. It also includes segmentation
+            rules specific for these languages:</p>
+        <simpletable>
+            <strow>
+                <stentry>Catalan</stentry>
+                <stentry>German</stentry>
+            </strow>
+            <strow>
+                <stentry>Chinese</stentry>
+                <stentry>Italian</stentry>                    
+            </strow>
+            <strow>
+                <stentry>Czech</stentry>
+                <stentry>Japanese</stentry>
+            </strow>
+            <strow>
+                <stentry>Danish</stentry>
+                <stentry>Polish</stentry>
+            </strow>
+            <strow>
+                <stentry>Dutch</stentry>
+                <stentry>Portuguese</stentry>
+            </strow>
+            <strow>
+                <stentry>English</stentry>
+                <stentry>Spanish</stentry>
+            </strow>
+            <strow>
+                <stentry>Finnish</stentry>
+                <stentry>Swedish</stentry>
+            </strow>
+            <strow>
+                <stentry>French</stentry>
+                <stentry>Thai</stentry>
+            </strow>
+        </simpletable>        
+    </conbody>
+</concept>

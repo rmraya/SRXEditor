@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="regular_expressions">
+    <title>Regular Expressions</title>
+    <prolog>
+    </prolog>
+    <conbody>
+        <p>Regular expressions, also known as <i>patterns</i>,  are formulas that describe text
+            strings using a specially designed syntax.</p>
+        <p>There are different kinds of regular expressions, usually associated with the programming
+            language that uses them. The most common ones are Perl and Java regular expressions.
+            Although they are very similar, small differences in syntax can lead to very different
+            results when matching text against the same patterns.</p>
+        <p>SRX (Segmentation Rules eXchange) uses a subset of ICU (Internationalization Components
+            for Unicode) regular expressions. The allowed subset is described in SRX 's
+            specification document available for download at <xref
+                href="http://www.ttt.org/oscarStandards/srx/" format="html" scope="external"
+                >http://www.ttt.org/oscarStandards/srx/</xref>.</p>
+    </conbody>
+</concept>

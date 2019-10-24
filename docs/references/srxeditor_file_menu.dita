@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/reference.dtd">
+<reference id="srxeditor_file_menu">
+  <title>File Menu</title>
+  <shortdesc/>
+  <refbody>
+    <properties relcolwidth="1.0* 2.18* 9.55*">
+      <property>
+        <proptype><image href="../images/SRXEditor/paper.png"/></proptype>
+        <propvalue>New File</propvalue>
+        <propdesc>Create a new SRX file.</propdesc>
+      </property>
+      <property>
+        <proptype><image href="../images/SRXEditor/open.png"/></proptype>
+        <propvalue>Open File</propvalue>
+        <propdesc>Open an existing SRX file for editing.</propdesc>
+      </property>
+      <property>
+        <proptype><image href="../images/SRXEditor/save.png"/></proptype>
+        <propvalue>Save File</propvalue>
+        <propdesc>Save current open SRX file to disk.</propdesc>
+      </property>
+      <property>
+        <proptype/>
+        <propvalue>Save File As...</propvalue>
+        <propdesc>Save current open SRX file to disk under a new name.</propdesc>
+      </property>
+      <property>
+        <proptype/>
+        <propvalue>Exit/Quit</propvalue>
+        <propdesc>Close the program.</propdesc>
+      </property>
+    </properties>
+  </refbody>
+</reference>

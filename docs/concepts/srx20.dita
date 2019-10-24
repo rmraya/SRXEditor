@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="srx20">
+    <title>SRX: Segmentation Rules eXchange</title>
+    <prolog>
+    </prolog>
+    <conbody>
+        <p>Segmentation Rules eXchange (SRX) is the vendor-neutral standard, originally published by
+            LISA (Localization Industry Standards Association), for describing how translation and
+            other language-processing tools segment text for processing.</p>
+        <p>SRX is an XML vocabulary that allows Translation Memory (TM) and other linguistic tools
+            to describe the language-specific processes by which text is broken into segments
+            (usually sentences or paragraphs) for further processing.</p>
+        <p>SRX uses regular expressions to indicate the conditions under which a given text needs to
+            be broken or kept as is.</p>
+        <p>SRX version 2.0 was officially accepted as an OSCAR standard in April 2008. </p>
+        <p>SRX specification is currently available at <xref
+                href="http://www.ttt.org/oscarStandards/srx/" format="html" scope="external"
+                >http://www.ttt.org/oscarStandards/srx/</xref>.</p>
+    </conbody>
+</concept>

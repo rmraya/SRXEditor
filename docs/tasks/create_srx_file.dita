@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="create_srx_file">
+    <title>Create SRX File</title>
+    <shortdesc>Create an SRX file that can be used for segmenting documents by translation tools that support SRX 2.0.</shortdesc>
+    <prolog/>
+    <taskbody>
+        <steps>
+            <step>
+                <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>New File</uicontrol>
+                    or click the <image href="../images/SRXEditor/paper.png" placement="inline"
+                        height="16"/> button.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Add Language Rule</uicontrol> button to display the
+                        <uicontrol>Language Rule</uicontrol> dialog.</cmd>
+            </step>
+            <step>
+                <cmd>In the <uicontrol>Language Rule Name</uicontrol> text box, enter a meaningful
+                    name for the language rule.</cmd>
+            </step>
+            <step>
+                <cmd>In the <uicontrol>Language Pattern</uicontrol> text box, enter a regular
+                    expression to indicate the languages supported by the new rule.</cmd>
+            </step>
+            <step>
+                <cmd>Click the <uicontrol>Accept</uicontrol> button to add the language rule.</cmd>
+                <stepresult>The new language rule appears in the <uicontrol>Language Rules</uicontrol> table of the editor.</stepresult>
+            </step>
+            <step>
+                <cmd>Follow these steps as many times as necessary to populate the language rule
+                    with segmentation rules:</cmd>
+                <substeps>
+                    <substep>
+                        <cmd>Click the <uicontrol>Add Rule</uicontrol> button to display the <uicontrol>Rule
+                                Editor</uicontrol> dialog.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Select the <uicontrol>Breaks Segment</uicontrol> check box if the new
+                            segmentation rule breaks text. Leave it unselected otherwise.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>In the <uicontrol>Before Break</uicontrol> text box, enter a regular
+                            expression that describes the text that appears before the break point
+                            or break exception.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>In the <uicontrol>After Break</uicontrol> text box, enter a regular
+                            expression that describes the text that appears after the break point or
+                            break exception.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>Click the <uicontrol>Accept</uicontrol> button to add the new segmentation
+                        rule.</cmd>
+                        <stepresult>The new rule appears in the <uicontrol>Rules</uicontrol> table of the editor.</stepresult>
+                    </substep>
+                </substeps>
+            </step>
+            <step>
+                <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Save
+                        File</uicontrol> or click the <image href="../images/SRXEditor/save.png"
+                        height="16"/> button to specify a file name for the SRX file and save
+                    it.</cmd>
+            </step>
+        </steps>
+        <result>A new SRX 2.0 file is generated and saved under the selected name.</result>
+    </taskbody>
+</task>

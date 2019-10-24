@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/glossary.dtd">
+<glossentry id="regular_expression">
+    <glossterm>Regular Expression</glossterm>
+    <glossdef>Formula or expression that describes text strings using a specially defined
+        syntax.</glossdef>
+</glossentry>

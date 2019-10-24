@@ -1,2 +1,2 @@
 # SRXEditor
-Editor for Segmentation Rules eXchange (SRX) fies
+Editor for Segmentation Rules eXchange (SRX) files

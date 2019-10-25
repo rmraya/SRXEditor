@@ -13,4 +13,4 @@ SRXEditor includes a sample file in SRX 2.0 format with a default set of segment
  Dutch |  Portuguese |  English | Spanish 
  Finnish | Swedish | French | Thai 
 
-SRXEditor is included in [Stingray](https://www.maxprograms.com/products/stingray.html) and [Swordfish III](https://www.maxprograms.com/products/swordfish.html) installers.
+SRXEditor is included in [Swordfish III](https://www.maxprograms.com/products/swordfish.html) installers.

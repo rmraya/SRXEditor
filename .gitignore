@@ -4,3 +4,4 @@ docs/out/
 node_modules/
 js/
 package-lock.json
+srxeditor-darwin-arm64/

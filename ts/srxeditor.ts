@@ -66,6 +66,14 @@ class SRXEditor {
             { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { SRXEditor.saveFile(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
+            { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
+            { label: 'Redo', accelerator: 'CmdOrCtrl+Y', role: 'redo' },
+            new MenuItem({ type: 'separator' }),
+            { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+            { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+            { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+            new MenuItem({ type: 'separator' }),
+            { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
             { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { SRXEditor.showHelp(); } },
@@ -76,45 +84,42 @@ class SRXEditor {
             { label: 'Release History', click: () => { SRXEditor.showReleaseHistory(); } },
             { label: 'Support Group', click: () => { SRXEditor.showSupportGroup(); } }
         ]);
-
-        let template: MenuItem[] = [
-            new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
-            new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
-            new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
-        ];
-
-        if (process.platform === 'darwin') {
-            let appleMenu: Menu = Menu.buildFromTemplate([
-                new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }),
-                new MenuItem({
-                    label: 'Preferences', submenu: [
-                        { label: 'Settings', accelerator: 'Cmd+,', click: () => { SRXEditor.showSettings(); } }
-                    ]
-                }),
-                new MenuItem({ type: 'separator' }),
-                new MenuItem({
-                    label: 'Services', role: 'services', submenu: [
-                        { label: 'No services', enabled: false }
-                    ]
-                }),
-                new MenuItem({ type: 'separator' }),
-                new MenuItem({ label: 'Quit SRXEditor', accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
-            ]);
-            template.unshift(new MenuItem({ label: 'Stingray', role: 'appMenu', submenu: appleMenu }));
-        } else {
-            let help: MenuItem = template.pop() as MenuItem;
-            template.push(new MenuItem({
-                label: 'Settings', submenu: [
-                    { label: 'Preferences', click: () => { SRXEditor.showSettings(); } }
+        let settingsMenu: Menu = Menu.buildFromTemplate([{ label: 'Preferences', click: () => { SRXEditor.showSettings(); } }]);
+        let appleMenu: Menu = Menu.buildFromTemplate([
+            new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }),
+            new MenuItem({
+                label: 'Preferences', submenu: [
+                    { label: 'Settings', accelerator: 'Cmd+,', click: () => { SRXEditor.showSettings(); } }
                 ]
-            }));
-            template.push(help);
-        }
+            }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({
+                label: 'Services', role: 'services', submenu: [
+                    { label: 'No services', enabled: false }
+                ]
+            }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({ label: 'Quit SRXEditor', accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
+        ]);
+
+        let template: MenuItem[] = process.platform === 'darwin' ?
+            [
+                new MenuItem({ label: 'SRXEditor', role: 'appMenu', submenu: appleMenu }),
+                new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
+                new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
+            ] : [
+                new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
+                new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: '&Settings', submenu: settingsMenu }),
+                new MenuItem({ label: '&Help', submenu: helpMenu })
+            ];
+        
         if (process.platform === 'win32') {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: 'Exit', accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template.pop() as MenuItem;
+            let help: MenuItem = template[3] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
         }
@@ -122,7 +127,7 @@ class SRXEditor {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: 'Quit', accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template.pop() as MenuItem;
+            let help: MenuItem = template[3] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
         }
@@ -168,7 +173,7 @@ class SRXEditor {
     static openFileDialog() {
         throw new Error('Method not implemented.');
     }
-    
+
     static newFile() {
         throw new Error('Method not implemented.');
     }

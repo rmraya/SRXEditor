@@ -19,6 +19,8 @@ class SRXEditor {
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
+    static moveRuleDown: any;
+    static moveLanguageDown: any;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -84,6 +86,25 @@ class SRXEditor {
             { label: 'Release History', click: () => { SRXEditor.showReleaseHistory(); } },
             { label: 'Support Group', click: () => { SRXEditor.showSupportGroup(); } }
         ]);
+        let tasksMenu: Menu = Menu.buildFromTemplate([
+            new MenuItem({ label: 'Add Language', click: () => { SRXEditor.addLanguage() } }),
+            new MenuItem({ label: 'Edit Language', click: () => { SRXEditor.editLanguage() } }),
+            new MenuItem({ label: 'Remove Language', click: () => { SRXEditor.removeLanguage() } }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({ label: 'Move Language Up', accelerator:'Alt+Up', click: () => { SRXEditor.moveLanguageUp() } }),
+            new MenuItem({ label: 'Move Language Down', accelerator:'Alt+Down',click: () => { SRXEditor.moveLanguageDown() } }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.addRule() } }),
+            new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.editRule() } }),
+            new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.removeRule() } }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({ label: 'Move Rule Up', accelerator:'CmdOrCtrl+Up', click: () => { SRXEditor.moveRuleUp() } }),
+            new MenuItem({ label: 'Move Rule Down', accelerator:'CmdOrCtrl+Down', click: () => { SRXEditor.moveRuleDown() } }),
+        ]);
+        if (!app.isPackaged) {
+            tasksMenu.append(new MenuItem({ type: 'separator' }));
+            tasksMenu.append(new MenuItem({ label: 'Toggle Developer Tools', accelerator: 'F12', role: 'toggleDevTools' }));
+        }
         let settingsMenu: Menu = Menu.buildFromTemplate([{ label: 'Preferences', click: () => { SRXEditor.showSettings(); } }]);
         let appleMenu: Menu = Menu.buildFromTemplate([
             new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }),
@@ -107,14 +128,16 @@ class SRXEditor {
                 new MenuItem({ label: 'SRXEditor', role: 'appMenu', submenu: appleMenu }),
                 new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
                 new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
             ] : [
                 new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
                 new MenuItem({ label: '&Settings', submenu: settingsMenu }),
                 new MenuItem({ label: '&Help', submenu: helpMenu })
             ];
-        
+
         if (process.platform === 'win32') {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
@@ -132,6 +155,30 @@ class SRXEditor {
             (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
         }
         Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    }
+    static moveLanguageUp() {
+        throw new Error('Method not implemented.');
+    }
+    static moveRuleUp() {
+        throw new Error('Method not implemented.');
+    }
+    static removeRule() {
+        throw new Error('Method not implemented.');
+    }
+    static editRule() {
+        throw new Error('Method not implemented.');
+    }
+    static addRule() {
+        throw new Error('Method not implemented.');
+    }
+    static removeLanguage() {
+        throw new Error('Method not implemented.');
+    }
+    static editLanguage() {
+        throw new Error('Method not implemented.');
+    }
+    static addLanguage() {
+        throw new Error('Method not implemented.');
     }
 
     static showSettings() {

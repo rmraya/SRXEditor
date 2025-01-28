@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 
 class SRXEditor {
 
@@ -41,7 +41,7 @@ class SRXEditor {
         });
     }
 
-    createWindow() {
+    createWindow(): void {
         SRXEditor.mainWindow = new BrowserWindow({
             width: 860,
             height: 780,
@@ -57,8 +57,120 @@ class SRXEditor {
         SRXEditor.mainWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'index.html'));
     }
 
-    createMenu() {
-        //  throw new Error('Method not implemented.');
+    createMenu(): void {
+        let fileMenu: Menu = Menu.buildFromTemplate([
+            { label: 'New', accelerator: 'CmdOrCtrl+N', click: () => { SRXEditor.newFile(); } },
+            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { SRXEditor.openFileDialog(); } },
+            { label: 'Close', accelerator: 'CmdOrCtrl+W', click: () => { SRXEditor.closeFile(); } },
+            { label: 'Save', accelerator: 'CmdOrCtrl+S', click: () => { SRXEditor.saveFile(); } },
+            { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { SRXEditor.saveFile(); } }
+        ]);
+        let editMenu: Menu = Menu.buildFromTemplate([
+        ]);
+        let helpMenu: Menu = Menu.buildFromTemplate([
+            { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { SRXEditor.showHelp(); } },
+            new MenuItem({ type: 'separator' }),
+            { label: 'Check for Updates', click: () => { SRXEditor.checkUpdates(false); } },
+            { label: 'View Licenses', click: () => { SRXEditor.showLicenses('main'); } },
+            new MenuItem({ type: 'separator' }),
+            { label: 'Release History', click: () => { SRXEditor.showReleaseHistory(); } },
+            { label: 'Support Group', click: () => { SRXEditor.showSupportGroup(); } }
+        ]);
+
+        let template: MenuItem[] = [
+            new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
+            new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
+            new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
+        ];
+
+        if (process.platform === 'darwin') {
+            let appleMenu: Menu = Menu.buildFromTemplate([
+                new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }),
+                new MenuItem({
+                    label: 'Preferences', submenu: [
+                        { label: 'Settings', accelerator: 'Cmd+,', click: () => { SRXEditor.showSettings(); } }
+                    ]
+                }),
+                new MenuItem({ type: 'separator' }),
+                new MenuItem({
+                    label: 'Services', role: 'services', submenu: [
+                        { label: 'No services', enabled: false }
+                    ]
+                }),
+                new MenuItem({ type: 'separator' }),
+                new MenuItem({ label: 'Quit SRXEditor', accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
+            ]);
+            template.unshift(new MenuItem({ label: 'Stingray', role: 'appMenu', submenu: appleMenu }));
+        } else {
+            let help: MenuItem = template.pop() as MenuItem;
+            template.push(new MenuItem({
+                label: 'Settings', submenu: [
+                    { label: 'Preferences', click: () => { SRXEditor.showSettings(); } }
+                ]
+            }));
+            template.push(help);
+        }
+        if (process.platform === 'win32') {
+            let file: MenuItem = template[0] as MenuItem;
+            (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
+            (file.submenu as Menu).append(new MenuItem({ label: 'Exit', accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
+            let help: MenuItem = template.pop() as MenuItem;
+            (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
+            (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
+        }
+        if (process.platform === 'linux') {
+            let file: MenuItem = template[0] as MenuItem;
+            (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
+            (file.submenu as Menu).append(new MenuItem({ label: 'Quit', accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
+            let help: MenuItem = template.pop() as MenuItem;
+            (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
+            (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
+        }
+        Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    }
+
+    static showSettings() {
+        throw new Error('Method not implemented.');
+    }
+
+    static showAbout() {
+        throw new Error('Method not implemented.');
+    }
+
+    static showSupportGroup() {
+        throw new Error('Method not implemented.');
+    }
+
+    static showReleaseHistory() {
+        throw new Error('Method not implemented.');
+    }
+
+    static showLicenses(arg0: string) {
+        throw new Error('Method not implemented.');
+    }
+
+    static checkUpdates(arg0: boolean) {
+        throw new Error('Method not implemented.');
+    }
+
+    static showHelp() {
+        throw new Error('Method not implemented.');
+    }
+
+    static saveFile() {
+        throw new Error('Method not implemented.');
+    }
+
+    static closeFile() {
+        throw new Error('Method not implemented.');
+    }
+
+    static openFileDialog() {
+        throw new Error('Method not implemented.');
+    }
+    
+    static newFile() {
+        throw new Error('Method not implemented.');
     }
 
     static startup() {

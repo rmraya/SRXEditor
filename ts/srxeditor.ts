@@ -142,7 +142,7 @@ class SRXEditor {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: 'Exit', accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[3] as MenuItem;
+            let help: MenuItem = template[4] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
         }
@@ -150,7 +150,7 @@ class SRXEditor {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: 'Quit', accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[3] as MenuItem;
+            let help: MenuItem = template[4] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
         }

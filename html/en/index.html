@@ -8,7 +8,7 @@
 
 <body style="width: 100%; height: 100vh; overflow:hidden;" onload="new Main();">
 
-    <div class="topBar">
+    <div class="topBar" id="toolbar">
 
         <a id="openFile" class="tooltip"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
                 width="24px" fill="#000000">
@@ -62,13 +62,12 @@
             </svg><span class="tooltiptext bottomRightTooltip">Help</span></a>
     </div>
 
-    <div class="dialogBody">
+    <div class="dialogBody" id="dialogBody">
 
-        <h3>Languages</h3>
+        <h3 id="label">Languages</h3>
 
         <div class="dialogRow middle">
-
-            <div class="divContainer bordered" style="height:220px;">
+            <div id="topContainer" class="divContainer bordered" style="height:220px;">
                 <table class="dialogTable">
                     <thead>
                         <tr>
@@ -95,10 +94,9 @@
                         <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                     </svg><span class="tooltiptext bottomRightTooltip">Move Language Down</span></button>
             </div>
-
         </div>
 
-        <div class="buttonArea">
+        <div class="buttonArea" id="buttonArea">
             <button id="addLangRule">Add Language</button>
             <button id="editLangRule">Edit Language</button>
             <button id="removeLangRule">Remove Language</button>
@@ -107,8 +105,7 @@
         <h3>Rules</h3>
 
         <div class="dialogRow middle">
-
-            <div class="divContainer bordered" style="height:220px;">
+            <div id="bottomContainer" class="divContainer bordered" style="height:220px;">
                 <table class="dialogTable">
                     <thead>
                         <tr>
@@ -152,7 +149,6 @@
                         <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                     </svg><span class="tooltiptext bottomRightTooltip">Move Rule Down</span></button>
             </div>
-
         </div>
 
         <div class="buttonArea">

@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, IpcMainEvent, Menu, MenuItem } from 'electron';
 
 class SRXEditor {
 
@@ -38,15 +38,27 @@ class SRXEditor {
             this.createMenu();
             SRXEditor.mainWindow.once('ready-to-show', () => {
                 SRXEditor.mainWindow.show();
+                SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
                 SRXEditor.startup();
             });
         });
+        ipcMain.on('set-height', (event: IpcMainEvent, arg: { window: string, width: number, height: number }) => {
+            SRXEditor.setHeight(arg);
+        });
+    }
+
+    static setHeight(arg: { window: string; width: number; height: number; }) {
+        if ('about' === arg.window) {
+            // SRXEditor.aboutWindow.setContentSize(arg.width, arg.height, true);
+        }
     }
 
     createWindow(): void {
         SRXEditor.mainWindow = new BrowserWindow({
             width: 860,
-            height: 780,
+            height: 680,
+            minWidth: 550,
+            minHeight: 600,
             maximizable: false,
             show: false,
             icon: SRXEditor.appIcon,
@@ -57,6 +69,9 @@ class SRXEditor {
             }
         });
         SRXEditor.mainWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'index.html'));
+        SRXEditor.mainWindow.on('resize', () => {
+            SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
+        });
     }
 
     createMenu(): void {
@@ -91,15 +106,15 @@ class SRXEditor {
             new MenuItem({ label: 'Edit Language', click: () => { SRXEditor.editLanguage() } }),
             new MenuItem({ label: 'Remove Language', click: () => { SRXEditor.removeLanguage() } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Language Up', accelerator:'Alt+Up', click: () => { SRXEditor.moveLanguageUp() } }),
-            new MenuItem({ label: 'Move Language Down', accelerator:'Alt+Down',click: () => { SRXEditor.moveLanguageDown() } }),
+            new MenuItem({ label: 'Move Language Up', accelerator: 'Alt+Up', click: () => { SRXEditor.moveLanguageUp() } }),
+            new MenuItem({ label: 'Move Language Down', accelerator: 'Alt+Down', click: () => { SRXEditor.moveLanguageDown() } }),
             new MenuItem({ type: 'separator' }),
             new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.addRule() } }),
             new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.editRule() } }),
             new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.removeRule() } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Rule Up', accelerator:'CmdOrCtrl+Up', click: () => { SRXEditor.moveRuleUp() } }),
-            new MenuItem({ label: 'Move Rule Down', accelerator:'CmdOrCtrl+Down', click: () => { SRXEditor.moveRuleDown() } }),
+            new MenuItem({ label: 'Move Rule Up', accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.moveRuleUp() } }),
+            new MenuItem({ label: 'Move Rule Down', accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.moveRuleDown() } }),
         ]);
         if (!app.isPackaged) {
             tasksMenu.append(new MenuItem({ type: 'separator' }));

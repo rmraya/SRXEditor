@@ -354,6 +354,7 @@ label {
 	padding-left: 16px;
 	padding-right: 16px;
 	justify-content: flex-end;
+	width: calc(100% - 48px);
 }
 
 .toprow a {

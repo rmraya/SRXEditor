@@ -29,8 +29,8 @@
   "type": "commonjs",
   "main": "js/srxeditor.js",
   "devDependencies": {
-    "electron": "^34.0.0",
-    "typescript": "^5.7.2"
+    "electron": "^34.0.1",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "typesbcp47": "^1.5.2",

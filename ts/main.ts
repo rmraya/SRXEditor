@@ -19,6 +19,9 @@ class Main {
         this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
             this.setHeight(height);
         });
+        (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
+            this.electron.ipcRenderer.send('open-file');
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);

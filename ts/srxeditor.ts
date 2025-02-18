@@ -11,6 +11,8 @@
  *******************************************************************************/
 
 import { app, BrowserWindow, dialog, ipcMain, IpcMainEvent, Menu, MenuItem } from 'electron';
+import { ContentHandler, DOMBuilder, SAXParser, XMLDocument, XMLElement } from 'typesxml';
+import { I18n } from './i18n';
 
 class SRXEditor {
 
@@ -21,6 +23,8 @@ class SRXEditor {
     static lang = 'en';
     static moveRuleDown: any;
     static moveLanguageDown: any;
+    static currentFile: string;
+    static i18n: I18n;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -33,6 +37,7 @@ class SRXEditor {
         }
         SRXEditor.appHome = SRXEditor.path.join(app.getPath('appData'), app.name);
         SRXEditor.appIcon = SRXEditor.path.join(app.getAppPath(), 'icons', 'srxeditor.png');
+        SRXEditor.i18n = new I18n(SRXEditor.path.join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
         app.on('ready', () => {
             this.createWindow();
             this.createMenu();
@@ -44,6 +49,9 @@ class SRXEditor {
         });
         ipcMain.on('set-height', (event: IpcMainEvent, arg: { window: string, width: number, height: number }) => {
             SRXEditor.setHeight(arg);
+        });
+        ipcMain.on('open-file', () => {
+            SRXEditor.showOpenDialog();
         });
     }
 
@@ -77,7 +85,7 @@ class SRXEditor {
     createMenu(): void {
         let fileMenu: Menu = Menu.buildFromTemplate([
             { label: 'New', accelerator: 'CmdOrCtrl+N', click: () => { SRXEditor.newFile(); } },
-            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { SRXEditor.openFileDialog(); } },
+            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { SRXEditor.showOpenDialog(); } },
             { label: 'Close', accelerator: 'CmdOrCtrl+W', click: () => { SRXEditor.closeFile(); } },
             { label: 'Save', accelerator: 'CmdOrCtrl+S', click: () => { SRXEditor.saveFile(); } },
             { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { SRXEditor.saveFile(); } }
@@ -141,12 +149,12 @@ class SRXEditor {
         let template: MenuItem[] = process.platform === 'darwin' ?
             [
                 new MenuItem({ label: 'SRXEditor', role: 'appMenu', submenu: appleMenu }),
-                new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
                 new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
                 new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
             ] : [
-                new MenuItem({ label: '&File', role: 'fileMenu', submenu: fileMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
                 new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
                 new MenuItem({ label: '&Settings', submenu: settingsMenu }),
@@ -171,77 +179,131 @@ class SRXEditor {
         }
         Menu.setApplicationMenu(Menu.buildFromTemplate(template));
     }
-    static moveLanguageUp() {
-        throw new Error('Method not implemented.');
-    }
-    static moveRuleUp() {
-        throw new Error('Method not implemented.');
-    }
-    static removeRule() {
-        throw new Error('Method not implemented.');
-    }
-    static editRule() {
-        throw new Error('Method not implemented.');
-    }
-    static addRule() {
-        throw new Error('Method not implemented.');
-    }
-    static removeLanguage() {
-        throw new Error('Method not implemented.');
-    }
-    static editLanguage() {
-        throw new Error('Method not implemented.');
-    }
-    static addLanguage() {
+
+    static moveLanguageUp(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showSettings() {
+    static moveRuleUp(): void {
+        throw new Error('Method not implemented.');
+    }
+    static removeRule(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showAbout() {
+    static editRule(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showSupportGroup() {
+    static addRule(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showReleaseHistory() {
+    static removeLanguage(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showLicenses(arg0: string) {
+    static editLanguage(): void {
         throw new Error('Method not implemented.');
     }
 
-    static checkUpdates(arg0: boolean) {
+    static addLanguage(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showHelp() {
+    static showSettings(): void {
         throw new Error('Method not implemented.');
     }
 
-    static saveFile() {
+    static showAbout(): void {
         throw new Error('Method not implemented.');
     }
 
-    static closeFile() {
+    static showSupportGroup(): void {
         throw new Error('Method not implemented.');
     }
 
-    static openFileDialog() {
+    static showReleaseHistory(): void {
         throw new Error('Method not implemented.');
     }
 
-    static newFile() {
+    static showLicenses(arg0: string): void {
         throw new Error('Method not implemented.');
     }
 
-    static startup() {
-        //  throw new Error('Method not implemented.');
+    static checkUpdates(silent: boolean): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static showHelp(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static saveFile(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static closeFile(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static showOpenDialog(): void {
+        dialog.showOpenDialog(SRXEditor.mainWindow, {
+            title: 'Open SRX File',
+            filters: [
+                { name: 'SRX Files', extensions: ['srx'] },
+                { name: 'All Files', extensions: ['*'] }
+            ],
+            properties: ['openFile']
+        }).then(result => {
+            if (!result.canceled) {
+                SRXEditor.openFile(result.filePaths[0]);
+            }
+        }).catch((err) => {
+            if (err instanceof Error) {
+                dialog.showErrorBox('Error', err.message);
+            }
+            console.log(err);
+        });
+    }
+
+    static openFile(filePath: string): void {
+        let contentHandler: ContentHandler = new DOMBuilder();
+        let xmlParser = new SAXParser();
+        xmlParser.setContentHandler(contentHandler);
+
+        // build the document from a file
+        try {
+            xmlParser.parseFile(filePath);
+            let doc: XMLDocument = (contentHandler as DOMBuilder).getDocument();
+            let root: XMLElement | undefined = doc.getRoot();
+            if (root) {
+                if (root.getName() !== 'srx') {
+                    dialog.showErrorBox('Error', 'Selected file is not an SRX document.');
+                    return;
+                }
+            }
+            SRXEditor.currentFile = filePath;
+            SRXEditor.updateTitle();
+        } catch (error: any) {
+            if (error instanceof Error) {
+                dialog.showErrorBox('Error', error.message);
+            } else {
+                console.log(error);
+            }
+        }
+    }
+
+    static updateTitle(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static newFile(): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static startup(): void {
+        SRXEditor.checkUpdates(true);
     }
 }
 

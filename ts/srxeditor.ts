@@ -10,14 +10,17 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, dialog, ipcMain, IpcMainEvent, Menu, MenuItem } from 'electron';
+import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session } from 'electron';
 import { ContentHandler, DOMBuilder, SAXParser, XMLDocument, XMLElement } from 'typesxml';
 import { I18n } from './i18n';
+import { MessageTypes } from './messageTypes';
 
 class SRXEditor {
 
     static path = require('path');
     static mainWindow: BrowserWindow;
+    static aboutWindow: BrowserWindow;
+    static updatesWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -25,6 +28,9 @@ class SRXEditor {
     static moveLanguageDown: any;
     static currentFile: string;
     static i18n: I18n;
+
+    static latestVersion: string;
+    static downloadLink: string;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -232,7 +238,92 @@ class SRXEditor {
     }
 
     static checkUpdates(silent: boolean): void {
-        throw new Error('Method not implemented.');
+        session.defaultSession.clearCache().then(() => {
+            let req: Electron.ClientRequest = net.request({
+                url: 'https://maxprograms.com/SRXEditor.json',
+                session: session.defaultSession
+            });
+            req.on('response', (response: IncomingMessage) => {
+                let responseData: string = '';
+                if (response.statusCode !== 200) {
+                    if (!silent) {
+                        let message: string = SRXEditor.i18n.getString('SRXEditor', 'serverStatus');
+                        let formattedMessage: string = SRXEditor.i18n.format(message, ['' + response.statusCode]);
+                        dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+                            type: MessageTypes.info,
+                            message: formattedMessage
+                        });
+                    }
+                }
+                response.on('data', (chunk: Buffer) => {
+                    responseData += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        let parsedData = JSON.parse(responseData);
+                        if (app.getVersion() !== parsedData.version) {
+                            SRXEditor.latestVersion = parsedData.version;
+                            switch (process.platform) {
+                                case 'darwin':
+                                    SRXEditor.downloadLink = process.arch === 'arm64' ? parsedData.arm64 : parsedData.darwin;
+                                    break;
+                                case 'win32':
+                                    SRXEditor.downloadLink = parsedData.win32;
+                                    break;
+                                case 'linux':
+                                    SRXEditor.downloadLink = parsedData.linux;
+                                    break;
+                            }
+                            SRXEditor.updatesWindow = new BrowserWindow({
+                                parent: this.mainWindow,
+                                width: 590,
+                                height: 240,
+                                minimizable: false,
+                                maximizable: false,
+                                resizable: false,
+                                show: false,
+                                icon: this.path.join(app.getAppPath(), 'icons', 'icon.png'),
+                                webPreferences: {
+                                    nodeIntegration: true,
+                                    contextIsolation: false
+                                }
+                            });
+                            SRXEditor.updatesWindow.setMenu(null);
+                            SRXEditor.updatesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'updates.html'));
+                            SRXEditor.updatesWindow.once('ready-to-show', () => {
+                                SRXEditor.updatesWindow.show();
+                            });
+                            this.updatesWindow.on('close', () => {
+                                this.mainWindow.focus();
+                            });
+                        } else {
+                            if (!silent) {
+                                dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+                                    type: MessageTypes.info,
+                                    message: SRXEditor.i18n.getString('SRXEditor', 'noUpdates')
+                                });
+                            }
+                        }
+                    } catch (reason: any) {
+                        if (!silent) {
+                            dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+                                type: MessageTypes.error,
+                                message: reason.message
+                            });
+                        }
+                    }
+                });
+            });
+            req.on('error', (error: Error) => {
+                if (!silent) {
+                    dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+                        type: MessageTypes.error,
+                        message: error.message
+                    });
+                }
+            });
+            req.end();
+        });
     }
 
     static showHelp(): void {

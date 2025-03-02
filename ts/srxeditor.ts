@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session } from 'electron';
-import { ContentHandler, DOMBuilder, SAXParser, XMLDocument, XMLElement } from 'typesxml';
+import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
 
@@ -31,6 +31,9 @@ class SRXEditor {
 
     static latestVersion: string;
     static downloadLink: string;
+
+    doc: XMLDocument | undefined = undefined;
+    root: XMLElement | undefined = undefined;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -57,7 +60,7 @@ class SRXEditor {
             SRXEditor.setHeight(arg);
         });
         ipcMain.on('open-file', () => {
-            SRXEditor.showOpenDialog();
+            this.showOpenDialog();
         });
     }
 
@@ -90,11 +93,11 @@ class SRXEditor {
 
     createMenu(): void {
         let fileMenu: Menu = Menu.buildFromTemplate([
-            { label: 'New', accelerator: 'CmdOrCtrl+N', click: () => { SRXEditor.newFile(); } },
-            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { SRXEditor.showOpenDialog(); } },
-            { label: 'Close', accelerator: 'CmdOrCtrl+W', click: () => { SRXEditor.closeFile(); } },
-            { label: 'Save', accelerator: 'CmdOrCtrl+S', click: () => { SRXEditor.saveFile(); } },
-            { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { SRXEditor.saveFile(); } }
+            { label: 'New', accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
+            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
+            { label: 'Close', accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
+            { label: 'Save', accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
+            { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFile(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
             { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
@@ -107,7 +110,7 @@ class SRXEditor {
             { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
-            { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { SRXEditor.showHelp(); } },
+            { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { this.showHelp(); } },
             new MenuItem({ type: 'separator' }),
             { label: 'Check for Updates', click: () => { SRXEditor.checkUpdates(false); } },
             { label: 'View Licenses', click: () => { SRXEditor.showLicenses('main'); } },
@@ -326,19 +329,19 @@ class SRXEditor {
         });
     }
 
-    static showHelp(): void {
+    showHelp(): void {
         throw new Error('Method not implemented.');
     }
 
-    static saveFile(): void {
+    saveFile(): void {
         throw new Error('Method not implemented.');
     }
 
-    static closeFile(): void {
+    closeFile(): void {
         throw new Error('Method not implemented.');
     }
 
-    static showOpenDialog(): void {
+    showOpenDialog(): void {
         dialog.showOpenDialog(SRXEditor.mainWindow, {
             title: 'Open SRX File',
             filters: [
@@ -348,7 +351,7 @@ class SRXEditor {
             properties: ['openFile']
         }).then(result => {
             if (!result.canceled) {
-                SRXEditor.openFile(result.filePaths[0]);
+                this.openFile(result.filePaths[0]);
             }
         }).catch((err) => {
             if (err instanceof Error) {
@@ -358,7 +361,7 @@ class SRXEditor {
         });
     }
 
-    static openFile(filePath: string): void {
+    openFile(filePath: string): void {
         let contentHandler: ContentHandler = new DOMBuilder();
         let xmlParser = new SAXParser();
         xmlParser.setContentHandler(contentHandler);
@@ -366,16 +369,17 @@ class SRXEditor {
         // build the document from a file
         try {
             xmlParser.parseFile(filePath);
-            let doc: XMLDocument = (contentHandler as DOMBuilder).getDocument();
-            let root: XMLElement | undefined = doc.getRoot();
-            if (root) {
-                if (root.getName() !== 'srx') {
+            this.doc = (contentHandler as DOMBuilder).getDocument();
+            this.root = this.doc.getRoot();
+            if (this.root) {
+                if (this.root.getName() !== 'srx') {
                     dialog.showErrorBox('Error', 'Selected file is not an SRX document.');
                     return;
                 }
             }
+            this.parseFile();
             SRXEditor.currentFile = filePath;
-            SRXEditor.updateTitle();
+            SRXEditor.mainWindow.setTitle('SRXEditor - ' + SRXEditor.currentFile);
         } catch (error: any) {
             if (error instanceof Error) {
                 dialog.showErrorBox('Error', error.message);
@@ -385,11 +389,52 @@ class SRXEditor {
         }
     }
 
-    static updateTitle(): void {
-        throw new Error('Method not implemented.');
+    parseFile(): void {
+        console.log('Parsing file...');
+        if (this.root) {
+            let children: Array<XMLElement> = this.root.getChildren();
+            if (children) {
+                for (let child of children) {
+                    if (child.getName() === 'body') {
+                        let bodyContent: Array<XMLElement> = child.getChildren();
+                        for (let bodyElement of bodyContent) {
+                            if (bodyElement.getName() === 'languagerules') {
+                                let languagerules: Array<XMLElement> = bodyElement.getChildren();
+                                for (let languageRule of languagerules) {
+                                    let nameAttribute: XMLAttribute | undefined = languageRule.getAttribute('languagerulename');
+                                    if (nameAttribute) {
+                                        let languagerulename: string = nameAttribute.getValue();
+                                        console.log(languagerulename);
+                                        let rules: Array<XMLElement> = languageRule.getChildren();
+                                        for (let rule of rules) {
+                                            console.log(rule.toString());
+                                        }
+                                    } else {
+                                        dialog.showErrorBox('Error', 'Missing languagerulename attribute in languagerules element.');
+                                        return;
+                                    }
+                                }
+                            }
+                            if (bodyElement.getName() === 'maprules'){
+                                let maprules: Array<XMLElement> = bodyElement.getChildren();
+                                for (let languagemap of maprules) {
+                                    console.log(languagemap.toString());
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                dialog.showErrorBox('Error', 'No children found in the document.');
+                return;
+            }
+        } else {
+            dialog.showErrorBox('Error', 'No root element found in the document.');
+            return;
+        }
     }
 
-    static newFile(): void {
+    newFile(): void {
         throw new Error('Method not implemented.');
     }
 

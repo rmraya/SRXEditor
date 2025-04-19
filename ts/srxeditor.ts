@@ -254,7 +254,7 @@ class SRXEditor {
             maximizable: false,
             resizable: false,
             show: false,
-            icon: this.path.join(app.getAppPath(), 'icons', 'icon.png'),
+            icon: SRXEditor.appIcon,
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false
@@ -328,7 +328,7 @@ class SRXEditor {
                                 maximizable: false,
                                 resizable: false,
                                 show: false,
-                                icon: this.path.join(app.getAppPath(), 'icons', 'icon.png'),
+                                icon: SRXEditor.appIcon,
                                 webPreferences: {
                                     nodeIntegration: true,
                                     contextIsolation: false

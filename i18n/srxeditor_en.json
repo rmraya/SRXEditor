@@ -1,4 +1,8 @@
 {
+    "srxeditor": {
+        "serverStatus": "Server status: {0}",
+        "loadingSRX": "Loading SRX..."
+    },
     "menu": {
         "fileMenu": "&File"
     }

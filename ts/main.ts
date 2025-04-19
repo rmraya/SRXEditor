@@ -21,6 +21,16 @@ class Main {
         (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-file');
         });
+        (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
+            this.electron.ipcRenderer.send('open-help');
+        });
+        this.electron.ipcRenderer.send('get-theme');
+        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+            (document.getElementById('theme') as HTMLLinkElement).href = theme;
+        });
+        this.electron.ipcRenderer.on('set-status', (event: Electron.IpcRendererEvent, status: string) => {
+            this.setStatus(status);
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -35,5 +45,14 @@ class Main {
         let tablesHeight: number = bodyHeight - labelHeight - buttonHeight - boddyPadding;
         (document.getElementById('topContainer') as HTMLDivElement).style.height = tablesHeight / 2 + 'px';
         (document.getElementById('bottomContainer') as HTMLDivElement).style.height = tablesHeight / 2 + 'px';
+    }
+    setStatus(status: string) {
+        let statusDiv: HTMLDivElement = (document.getElementById('status') as HTMLDivElement);
+        if (status === '') {
+            statusDiv.style.display = 'none';
+        } else {
+            statusDiv.style.display = 'block';
+            statusDiv.innerText = status;
+        }
     }
 }

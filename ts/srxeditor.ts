@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session } from 'electron';
+import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session, shell } from 'electron';
 import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
@@ -62,11 +62,33 @@ class SRXEditor {
         ipcMain.on('open-file', () => {
             this.showOpenDialog();
         });
+        ipcMain.on('open-help', () => {
+            this.showHelp();
+        });
+        ipcMain.on('close-about', () => {
+            if (SRXEditor.aboutWindow) {
+                SRXEditor.aboutWindow.close();
+            }
+        });
+        ipcMain.on('close-updates', () => {
+            if (SRXEditor.updatesWindow) {
+                SRXEditor.updatesWindow.close();
+            }
+        });
+        ipcMain.on('get-versions', (event: IpcMainEvent) => {
+            event.sender.send('set-versions', {
+                current: app.getVersion(),
+                latest: SRXEditor.latestVersion
+            });
+        });
     }
 
     static setHeight(arg: { window: string; width: number; height: number; }) {
         if ('about' === arg.window) {
-            // SRXEditor.aboutWindow.setContentSize(arg.width, arg.height, true);
+            SRXEditor.aboutWindow.setContentSize(arg.width, arg.height, true);
+        }
+        if ('updates' === arg.window) {
+            SRXEditor.updatesWindow.setContentSize(arg.width, arg.height, true);
         }
     }
 
@@ -115,7 +137,6 @@ class SRXEditor {
             { label: 'Check for Updates', click: () => { SRXEditor.checkUpdates(false); } },
             { label: 'View Licenses', click: () => { SRXEditor.showLicenses('main'); } },
             new MenuItem({ type: 'separator' }),
-            { label: 'Release History', click: () => { SRXEditor.showReleaseHistory(); } },
             { label: 'Support Group', click: () => { SRXEditor.showSupportGroup(); } }
         ]);
         let tasksMenu: Menu = Menu.buildFromTemplate([
@@ -225,15 +246,37 @@ class SRXEditor {
     }
 
     static showAbout(): void {
-        throw new Error('Method not implemented.');
+        SRXEditor.aboutWindow = new BrowserWindow({
+            parent: this.mainWindow,
+            width: 400,
+            height: 395,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: this.path.join(app.getAppPath(), 'icons', 'icon.png'),
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.aboutWindow.setMenu(null);
+        SRXEditor.aboutWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'about.html'));
+        SRXEditor.aboutWindow.once('ready-to-show', () => {
+            SRXEditor.aboutWindow.show();
+        });
+        this.aboutWindow.on('close', () => {
+            this.mainWindow.focus();
+        });
     }
 
     static showSupportGroup(): void {
-        throw new Error('Method not implemented.');
-    }
-
-    static showReleaseHistory(): void {
-        throw new Error('Method not implemented.');
+        shell.openExternal('https://groups.io/g/maxprograms/').catch((reason: any) => {
+            if (reason instanceof Error) {
+                console.error(reason.message);
+            }
+            dialog.showErrorBox('Error', 'Unable to open support group page');
+        });
     }
 
     static showLicenses(arg0: string): void {
@@ -243,14 +286,14 @@ class SRXEditor {
     static checkUpdates(silent: boolean): void {
         session.defaultSession.clearCache().then(() => {
             let req: Electron.ClientRequest = net.request({
-                url: 'https://maxprograms.com/SRXEditor.json',
+                url: 'https://maxprograms.com/srxeditor.json',
                 session: session.defaultSession
             });
             req.on('response', (response: IncomingMessage) => {
                 let responseData: string = '';
                 if (response.statusCode !== 200) {
                     if (!silent) {
-                        let message: string = SRXEditor.i18n.getString('SRXEditor', 'serverStatus');
+                        let message: string = SRXEditor.i18n.getString('srxeditor', 'serverStatus');
                         let formattedMessage: string = SRXEditor.i18n.format(message, ['' + response.statusCode]);
                         dialog.showMessageBoxSync(SRXEditor.mainWindow, {
                             type: MessageTypes.info,
@@ -330,7 +373,14 @@ class SRXEditor {
     }
 
     showHelp(): void {
-        throw new Error('Method not implemented.');
+        shell.openExternal('file://' + SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
+            shell.openPath(SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'swordfish.pdf')).catch((reason: any) => {
+                if (reason instanceof Error) {
+                    console.error(reason.message);
+                }
+                dialog.showErrorBox('Error', 'Unable to open SRXEditor User Guide');
+            });
+        });
     }
 
     saveFile(): void {
@@ -373,11 +423,13 @@ class SRXEditor {
             this.root = this.doc.getRoot();
             if (this.root) {
                 if (this.root.getName() !== 'srx') {
-                    dialog.showErrorBox('Error', 'Selected file is not an SRX document.');
+                    dialog.showErrorBox('Error', 'Selected file is not an SRX document');
                     return;
                 }
             }
+            SRXEditor.mainWindow.webContents.send('set-status', SRXEditor.i18n.getString('srxeditor', 'loadingSRX'));
             this.parseFile();
+            SRXEditor.mainWindow.webContents.send('set-status', '');
             SRXEditor.currentFile = filePath;
             SRXEditor.mainWindow.setTitle('SRXEditor - ' + SRXEditor.currentFile);
         } catch (error: any) {
@@ -390,7 +442,6 @@ class SRXEditor {
     }
 
     parseFile(): void {
-        console.log('Parsing file...');
         if (this.root) {
             let children: Array<XMLElement> = this.root.getChildren();
             if (children) {
@@ -410,12 +461,12 @@ class SRXEditor {
                                             console.log(rule.toString());
                                         }
                                     } else {
-                                        dialog.showErrorBox('Error', 'Missing languagerulename attribute in languagerules element.');
+                                        dialog.showErrorBox('Error', 'Missing "languagerulename" attribute in <languagerules> element');
                                         return;
                                     }
                                 }
                             }
-                            if (bodyElement.getName() === 'maprules'){
+                            if (bodyElement.getName() === 'maprules') {
                                 let maprules: Array<XMLElement> = bodyElement.getChildren();
                                 for (let languagemap of maprules) {
                                     console.log(languagemap.toString());
@@ -425,12 +476,11 @@ class SRXEditor {
                     }
                 }
             } else {
-                dialog.showErrorBox('Error', 'No children found in the document.');
+                dialog.showErrorBox('Error', 'No children found in the document');
                 return;
             }
         } else {
-            dialog.showErrorBox('Error', 'No root element found in the document.');
-            return;
+            dialog.showErrorBox('Error', 'No root element found in the document');
         }
     }
 

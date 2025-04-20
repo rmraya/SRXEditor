@@ -1,5 +1,6 @@
 {
   "name": "srxeditor",
+  "productName": "SRXEditor",
   "version": "2.0.0",
   "description": "Editor for SRX (Segmentation Rules eXchange) files",
   "keywords": [

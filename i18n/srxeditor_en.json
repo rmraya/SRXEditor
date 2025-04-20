@@ -2,6 +2,7 @@
     "srxeditor": {
         "serverStatus": "Server status: {0}",
         "loadingSRX": "Loading SRX...",
+        "noUpdates": "There are currently no updates available",
         "fileSaved": "File saved",
         "OK": "OK",
         "cancel": "Cancel"

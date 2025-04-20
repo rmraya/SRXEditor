@@ -1,7 +1,10 @@
 {
     "srxeditor": {
         "serverStatus": "Server status: {0}",
-        "loadingSRX": "Loading SRX..."
+        "loadingSRX": "Loading SRX...",
+        "fileSaved": "File saved",
+        "OK": "OK",
+        "cancel": "Cancel"
     },
     "menu": {
         "fileMenu": "&File"

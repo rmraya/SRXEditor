@@ -21,6 +21,9 @@ class Main {
         (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-file');
         });
+        (document.getElementById('saveFile') as HTMLAnchorElement).addEventListener('click', () => {
+            this.electron.ipcRenderer.send('save-file');
+        });
         (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-help');
         });

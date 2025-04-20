@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session, shell } from 'electron';
-import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement } from 'typesxml';
+import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
 
@@ -61,6 +61,9 @@ class SRXEditor {
         });
         ipcMain.on('open-file', () => {
             this.showOpenDialog();
+        });
+        ipcMain.on('save-file', () => {
+            this.saveFile();
         });
         ipcMain.on('open-help', () => {
             this.showHelp();
@@ -384,7 +387,14 @@ class SRXEditor {
     }
 
     saveFile(): void {
-        throw new Error('Method not implemented.');
+        if (this.doc) {
+            XMLWriter.writeDocument(this.doc, SRXEditor.currentFile);
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: MessageTypes.info,
+                message: SRXEditor.i18n.getString('srxeditor', 'fileSaved'),
+                buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
+            });
+        }
     }
 
     closeFile(): void {

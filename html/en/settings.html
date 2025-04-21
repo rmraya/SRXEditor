@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Settings</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/dark.css">
+</head>
+
+<body style="width: 100%; height: 100vh; overflow:hidden;">
+    <div class="dialogBody" id="dialogBody">
+        <table>
+            <tr>
+                <td class="middle noWrap"><label for="sourceSelect">Application Language</label></td>
+                <td class="fill_width">
+                    <select id="appLangSelect" style="width: 300px;">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="middle noWrap"><label for="themeColor">Theme</label></td>
+                <td class="fill_width">
+                    <select id="themeColor" style="width: 300px;">
+                        <option value="system">System Default</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="highcontrast">High Contrast</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="buttonArea">
+            <button id="saveSettings">Save Settings</button>
+        </div>
+    </div>
+
+</body>
+

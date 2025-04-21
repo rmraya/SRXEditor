@@ -6,10 +6,10 @@
 }
 
 body {
-	background: var(--gray130);
-	color: var(--gray10);
-	fill: var(--gray10);
-	stroke: var(--gray10);
+	background: var(--gray10);
+	color: var(--gray190);
+	fill: var(--gray190);
+	stroke: var(--gray190);
 	margin: 0;
 	padding: 0;
 }
@@ -52,7 +52,7 @@ svg {
 	color: var(--white);
 	padding: 20px;
 	border-radius: 8px;
-	box-shadow: 0px 4px 8px var(--gray160);
+	box-shadow: 0px 4px 8px var(--gray130);
 }
 
 .hidden {
@@ -149,8 +149,8 @@ th {
 }
 
 .stripes tr {
-	border-top: 2px solid var(--gray50);
-	border-bottom: 2px solid var(--gray50);
+	border-top: 2px solid var(--gray110);
+	border-bottom: 2px solid var(--gray110);
 }
 
 .stripes td {
@@ -162,9 +162,9 @@ th {
 /* inputs */
 
 input {
-	background-color: var(--gray160);
-	color: var(--gray30);
-	border: 1px solid var(--gray30);
+	background-color: var(--gray10);
+	color: var(--gray190);
+	border: 1px solid var(--gray190);
 	height: 1.4rem;
 	font-size: 1rem;
 	border-radius: 2px;
@@ -186,13 +186,13 @@ input:focus+label {
 }
 
 input:disabled {
-	background-color: var(--gray90);
+	background-color: var(--gray60);
 }
 
 textarea {
-	background-color: var(--gray160);
-	color: var(--gray30);
-	border: 1px solid var(--gray30);
+	background-color: var(--gray10);
+	color: var(--gray190);
+	border: 1px solid var(--gray190);
 	font-size: 1rem;
 	border-radius: 2px;
 	resize: none;
@@ -212,9 +212,9 @@ textarea:focus {
 }
 
 select {
-	background-color: var(--gray150);
-	color: var(--gray30);
-	border: 1px solid var(--gray30);
+	background-color: var(--gray10);
+	color: var(--gray190);
+	border: 1px solid var(--gray190);
 	font-size: 1em;
 	height: 1.6em;
 	border-radius: 2px;
@@ -227,14 +227,14 @@ select:focus {
 
 option {
 	font-size: 1em;
-	background-color: var(--gray160);
-	color: var(--gray30);
+	background-color: var(--gray10);
+	color: var(--gray190);
 }
 
 /* Toolbars */
 
 .topBar {
-	background: var(--gray110);
+	background: var(--gray50);
 	padding-left: 8px;
 	height: 36px;
 	display: flex;
@@ -244,8 +244,8 @@ option {
 }
 
 .topBar a {
-	background: var(--gray110);
-	color: var(--white);
+	background: var(--gray50);
+	color: var(--black);
 	border: none;
 	margin-left: 8px;
 	margin-right: 8px;
@@ -271,9 +271,9 @@ option {
 }
 
 .topBar a svg {
-	color: var(--gray20);
-	fill: var(--gray20);
-	stroke: var(--gray20);
+	color: var(--gray160);
+	fill: var(--gray160);
+	stroke: var(--gray160);
 }
 
 /* Buttons */
@@ -332,7 +332,7 @@ button:disabled {
 }
 
 .leftSide {
-	background-color: var(--gray150);
+	background-color: var(--gray30);
 	margin: 0 !important;
 	display: flex;
 	flex-direction: column;
@@ -408,9 +408,9 @@ label {
 }
 
 .toprow a svg {
-	color: var(--gray20);
-	fill: var(--gray20);
-	stroke: var(--gray20);
+	color: var(--gray160);
+	fill: var(--gray160);
+	stroke: var(--gray160);
 	vertical-align: middle;
 }
 
@@ -445,9 +445,9 @@ label {
 }
 
 .bottomRow a svg {
-	color: var(--gray20);
-	fill: var(--gray20);
-	stroke: var(--gray20);
+	color: var(--gray160);
+	fill: var(--gray160);
+	stroke: var(--gray160);
 	vertical-align: middle;
 }
 
@@ -496,7 +496,6 @@ label {
 	padding-top: 4px;
 }
 
-
 ::-webkit-scrollbar {
 	mix-blend-mode: darken;
 	width: 12px;
@@ -505,7 +504,7 @@ label {
 
 ::-webkit-scrollbar-thumb {
 	min-height: 30px !important;
-	background-color: var(--gray110);
+	background-color: var(--gray50);
 	border-radius: 6px;
 }
 
@@ -537,11 +536,11 @@ label {
 }
 
 .bordered {
-	border: 1px solid var(--gray20);
+	border: 1px solid var(--gray160);
 }
 
 .topBorder {
-	border-top: 1px solid var(--gray20);
+	border-top: 1px solid var(--gray160);
 }
 
 .divContainer {

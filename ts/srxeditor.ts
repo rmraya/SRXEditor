@@ -21,6 +21,7 @@ class SRXEditor {
     static mainWindow: BrowserWindow;
     static aboutWindow: BrowserWindow;
     static updatesWindow: BrowserWindow;
+    static settingsWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -92,6 +93,9 @@ class SRXEditor {
         }
         if ('updates' === arg.window) {
             SRXEditor.updatesWindow.setContentSize(arg.width, arg.height, true);
+        }
+        if ('settings' === arg.window) {
+            SRXEditor.settingsWindow.setContentSize(arg.width, arg.height, true);
         }
     }
 
@@ -245,7 +249,28 @@ class SRXEditor {
     }
 
     static showSettings(): void {
-        throw new Error('Method not implemented.');
+        SRXEditor.settingsWindow = new BrowserWindow({
+            parent: this.mainWindow,
+            width: 450,
+            height: 160,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.settingsWindow.setMenu(null);
+        SRXEditor.settingsWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'settings.html'));
+        SRXEditor.settingsWindow.once('ready-to-show', () => {
+            SRXEditor.settingsWindow.show();
+        });
+        this.settingsWindow.on('close', () => {
+            this.mainWindow.focus();
+        });
     }
 
     static showAbout(): void {

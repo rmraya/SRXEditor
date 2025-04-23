@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 class Settings {
- 
+
     electron = require('electron');
 
     constructor() {
@@ -20,12 +20,22 @@ class Settings {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
         this.electron.ipcRenderer.send('get-preferences');
-        this.electron.ipcRenderer.on('set-preferences', (event: Electron.IpcRendererEvent, preferences: any) => {
+        this.electron.ipcRenderer.on('set-preferences', (event: Electron.IpcRendererEvent, preferences: Preferences) => {
             (document.getElementById('appLangSelect') as HTMLSelectElement).value = preferences.language;
             (document.getElementById('themeColor') as HTMLSelectElement).value = preferences.theme;
+        });
+        (document.getElementById('saveSettings') as HTMLButtonElement).addEventListener('click', () => {
+            this.saveSettings();
         });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'settings', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
+    }
+
+    saveSettings() {
+        let language: string = (document.getElementById('appLangSelect') as HTMLSelectElement).value;
+        let theme: string = (document.getElementById('themeColor') as HTMLSelectElement).value;
+        let preferences: Preferences = { language: language, theme: theme };
+        this.electron.ipcRenderer.send('save-preferences', preferences);
     }
 }

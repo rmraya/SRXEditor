@@ -14,6 +14,7 @@ import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Men
 import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 class SRXEditor {
 
@@ -33,6 +34,8 @@ class SRXEditor {
     static latestVersion: string;
     static downloadLink: string;
 
+    static currentPreferences: Preferences;
+
     doc: XMLDocument | undefined = undefined;
     root: XMLElement | undefined = undefined;
     languageMap: Array<LanguageMap> | undefined = undefined;
@@ -50,6 +53,7 @@ class SRXEditor {
         SRXEditor.appIcon = SRXEditor.path.join(app.getAppPath(), 'icons', 'srxeditor.png');
         SRXEditor.i18n = new I18n(SRXEditor.path.join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
         app.on('ready', () => {
+            this.loadPreferences();
             this.createWindow();
             this.createMenu();
             SRXEditor.mainWindow.once('ready-to-show', () => {
@@ -86,6 +90,45 @@ class SRXEditor {
                 latest: SRXEditor.latestVersion
             });
         });
+        ipcMain.on('get-preferences', (event: IpcMainEvent) => {
+            event.sender.send('set-preferences', SRXEditor.currentPreferences);
+        });
+        ipcMain.on('save-preferences', (event: IpcMainEvent, preferences: Preferences) => {
+            this.savePreferences(preferences);
+        });
+    }
+
+    loadPreferences(): void {
+        try {
+            let preferencesPath: string = SRXEditor.path.join(app.getPath('appData'), app.getName(), 'preferences.json');
+            if (existsSync(preferencesPath)) {
+                let preferences: string = readFileSync(preferencesPath, 'utf8');
+                SRXEditor.currentPreferences = JSON.parse(preferences);
+            } else {
+                SRXEditor.currentPreferences = { language: 'en', theme: 'system' };
+            }
+        } catch (error: any) {
+            if (error instanceof Error) {
+                dialog.showErrorBox('Error', error.message);
+            } else {
+                console.log(error);
+            }
+        }
+    }
+
+    savePreferences(preferences: Preferences): void {
+        try {
+            let preferencesPath: string = SRXEditor.path.join(app.getPath('appData'), app.getName(), 'preferences.json');
+            writeFileSync(preferencesPath, JSON.stringify(preferences, null, 2), 'utf8');
+            SRXEditor.settingsWindow.close();
+            this.loadPreferences();
+        } catch (error: any) {
+            if (error instanceof Error) {
+                dialog.showErrorBox('Error', error.message);
+            } else {
+                console.log(error);
+            }
+        }
     }
 
     static setHeight(arg: { window: string; width: number; height: number; }) {

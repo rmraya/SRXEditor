@@ -13,6 +13,7 @@
 class Main {
 
     electron = require('electron');
+    selectedLanguageMap: string = '';
 
     constructor() {
         this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
@@ -34,6 +35,9 @@ class Main {
         this.electron.ipcRenderer.on('set-status', (event: Electron.IpcRendererEvent, status: string) => {
             this.setStatus(status);
         });
+        this.electron.ipcRenderer.on('set-language-map', (event: Electron.IpcRendererEvent, languageMap: Array<LanguageMap>) => {
+            this.setLanguageMap(languageMap);
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -49,13 +53,28 @@ class Main {
         (document.getElementById('topContainer') as HTMLDivElement).style.height = tablesHeight / 2 + 'px';
         (document.getElementById('bottomContainer') as HTMLDivElement).style.height = tablesHeight / 2 + 'px';
     }
+
     setStatus(status: string) {
         let statusDiv: HTMLDivElement = (document.getElementById('status') as HTMLDivElement);
-        if (status === '') {
-            statusDiv.style.display = 'none';
-        } else {
-            statusDiv.style.display = 'block';
-            statusDiv.innerText = status;
+        statusDiv.style.display = status === '' ? 'none' : 'block';
+        statusDiv.innerText = status;
+    }
+
+    setLanguageMap(languageMap: Array<LanguageMap>) {
+        let LanguageMap: HTMLTableSectionElement = (document.getElementById('LanguageMap') as HTMLTableSectionElement);
+        LanguageMap.innerHTML = '';
+        for (let i = 0; i < languageMap.length; i++) {
+            let row: HTMLTableRowElement = LanguageMap.insertRow(i);
+            let cell1: HTMLTableCellElement = row.insertCell(0);
+            let cell2: HTMLTableCellElement = row.insertCell(1);
+            cell1.innerHTML = languageMap[i].langName;
+            cell2.innerHTML = languageMap[i].pattern;
+            row.addEventListener('click', () => {
+                if (this.selectedLanguageMap !== languageMap[i].langName) {
+                    this.selectedLanguageMap = languageMap[i].langName;
+                    this.electron.ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
+                }
+            });
         }
     }
 }

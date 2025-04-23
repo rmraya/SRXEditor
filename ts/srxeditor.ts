@@ -35,6 +35,7 @@ class SRXEditor {
 
     doc: XMLDocument | undefined = undefined;
     root: XMLElement | undefined = undefined;
+    languageMap: Array<LanguageMap> | undefined = undefined;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -477,6 +478,7 @@ class SRXEditor {
     }
 
     parseFile(): void {
+        this.languageMap = [];
         if (this.root) {
             let children: Array<XMLElement> = this.root.getChildren();
             if (children) {
@@ -504,12 +506,18 @@ class SRXEditor {
                             if (bodyElement.getName() === 'maprules') {
                                 let maprules: Array<XMLElement> = bodyElement.getChildren();
                                 for (let languagemap of maprules) {
-                                    console.log(languagemap.toString());
+                                    let nameAttribute: XMLAttribute | undefined = languagemap.getAttribute('languagerulename');
+                                    let languageAttribute: XMLAttribute | undefined = languagemap.getAttribute('languagepattern');
+                                    if (nameAttribute && languageAttribute) {
+                                        let map: LanguageMap = { langName: nameAttribute.getValue(), pattern: languageAttribute.getValue() };
+                                        this.languageMap.push(map);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
             } else {
                 dialog.showErrorBox('Error', 'No children found in the document');
                 return;

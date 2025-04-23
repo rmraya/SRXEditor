@@ -21,6 +21,6 @@ interface LanguageRule {
 }
 
 interface LanguageMap {
-    ruleName: string;
+    langName: string;
     pattern: string;
 }

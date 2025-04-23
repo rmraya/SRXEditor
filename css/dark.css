@@ -149,8 +149,8 @@ th {
 }
 
 .stripes tr {
-	border-top: 2px solid var(--gray50);
-	border-bottom: 2px solid var(--gray50);
+	border-top: 2px solid var(--gray110);
+	border-bottom: 2px solid var(--gray110);
 }
 
 .stripes td {

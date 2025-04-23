@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, net, session, shell } from 'electron';
+import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
 import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
@@ -35,6 +35,7 @@ class SRXEditor {
     static downloadLink: string;
 
     static currentPreferences: Preferences;
+    static currentCss: string;
 
     doc: XMLDocument | undefined = undefined;
     root: XMLElement | undefined = undefined;
@@ -84,6 +85,28 @@ class SRXEditor {
                 SRXEditor.updatesWindow.close();
             }
         });
+        ipcMain.on('get-theme', (event: IpcMainEvent) => {
+            event.sender.send('set-theme', SRXEditor.currentCss);
+        });
+        nativeTheme.on('updated', () => {
+            let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
+            let light: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'light.css');
+            let highcontrast: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'highcontrast.css');
+            if (SRXEditor.currentPreferences.theme === 'system') {
+                if (nativeTheme.shouldUseDarkColors) {
+                    SRXEditor.currentCss = dark;
+                } else {
+                    SRXEditor.currentCss = light;
+                }
+                if (nativeTheme.shouldUseHighContrastColors) {
+                    SRXEditor.currentCss = highcontrast;
+                }
+                let windows: BrowserWindow[] = BrowserWindow.getAllWindows();
+                for (let window of windows) {
+                    window.webContents.send('set-theme', SRXEditor.currentCss);
+                }
+            }
+        });
         ipcMain.on('get-versions', (event: IpcMainEvent) => {
             event.sender.send('set-versions', {
                 current: app.getVersion(),
@@ -100,6 +123,9 @@ class SRXEditor {
 
     loadPreferences(): void {
         try {
+            let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
+            let light: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'light.css');
+            let highContrast: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'highcontrast.css');
             let preferencesPath: string = SRXEditor.path.join(app.getPath('appData'), app.getName(), 'preferences.json');
             if (existsSync(preferencesPath)) {
                 let preferences: string = readFileSync(preferencesPath, 'utf8');
@@ -107,6 +133,28 @@ class SRXEditor {
             } else {
                 SRXEditor.currentPreferences = { language: 'en', theme: 'system' };
             }
+            if (SRXEditor.currentPreferences.theme === 'system') {
+                if (nativeTheme.shouldUseDarkColors) {
+                    SRXEditor.currentCss = dark;
+                } else {
+                    SRXEditor.currentCss = light;
+                }
+                if (nativeTheme.shouldUseHighContrastColors) {
+                    SRXEditor.currentCss = highContrast;
+                }
+            }
+            if (SRXEditor.currentPreferences.theme === 'dark') {
+                SRXEditor.currentCss = dark;
+            }
+            if (SRXEditor.currentPreferences.theme === 'light') {
+                SRXEditor.currentCss = light;
+            }
+            if (SRXEditor.currentPreferences.theme === 'highcontrast') {
+                SRXEditor.currentCss = highContrast;
+            }
+            BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
+                window.webContents.send('set-theme', SRXEditor.currentCss);
+            });
         } catch (error: any) {
             if (error instanceof Error) {
                 dialog.showErrorBox('Error', error.message);
@@ -446,7 +494,7 @@ class SRXEditor {
 
     showHelp(): void {
         shell.openExternal('file://' + SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
-            shell.openPath(SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'swordfish.pdf')).catch((reason: any) => {
+            shell.openPath(SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'SRXEditor.pdf')).catch((reason: any) => {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }

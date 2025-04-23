@@ -19,6 +19,11 @@ class Settings {
         this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
+        this.electron.ipcRenderer.send('get-preferences');
+        this.electron.ipcRenderer.on('set-preferences', (event: Electron.IpcRendererEvent, preferences: any) => {
+            (document.getElementById('appLangSelect') as HTMLSelectElement).value = preferences.language;
+            (document.getElementById('themeColor') as HTMLSelectElement).value = preferences.theme;
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'settings', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);

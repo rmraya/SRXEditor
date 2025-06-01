@@ -5,3 +5,4 @@ js/
 package-lock.json
 srxeditor-darwin-arm64/
 srxeditor-win32-x64/
+SRXEditor-linux-x64/

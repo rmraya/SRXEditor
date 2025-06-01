@@ -27,6 +27,15 @@ class Settings {
         (document.getElementById('saveSettings') as HTMLButtonElement).addEventListener('click', () => {
             this.saveSettings();
         });
+
+        document.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+                this.saveSettings();
+            }
+            if (event.code === 'Escape') {
+                this.electron.ipcRenderer.send('close-preferences');
+            }
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'settings', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);

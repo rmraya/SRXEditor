@@ -14,6 +14,7 @@ class Main {
 
     electron = require('electron');
     selectedLanguageMap: string = '';
+    selectedRule: Rule | undefined = undefined;
 
     constructor() {
         this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
@@ -38,6 +39,9 @@ class Main {
         this.electron.ipcRenderer.on('set-language-map', (event: Electron.IpcRendererEvent, languageMap: Array<LanguageMap>) => {
             this.setLanguageMap(languageMap);
         });
+        this.electron.ipcRenderer.on('set-language-rules', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.setLanguageRules(rules);
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -61,7 +65,8 @@ class Main {
     }
 
     setLanguageMap(languageMap: Array<LanguageMap>) {
-        let LanguageMap: HTMLTableSectionElement = (document.getElementById('LanguageMap') as HTMLTableSectionElement);
+        let table: HTMLTableSectionElement = (document.getElementById('LanguageMap') as HTMLTableSectionElement);
+        let LanguageMap: HTMLTableSectionElement = table;
         LanguageMap.innerHTML = '';
         for (let i = 0; i < languageMap.length; i++) {
             let row: HTMLTableRowElement = LanguageMap.insertRow(i);
@@ -74,6 +79,30 @@ class Main {
                     this.selectedLanguageMap = languageMap[i].langName;
                     this.electron.ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
                 }
+                table.getElementsByClassName('selected')[0]?.classList.remove('selected');
+                row.classList.add('selected');
+            });
+        }
+    }
+
+    setLanguageRules(rules: Rule[]) {
+        let table: HTMLTableSectionElement = (document.getElementById('LanguageRules') as HTMLTableSectionElement);
+        let LanguageRules: HTMLTableSectionElement = table;
+        LanguageRules.innerHTML = '';
+        for (let i = 0; i < rules.length; i++) {
+            let row: HTMLTableRowElement = LanguageRules.insertRow(i);
+            let cell1: HTMLTableCellElement = row.insertCell(0);
+            let cell2: HTMLTableCellElement = row.insertCell(1);
+            let cell3: HTMLTableCellElement = row.insertCell(2);
+            cell1.innerHTML = rules[i].break ? 'Yes' : 'No';
+            cell2.innerHTML = rules[i].beforeBreak || '';
+            cell3.innerHTML = rules[i].afterBreak || '';
+            row.addEventListener('click', () => {
+                if (this.selectedRule !== rules[i]) {
+                    this.selectedRule = rules[i];
+                }
+                table.getElementsByClassName('selected')[0]?.classList.remove('selected');
+                row.classList.add('selected');
             });
         }
     }

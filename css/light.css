@@ -3,6 +3,8 @@
 
 * {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	scrollbar-color: var(--themePrimary) var(--gray150);
+	scrollbar-width: thin;
 }
 
 body {
@@ -157,6 +159,10 @@ th {
 	vertical-align: middle;
 	padding: 0px 4px;
 	white-space: nowrap;
+}
+
+.selected  {
+	background: var(--themeTertiary) !important;
 }
 
 /* inputs */
@@ -494,31 +500,6 @@ label {
 
 .paddedTop {
 	padding-top: 4px;
-}
-
-::-webkit-scrollbar {
-	mix-blend-mode: darken;
-	width: 12px;
-	height: 12px;
-}
-
-::-webkit-scrollbar-thumb {
-	min-height: 30px !important;
-	background-color: var(--gray50);
-	border-radius: 6px;
-}
-
-::-webkit-scrollbar-corner {
-	background-color: inherit;
-	border-radius: inherit;
-}
-
-::-webkit-scrollbar-button {
-	border-radius: inherit;
-}
-
-::-webkit-scrollbar-button {
-	border-radius: inherit;
 }
 
 .arrow-down:after {

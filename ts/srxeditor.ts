@@ -15,6 +15,7 @@ import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLEl
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { get } from 'http';
 
 class SRXEditor {
 
@@ -40,6 +41,7 @@ class SRXEditor {
     doc: XMLDocument | undefined = undefined;
     root: XMLElement | undefined = undefined;
     languageMap: Array<LanguageMap> | undefined = undefined;
+    rulesMap: Map<string, Rule[]> = new Map<string, Rule[]>();
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -49,6 +51,9 @@ class SRXEditor {
                 SRXEditor.mainWindow.restore();
             }
             SRXEditor.mainWindow.focus();
+        }
+        if (process.platform === 'linux') {
+            app.commandLine.appendSwitch('gtk-version', '3');
         }
         SRXEditor.appHome = SRXEditor.path.join(app.getPath('appData'), app.name);
         SRXEditor.appIcon = SRXEditor.path.join(app.getAppPath(), 'icons', 'srxeditor.png');
@@ -85,6 +90,14 @@ class SRXEditor {
                 SRXEditor.updatesWindow.close();
             }
         });
+        ipcMain.on('close-preferences', () => {
+            if (SRXEditor.settingsWindow) {
+                SRXEditor.settingsWindow.close();
+            }
+        });
+        ipcMain.on('get-language-rules', (event: IpcMainEvent, languageName: string) => {
+           this.getRules(languageName);
+        });
         ipcMain.on('get-theme', (event: IpcMainEvent) => {
             event.sender.send('set-theme', SRXEditor.currentCss);
         });
@@ -119,6 +132,11 @@ class SRXEditor {
         ipcMain.on('save-preferences', (event: IpcMainEvent, preferences: Preferences) => {
             this.savePreferences(preferences);
         });
+    }
+
+    getRules(languageName: string) {
+        let rules: Rule[] | undefined = this.rulesMap.get(languageName);
+        SRXEditor.mainWindow.webContents.send('set-language-rules', rules ? rules : []);
     }
 
     loadPreferences(): void {
@@ -570,6 +588,7 @@ class SRXEditor {
 
     parseFile(): void {
         this.languageMap = [];
+        this.rulesMap = new Map<string, Rule[]>();
         if (this.root) {
             let children: Array<XMLElement> = this.root.getChildren();
             if (children) {
@@ -583,11 +602,21 @@ class SRXEditor {
                                     let nameAttribute: XMLAttribute | undefined = languageRule.getAttribute('languagerulename');
                                     if (nameAttribute) {
                                         let languagerulename: string = nameAttribute.getValue();
-                                        console.log(languagerulename);
+                                        let rulesArray: Rule[] = [];
                                         let rules: Array<XMLElement> = languageRule.getChildren();
-                                        for (let rule of rules) {
-                                            console.log(rule.toString());
+                                        for (let ruleElement of rules) {
+                                            let breakAttribute: XMLAttribute | undefined = ruleElement.getAttribute('break');
+                                            let beforeBreak: XMLElement | undefined = ruleElement.getChild('beforebreak');
+                                            let afterBreak: XMLElement | undefined = ruleElement.getChild('afterbreak');
+                                            let breaks: boolean = breakAttribute ? breakAttribute.getValue() === 'yes' : false;
+                                            let rule: Rule = {
+                                                break: breaks,
+                                                beforeBreak: beforeBreak ? beforeBreak.getText() : undefined,
+                                                afterBreak: afterBreak ? afterBreak.getText() : undefined
+                                            };
+                                            rulesArray.push(rule);
                                         }
+                                        this.rulesMap.set(languagerulename, rulesArray);
                                     } else {
                                         dialog.showErrorBox('Error', 'Missing "languagerulename" attribute in <languagerules> element');
                                         return;

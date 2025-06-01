@@ -11,9 +11,9 @@
  *******************************************************************************/
 
 interface Rule {
-    break:boolean;
-    beforeBreak: string;
-    afterBreak: string;
+    break: boolean;
+    beforeBreak?: string;
+    afterBreak?: string;
 }
 
 interface LanguageRule {

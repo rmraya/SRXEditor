@@ -24,3 +24,8 @@ interface LanguageMap {
     langName: string;
     pattern: string;
 }
+
+interface Pair {
+    langName: string;
+    rule: Rule;
+}

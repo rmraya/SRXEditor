@@ -29,6 +29,15 @@ class Main {
         (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-help');
         });
+        (document.getElementById('addLang') as HTMLButtonElement).addEventListener('click', () => {
+            this.addLanguage();
+        });
+        (document.getElementById('editLang') as HTMLButtonElement).addEventListener('click', () => {
+            this.editLanguage();
+        });
+        (document.getElementById('removeLang') as HTMLButtonElement).addEventListener('click', () => {
+            this.removeLanguage();
+        });
         this.electron.ipcRenderer.send('get-theme');
         this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
@@ -54,10 +63,22 @@ class Main {
         this.electron.ipcRenderer.on('language-down', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
             this.moveLanguageDown();
         });
+        (document.getElementById('addRule') as HTMLButtonElement).addEventListener('click', () => {
+            this.addRule();
+        });
+        (document.getElementById('editRule') as HTMLButtonElement).addEventListener('click', () => {
+            this.editRule();
+        });
+        (document.getElementById('removeRule') as HTMLButtonElement).addEventListener('click', () => {
+            this.removeRule();
+        });
+        this.electron.ipcRenderer.on('add-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.addRule();
+        });
         this.electron.ipcRenderer.on('edit-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
             this.editRule();
         });
-        this.electron.ipcRenderer.on('remove-reule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        this.electron.ipcRenderer.on('remove-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
             this.removeRule();
         });
         this.electron.ipcRenderer.on('rule-up', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
@@ -143,6 +164,10 @@ class Main {
         }
     }
 
+    addLanguage() {
+        this.electron.ipcRenderer.send('add-language');
+    }
+
     editLanguage() {
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('edit-language', this.selectedLanguageMap);
@@ -166,28 +191,50 @@ class Main {
             this.electron.ipcRenderer.send('move-language-down', this.selectedLanguageMap);
         }
     }
-    
+
+    addRule() {
+        if (this.selectedLanguageMap !== '') {
+            this.electron.ipcRenderer.send('add-rule', this.selectedLanguageMap);
+        }
+    }
+
     editRule() {
         if (this.selectedRule !== undefined) {
-            this.electron.ipcRenderer.send('edit-rule', this.selectedRule);
+            let pair: Pair = {
+                langName: this.selectedLanguageMap,
+                rule: this.selectedRule
+            };
+            this.electron.ipcRenderer.send('edit-rule', pair);
         }
     }
 
     removeRule() {
         if (this.selectedRule !== undefined) {
-            this.electron.ipcRenderer.send('remove-rule', this.selectedRule);
+            let pair: Pair = {
+                langName: this.selectedLanguageMap,
+                rule: this.selectedRule
+            };
+            this.electron.ipcRenderer.send('remove-rule', pair);
         }
     }
 
     moveRuleUp() {
         if (this.selectedRule !== undefined) {
-            this.electron.ipcRenderer.send('move-rule-up', this.selectedRule);
+            let pair: Pair = {
+                langName: this.selectedLanguageMap,
+                rule: this.selectedRule
+            };
+            this.electron.ipcRenderer.send('move-rule-up', pair);
         }
     }
 
     moveRuleDown() {
         if (this.selectedRule !== undefined) {
-            this.electron.ipcRenderer.send('move-rule-down', this.selectedRule);
+            let pair: Pair = {
+                langName: this.selectedLanguageMap,
+                rule: this.selectedRule
+            };
+            this.electron.ipcRenderer.send('move-rule-down', pair);
         }
     }
 }

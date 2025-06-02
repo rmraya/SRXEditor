@@ -94,14 +94,41 @@ class SRXEditor {
                 SRXEditor.settingsWindow.close();
             }
         });
+        ipcMain.on('add-language', () => {
+            SRXEditor.addLanguage();
+        });
         ipcMain.on('get-language-rules', (event: IpcMainEvent, languageName: string) => {
             this.getRules(languageName);
         });
         ipcMain.on('get-theme', (event: IpcMainEvent) => {
             event.sender.send('set-theme', SRXEditor.currentCss);
         });
+        ipcMain.on('add-rule', (event: IpcMainEvent, languageName: string) => {
+            SRXEditor.addRule(languageName);
+        });
+        ipcMain.on('edit-language', (event: IpcMainEvent, languageName: string) => {
+            SRXEditor.editLanguage(languageName);
+        });
+        ipcMain.on('remove-language', (event: IpcMainEvent, languageName: string) => {
+            SRXEditor.removeLanguage(languageName);
+        });
         ipcMain.on('move-language-up', (event: IpcMainEvent, languageName: string) => {
             SRXEditor.moveLanguageUp(languageName);
+        });
+        ipcMain.on('move-language-down', (event: IpcMainEvent, languageName: string) => {
+            SRXEditor.moveLanguageDown(languageName);
+        });
+        ipcMain.on('edit-rule', (event: IpcMainEvent, pair:Pair) => {
+            SRXEditor.editRule(pair);
+        });
+        ipcMain.on('remove-rule', (event: IpcMainEvent, pair:Pair) => {
+            SRXEditor.removeRule(pair);
+        });
+        ipcMain.on('move-rule-up', (event: IpcMainEvent, pair:Pair) => {
+            SRXEditor.moveRuleUp(pair);
+        });
+        ipcMain.on('move-rule-down', (event: IpcMainEvent, pair:Pair) => {
+            SRXEditor.moveRuleDown(pair);
         });
         nativeTheme.on('updated', () => {
             let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
@@ -266,7 +293,7 @@ class SRXEditor {
             new MenuItem({ label: 'Move Language Up', accelerator: 'Alt+Up', click: () => { SRXEditor.mainWindow.webContents.send('language-up'); } }),
             new MenuItem({ label: 'Move Language Down', accelerator: 'Alt+Down', click: () => { SRXEditor.mainWindow.webContents.send('language-down'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.addRule() } }),
+            new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.mainWindow.webContents.send('add-rule'); } }),
             new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.mainWindow.webContents.send('edit-rule'); } }),
             new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.mainWindow.webContents.send('remove-rule'); } }),
             new MenuItem({ type: 'separator' }),
@@ -337,31 +364,31 @@ class SRXEditor {
         throw new Error('Method not implemented.');
     }
 
-    static moveRuleUp(rule: Rule): void {
+    static moveRuleUp(pair:Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static moveRuleDown(rule: Rule): void {
+    static moveRuleDown(pair:Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static removeRule(rule: Rule): void {
+    static removeRule(pair:Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static editRule(rule: Rule): void {
+    static editRule(pair:Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static addRule(): void {
+    static addRule(languageName: string): void {
         throw new Error('Method not implemented.');
     }
 
-    static removeLanguage(): void {
+    static removeLanguage(languageName: string): void {
         throw new Error('Method not implemented.');
     }
 
-    static editLanguage(): void {
+    static editLanguage(languageName: string): void {
         throw new Error('Method not implemented.');
     }
 

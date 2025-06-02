@@ -27,8 +27,6 @@ class SRXEditor {
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
-    static moveRuleDown: any;
-    static moveLanguageDown: any;
     static currentFile: string;
     static i18n: I18n;
 
@@ -42,6 +40,7 @@ class SRXEditor {
     root: XMLElement | undefined = undefined;
     languageMap: Array<LanguageMap> | undefined = undefined;
     rulesMap: Map<string, Rule[]> = new Map<string, Rule[]>();
+    header: XMLElement | undefined = undefined;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -96,10 +95,13 @@ class SRXEditor {
             }
         });
         ipcMain.on('get-language-rules', (event: IpcMainEvent, languageName: string) => {
-           this.getRules(languageName);
+            this.getRules(languageName);
         });
         ipcMain.on('get-theme', (event: IpcMainEvent) => {
             event.sender.send('set-theme', SRXEditor.currentCss);
+        });
+        ipcMain.on('move-language-up', (event: IpcMainEvent, languageName: string) => {
+            SRXEditor.moveLanguageUp(languageName);
         });
         nativeTheme.on('updated', () => {
             let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
@@ -258,18 +260,18 @@ class SRXEditor {
         ]);
         let tasksMenu: Menu = Menu.buildFromTemplate([
             new MenuItem({ label: 'Add Language', click: () => { SRXEditor.addLanguage() } }),
-            new MenuItem({ label: 'Edit Language', click: () => { SRXEditor.editLanguage() } }),
-            new MenuItem({ label: 'Remove Language', click: () => { SRXEditor.removeLanguage() } }),
+            new MenuItem({ label: 'Edit Language', click: () => { SRXEditor.mainWindow.webContents.send('edit-language'); } }),
+            new MenuItem({ label: 'Remove Language', click: () => { SRXEditor.mainWindow.webContents.send('remove-language'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Language Up', accelerator: 'Alt+Up', click: () => { SRXEditor.moveLanguageUp() } }),
-            new MenuItem({ label: 'Move Language Down', accelerator: 'Alt+Down', click: () => { SRXEditor.moveLanguageDown() } }),
+            new MenuItem({ label: 'Move Language Up', accelerator: 'Alt+Up', click: () => { SRXEditor.mainWindow.webContents.send('language-up'); } }),
+            new MenuItem({ label: 'Move Language Down', accelerator: 'Alt+Down', click: () => { SRXEditor.mainWindow.webContents.send('language-down'); } }),
             new MenuItem({ type: 'separator' }),
             new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.addRule() } }),
-            new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.editRule() } }),
-            new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.removeRule() } }),
+            new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.mainWindow.webContents.send('edit-rule'); } }),
+            new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.mainWindow.webContents.send('remove-rule'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Rule Up', accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.moveRuleUp() } }),
-            new MenuItem({ label: 'Move Rule Down', accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.moveRuleDown() } }),
+            new MenuItem({ label: 'Move Rule Up', accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); } }),
+            new MenuItem({ label: 'Move Rule Down', accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); } }),
         ]);
         if (!app.isPackaged) {
             tasksMenu.append(new MenuItem({ type: 'separator' }));
@@ -327,18 +329,27 @@ class SRXEditor {
         Menu.setApplicationMenu(Menu.buildFromTemplate(template));
     }
 
-    static moveLanguageUp(): void {
+    static moveLanguageUp(languageName: string): void {
         throw new Error('Method not implemented.');
     }
 
-    static moveRuleUp(): void {
-        throw new Error('Method not implemented.');
-    }
-    static removeRule(): void {
+    static moveLanguageDown(languageName: string): void {
         throw new Error('Method not implemented.');
     }
 
-    static editRule(): void {
+    static moveRuleUp(rule: Rule): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static moveRuleDown(rule: Rule): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static removeRule(rule: Rule): void {
+        throw new Error('Method not implemented.');
+    }
+
+    static editRule(rule: Rule): void {
         throw new Error('Method not implemented.');
     }
 
@@ -635,6 +646,9 @@ class SRXEditor {
                                 }
                             }
                         }
+                    }
+                    if (child.getName() === 'header') {
+                        this.header = child;
                     }
                 }
                 SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);

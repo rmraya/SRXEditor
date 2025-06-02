@@ -42,6 +42,42 @@ class Main {
         this.electron.ipcRenderer.on('set-language-rules', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
             this.setLanguageRules(rules);
         });
+        this.electron.ipcRenderer.on('edit-language', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.editLanguage();
+        });
+        this.electron.ipcRenderer.on('remove-language', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.removeLanguage();
+        });
+        this.electron.ipcRenderer.on('language-up', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.moveLanguageDown();
+        });
+        this.electron.ipcRenderer.on('language-down', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.moveLanguageDown();
+        });
+        this.electron.ipcRenderer.on('edit-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.editRule();
+        });
+        this.electron.ipcRenderer.on('remove-reule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.removeRule();
+        });
+        this.electron.ipcRenderer.on('rule-up', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.moveRuleUp();
+        });
+        this.electron.ipcRenderer.on('rule-down', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+            this.moveRuleDown();
+        });
+        document.getElementById('moveLanguageUp')?.addEventListener('click', () => {
+            this.moveLanguageDown();
+        });
+        document.getElementById('moveLanguageDown')?.addEventListener('click', () => {
+            this.moveLanguageDown();
+        });
+        document.getElementById('moveRuleUp')?.addEventListener('click', () => {
+            this.moveRuleUp();
+        });
+        document.getElementById('moveRuleDown')?.addEventListener('click', () => {
+            this.moveRuleDown();
+        });
         setTimeout(() => {
             this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -104,6 +140,54 @@ class Main {
                 table.getElementsByClassName('selected')[0]?.classList.remove('selected');
                 row.classList.add('selected');
             });
+        }
+    }
+
+    editLanguage() {
+        if (this.selectedLanguageMap !== '') {
+            this.electron.ipcRenderer.send('edit-language', this.selectedLanguageMap);
+        }
+    }
+
+    removeLanguage() {
+        if (this.selectedLanguageMap !== '') {
+            this.electron.ipcRenderer.send('remove-language', this.selectedLanguageMap);
+        }
+    }
+
+    moveLanguageUp() {
+        if (this.selectedLanguageMap !== '') {
+            this.electron.ipcRenderer.send('move-language-up', this.selectedLanguageMap);
+        }
+    }
+
+    moveLanguageDown() {
+        if (this.selectedLanguageMap !== '') {
+            this.electron.ipcRenderer.send('move-language-down', this.selectedLanguageMap);
+        }
+    }
+    
+    editRule() {
+        if (this.selectedRule !== undefined) {
+            this.electron.ipcRenderer.send('edit-rule', this.selectedRule);
+        }
+    }
+
+    removeRule() {
+        if (this.selectedRule !== undefined) {
+            this.electron.ipcRenderer.send('remove-rule', this.selectedRule);
+        }
+    }
+
+    moveRuleUp() {
+        if (this.selectedRule !== undefined) {
+            this.electron.ipcRenderer.send('move-rule-up', this.selectedRule);
+        }
+    }
+
+    moveRuleDown() {
+        if (this.selectedRule !== undefined) {
+            this.electron.ipcRenderer.send('move-rule-down', this.selectedRule);
         }
     }
 }

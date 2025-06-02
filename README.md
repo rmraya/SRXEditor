@@ -1,4 +1,4 @@
-# <img src="img/srxeditor.png" style="float:left; height:48px;" alt="SRXEditor logo"> SRXEditor
+# <img src="img/srxeditor.png" style="float:left; height:48px; margin:4px" alt="SRXEditor logo"> SRXEditor
 
 SRXEditor is a cross-platform editor of segmentation rules, designed to use [Segmentation Rules eXchange (SRX) 2.0](http://web.archive.org/web/20090709131535/http://www.lisa.org/fileadmin/standards/srx20.html), the open XML-based standard for segmentation published by LISA.
 
@@ -17,7 +17,7 @@ Ready to use installers are available at [SRXEditor's Home Page](https://www.max
 
 ## Build Requirements
 
-- node.js v20.19.0 (LTS) or later (<https://nodejs.org/>)
+- node.js v22.16.0 (LTS) or later (<https://nodejs.org/>)
 
 ### Build Procedure
 

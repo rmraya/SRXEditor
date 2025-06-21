@@ -65,7 +65,7 @@ class SRXEditor {
             SRXEditor.mainWindow.once('ready-to-show', () => {
                 SRXEditor.mainWindow.show();
                 SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
-                SRXEditor.startup();
+                this.startup();
             });
         });
         ipcMain.on('set-height', (event: IpcMainEvent, arg: { window: string, width: number, height: number }) => {
@@ -86,7 +86,12 @@ class SRXEditor {
             }
         });
         ipcMain.on('open-license', (event: IpcMainEvent, type: string) => {
-            SRXEditor.openLicense(type);
+            this.openLicense(type);
+        });
+        ipcMain.on('close-licenses', () => {
+            if (SRXEditor.licensesWindow) {
+                SRXEditor.licensesWindow.close();
+            }
         });
         ipcMain.on('close-updates', () => {
             if (SRXEditor.updatesWindow) {
@@ -287,10 +292,10 @@ class SRXEditor {
         let helpMenu: Menu = Menu.buildFromTemplate([
             { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { this.showHelp(); } },
             new MenuItem({ type: 'separator' }),
-            { label: 'Check for Updates', click: () => { SRXEditor.checkUpdates(false); } },
-            { label: 'View Licenses', click: () => { SRXEditor.showLicenses('main'); } },
+            { label: 'Check for Updates', click: () => { this.checkUpdates(false); } },
+            { label: 'View Licenses', click: () => { this.showLicenses('main'); } },
             new MenuItem({ type: 'separator' }),
-            { label: 'Support Group', click: () => { SRXEditor.showSupportGroup(); } }
+            { label: 'Support Group', click: () => { this.showSupportGroup(); } }
         ]);
         let tasksMenu: Menu = Menu.buildFromTemplate([
             new MenuItem({ label: 'Add Language', click: () => { SRXEditor.addLanguage() } }),
@@ -466,7 +471,7 @@ class SRXEditor {
         });
     }
 
-    static showSupportGroup(): void {
+    showSupportGroup(): void {
         shell.openExternal('https://groups.io/g/maxprograms/').catch((reason: any) => {
             if (reason instanceof Error) {
                 console.error(reason.message);
@@ -475,9 +480,9 @@ class SRXEditor {
         });
     }
 
-    static showLicenses(arg0: string): void {
+    showLicenses(arg0: string): void {
         SRXEditor.licensesWindow = new BrowserWindow({
-            parent: this.mainWindow,
+            parent: SRXEditor.mainWindow,
             width: 330,
             height: 190,
             minimizable: false,
@@ -491,16 +496,16 @@ class SRXEditor {
             }
         });
         SRXEditor.licensesWindow.setMenu(null);
-        SRXEditor.licensesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'licenses.html'));
+        SRXEditor.licensesWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'licenses.html'));
         SRXEditor.licensesWindow.once('ready-to-show', () => {
             SRXEditor.licensesWindow.show();
         });
-        this.licensesWindow.on('close', () => {
-            this.licensesWindow.focus();
+        SRXEditor.licensesWindow.on('close', () => {
+            SRXEditor.mainWindow.focus();
         });
     }
 
-    static openLicense(type: string) {
+    openLicense(type: string) {
         let licenseFile = '';
         let title = '';
         if (type === 'SRXEditor' || type === 'TypesXML' || type === 'TypesBCP47') {
@@ -514,7 +519,7 @@ class SRXEditor {
             return;
         }
         let licenseWindow = new BrowserWindow({
-            parent: this.licensesWindow,
+            parent: SRXEditor.licensesWindow,
             width: 680,
             height: 400,
             show: false,
@@ -533,7 +538,7 @@ class SRXEditor {
             licenseWindow.show();
         });
         licenseWindow.on('close', () => {
-            this.licensesWindow.focus();
+            SRXEditor.licensesWindow.focus();
         });
         licenseWindow.webContents.on('did-finish-load', () => {
             let css: string = readFileSync(SRXEditor.currentCss.substring('file://'.length), { encoding: 'utf8' });
@@ -541,7 +546,7 @@ class SRXEditor {
         });
     }
 
-    static checkUpdates(silent: boolean): void {
+    checkUpdates(silent: boolean): void {
         session.defaultSession.clearCache().then(() => {
             let req: Electron.ClientRequest = net.request({
                 url: 'https://maxprograms.com/srxeditor.json',
@@ -579,7 +584,7 @@ class SRXEditor {
                                     break;
                             }
                             SRXEditor.updatesWindow = new BrowserWindow({
-                                parent: this.mainWindow,
+                                parent: SRXEditor.mainWindow,
                                 width: 590,
                                 height: 240,
                                 minimizable: false,
@@ -593,12 +598,12 @@ class SRXEditor {
                                 }
                             });
                             SRXEditor.updatesWindow.setMenu(null);
-                            SRXEditor.updatesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'updates.html'));
+                            SRXEditor.updatesWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'updates.html'));
                             SRXEditor.updatesWindow.once('ready-to-show', () => {
                                 SRXEditor.updatesWindow.show();
                             });
-                            this.updatesWindow.on('close', () => {
-                                this.mainWindow.focus();
+                            SRXEditor.updatesWindow.on('close', () => {
+                                SRXEditor.mainWindow.focus();
                             });
                         } else {
                             if (!silent) {
@@ -787,8 +792,8 @@ class SRXEditor {
         throw new Error('Method not implemented.');
     }
 
-    static startup(): void {
-        SRXEditor.checkUpdates(true);
+    startup(): void {
+        this.checkUpdates(true);
     }
 }
 

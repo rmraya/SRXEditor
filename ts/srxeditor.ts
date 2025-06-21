@@ -11,11 +11,10 @@
  *******************************************************************************/
 
 import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 import { MessageTypes } from './messageTypes';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { get } from 'http';
 
 class SRXEditor {
 
@@ -24,6 +23,7 @@ class SRXEditor {
     static aboutWindow: BrowserWindow;
     static updatesWindow: BrowserWindow;
     static settingsWindow: BrowserWindow;
+    static licensesWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -41,6 +41,7 @@ class SRXEditor {
     languageMap: Array<LanguageMap> | undefined = undefined;
     rulesMap: Map<string, Rule[]> = new Map<string, Rule[]>();
     header: XMLElement | undefined = undefined;
+    changed: boolean = false;
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -84,6 +85,9 @@ class SRXEditor {
                 SRXEditor.aboutWindow.close();
             }
         });
+        ipcMain.on('open-license', (event: IpcMainEvent, type: string) => {
+            SRXEditor.openLicense(type);
+        });
         ipcMain.on('close-updates', () => {
             if (SRXEditor.updatesWindow) {
                 SRXEditor.updatesWindow.close();
@@ -110,7 +114,7 @@ class SRXEditor {
             SRXEditor.editLanguage(languageName);
         });
         ipcMain.on('remove-language', (event: IpcMainEvent, languageName: string) => {
-            SRXEditor.removeLanguage(languageName);
+            this.removeLanguage(languageName);
         });
         ipcMain.on('move-language-up', (event: IpcMainEvent, languageName: string) => {
             SRXEditor.moveLanguageUp(languageName);
@@ -118,16 +122,16 @@ class SRXEditor {
         ipcMain.on('move-language-down', (event: IpcMainEvent, languageName: string) => {
             SRXEditor.moveLanguageDown(languageName);
         });
-        ipcMain.on('edit-rule', (event: IpcMainEvent, pair:Pair) => {
+        ipcMain.on('edit-rule', (event: IpcMainEvent, pair: Pair) => {
             SRXEditor.editRule(pair);
         });
-        ipcMain.on('remove-rule', (event: IpcMainEvent, pair:Pair) => {
+        ipcMain.on('remove-rule', (event: IpcMainEvent, pair: Pair) => {
             SRXEditor.removeRule(pair);
         });
-        ipcMain.on('move-rule-up', (event: IpcMainEvent, pair:Pair) => {
+        ipcMain.on('move-rule-up', (event: IpcMainEvent, pair: Pair) => {
             SRXEditor.moveRuleUp(pair);
         });
-        ipcMain.on('move-rule-down', (event: IpcMainEvent, pair:Pair) => {
+        ipcMain.on('move-rule-down', (event: IpcMainEvent, pair: Pair) => {
             SRXEditor.moveRuleDown(pair);
         });
         nativeTheme.on('updated', () => {
@@ -235,6 +239,9 @@ class SRXEditor {
         }
         if ('settings' === arg.window) {
             SRXEditor.settingsWindow.setContentSize(arg.width, arg.height, true);
+        }
+        if ('licenses' === arg.window) {
+            SRXEditor.licensesWindow.setContentSize(arg.width, arg.height, true);
         }
     }
 
@@ -364,19 +371,19 @@ class SRXEditor {
         throw new Error('Method not implemented.');
     }
 
-    static moveRuleUp(pair:Pair): void {
+    static moveRuleUp(pair: Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static moveRuleDown(pair:Pair): void {
+    static moveRuleDown(pair: Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static removeRule(pair:Pair): void {
+    static removeRule(pair: Pair): void {
         throw new Error('Method not implemented.');
     }
 
-    static editRule(pair:Pair): void {
+    static editRule(pair: Pair): void {
         throw new Error('Method not implemented.');
     }
 
@@ -384,8 +391,21 @@ class SRXEditor {
         throw new Error('Method not implemented.');
     }
 
-    static removeLanguage(languageName: string): void {
-        throw new Error('Method not implemented.');
+    removeLanguage(languageName: string): void {
+        let index: number = this.languageMap?.findIndex((map: LanguageMap) => map.langName === languageName) ?? -1;
+        if (index !== -1 && this.languageMap) {
+            this.languageMap.splice(index, 1);
+            SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: MessageTypes.info,
+                message: SRXEditor.i18n.getString('srxeditor', 'languageRemoved'),
+                buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
+            });
+            this.changed = true;
+            SRXEditor.mainWindow.documentEdited = true;
+        } else {
+            dialog.showErrorBox('Error', 'Language not found');
+        }
     }
 
     static editLanguage(languageName: string): void {
@@ -456,7 +476,69 @@ class SRXEditor {
     }
 
     static showLicenses(arg0: string): void {
-        throw new Error('Method not implemented.');
+        SRXEditor.licensesWindow = new BrowserWindow({
+            parent: this.mainWindow,
+            width: 330,
+            height: 190,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.licensesWindow.setMenu(null);
+        SRXEditor.licensesWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'licenses.html'));
+        SRXEditor.licensesWindow.once('ready-to-show', () => {
+            SRXEditor.licensesWindow.show();
+        });
+        this.licensesWindow.on('close', () => {
+            this.licensesWindow.focus();
+        });
+    }
+
+    static openLicense(type: string) {
+        let licenseFile = '';
+        let title = '';
+        if (type === 'SRXEditor' || type === 'TypesXML' || type === 'TypesBCP47') {
+            licenseFile = 'EclipsePublicLicense1.0.html';
+            title = 'Eclipse Public License 1.0';
+        } else if (type === 'electron') {
+            licenseFile = 'electron.txt';
+            title = 'MIT License';
+        } else {
+            dialog.showErrorBox('Error', 'Unknown license');
+            return;
+        }
+        let licenseWindow = new BrowserWindow({
+            parent: this.licensesWindow,
+            width: 680,
+            height: 400,
+            show: false,
+            title: title,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        licenseWindow.setMenu(null);
+        let filePath = SRXEditor.path.join(app.getAppPath(), 'html', 'licenses', licenseFile);
+        let fileUrl: URL = new URL('file://' + filePath);
+        licenseWindow.loadURL(fileUrl.href);
+        licenseWindow.once('ready-to-show', () => {
+            licenseWindow.show();
+        });
+        licenseWindow.on('close', () => {
+            this.licensesWindow.focus();
+        });
+        licenseWindow.webContents.on('did-finish-load', () => {
+            let css: string = readFileSync(SRXEditor.currentCss.substring('file://'.length), { encoding: 'utf8' });
+            licenseWindow.webContents.insertCSS(css.toString());
+        });
     }
 
     static checkUpdates(silent: boolean): void {
@@ -567,6 +649,8 @@ class SRXEditor {
                 message: SRXEditor.i18n.getString('srxeditor', 'fileSaved'),
                 buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
             });
+            this.changed = false;
+            SRXEditor.mainWindow.documentEdited = false;
         }
     }
 
@@ -609,12 +693,23 @@ class SRXEditor {
                     dialog.showErrorBox('Error', 'Selected file is not an SRX document');
                     return;
                 }
+                let version: XMLAttribute | undefined = this.root.getAttribute('version');
+                if (!version) {
+                    dialog.showErrorBox('Error', 'Missing "version" attribute in <srx> element');
+                    return;
+                }
+                if (version.getValue() !== '2.0') {
+                    dialog.showErrorBox('Error', 'Unsupported SRX version: ' + version.getValue());
+                    return;
+                }
             }
             SRXEditor.mainWindow.webContents.send('set-status', SRXEditor.i18n.getString('srxeditor', 'loadingSRX'));
             this.parseFile();
             SRXEditor.mainWindow.webContents.send('set-status', '');
             SRXEditor.currentFile = filePath;
             SRXEditor.mainWindow.setTitle('SRXEditor - ' + SRXEditor.currentFile);
+            this.changed = false;
+            SRXEditor.mainWindow.documentEdited = false;
         } catch (error: any) {
             if (error instanceof Error) {
                 dialog.showErrorBox('Error', error.message);
@@ -684,7 +779,7 @@ class SRXEditor {
                 return;
             }
         } else {
-            dialog.showErrorBox('Error', 'No root element found in the document');
+            dialog.showErrorBox('Error', 'Selected file is not a valid SRX document');
         }
     }
 

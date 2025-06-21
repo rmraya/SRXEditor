@@ -5,7 +5,8 @@
         "noUpdates": "There are currently no updates available",
         "fileSaved": "File saved",
         "OK": "OK",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "languageRemoved": "Language removed"
     },
     "menu": {
         "fileMenu": "&File"

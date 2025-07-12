@@ -409,7 +409,8 @@ class SRXEditor {
             this.changed = true;
             SRXEditor.mainWindow.documentEdited = true;
         } else {
-            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Language not found');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                SRXEditor.i18n.getString('srxeditor', 'languageNotFound'));
         }
     }
 
@@ -476,7 +477,7 @@ class SRXEditor {
             if (reason instanceof Error) {
                 console.error(reason.message);
             }
-            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unable to open support group page');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), SRXEditor.i18n.getString('srxeditor', 'supportError'));
         });
     }
 
@@ -515,7 +516,7 @@ class SRXEditor {
             licenseFile = 'electron.txt';
             title = 'MIT License';
         } else {
-            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unknown license');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), SRXEditor.i18n.getString('srxeditor', 'unknownLicense'));
             return;
         }
         let licenseWindow = new BrowserWindow({
@@ -641,7 +642,8 @@ class SRXEditor {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }
-                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unable to open SRXEditor User Guide');
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                    SRXEditor.i18n.getString('srxeditor', 'helpError'));
             });
         });
     }
@@ -695,16 +697,20 @@ class SRXEditor {
             this.root = this.doc.getRoot();
             if (this.root) {
                 if (this.root.getName() !== 'srx') {
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Selected file is not an SRX document');
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                        SRXEditor.i18n.getString('srxeditor', 'notSrx'));
                     return;
                 }
                 let version: XMLAttribute | undefined = this.root.getAttribute('version');
                 if (!version) {
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Missing "version" attribute in <srx> element');
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                        SRXEditor.i18n.getString('srxeditor', 'missingVersion'));
                     return;
                 }
                 if (version.getValue() !== '2.0') {
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unsupported SRX version: ' + version.getValue());
+                    let message: string = SRXEditor.i18n.getString('srxeditor', 'unsupportedVersion');
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                        SRXEditor.i18n.format(message, [version.getValue()]));
                     return;
                 }
             }
@@ -756,7 +762,8 @@ class SRXEditor {
                                         }
                                         this.rulesMap.set(languagerulename, rulesArray);
                                     } else {
-                                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Missing "languagerulename" attribute in <languagerules> element');
+                                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                                            SRXEditor.i18n.getString('srxeditor', 'missingLanguageRuleName'));
                                         return;
                                     }
                                 }
@@ -780,11 +787,13 @@ class SRXEditor {
                 }
                 SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
             } else {
-                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'No children found in the document');
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                    SRXEditor.i18n.getString('srxeditor', 'noChildren'));
                 return;
             }
         } else {
-            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Selected file is not a valid SRX document');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                SRXEditor.i18n.getString('srxeditor', 'notValidSrx'));
         }
     }
 

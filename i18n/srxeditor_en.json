@@ -8,8 +8,18 @@
         "cancel": "Cancel",
         "error": "Error",
         "languageRemoved": "Language removed",
+        "languageNotFound": "Language not found",
         "srxFiles": "SRX Files",
-        "allFiles": "All Files"
+        "allFiles": "All Files",
+        "notSrx": "Selected file is not an SRX document",
+        "missingVersion": "Missing \"version\" attribute in <srx> element",
+        "unsupportedVersion": "Unsupported SRX version: {0}",
+        "missingLanguageRuleName": "Missing \"languagerulename\" attribute in <languagerules> element",
+        "noChildren": "No children found in the document",
+        "notValidSrx": "Selected file is not a valid SRX document",
+        "helpError": "Unable to open SRXEditor User Guide",
+        "supportError": "Unable to open support group page",
+        "unknownLicense": "Unknown license"
     },
     "menu": {
         "fileMenu": "&File",

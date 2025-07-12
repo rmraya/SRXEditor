@@ -6,9 +6,66 @@
         "fileSaved": "File saved",
         "OK": "OK",
         "cancel": "Cancel",
-        "languageRemoved": "Language removed"
+        "error": "Error",
+        "languageRemoved": "Language removed",
+        "srxFiles": "SRX Files",
+        "allFiles": "All Files"
     },
     "menu": {
-        "fileMenu": "&File"
+        "fileMenu": "&File",
+        "editMenu": "&Edit",
+        "tasksMenu": "&Tasks",
+        "helpMenu": "&Help",
+        "settingsMenu": "&Settings"
+    },
+    "appleMenu": {
+        "about": "About SRXEditor",
+        "preferences": "Preferences",
+        "settings": "Settings",
+        "services": "Services",
+        "noServices": "No services available",
+        "quit": "Quit SRXEditor"
+    },
+    "fileMenu": {
+        "newFile": "New File",
+        "openFile": "Open File",
+        "saveFile": "Save File",
+        "saveAsFile": "Save As...",
+        "closeFile": "Close File"
+    },
+    "editMenu": {
+        "undo": "Undo",
+        "redo": "Redo",
+        "cut": "Cut",
+        "copy": "Copy",
+        "paste": "Paste",
+        "selectAll": "Select All"
+    },
+    "helpMenu": {
+        "userGuide": "SRXEditor User Guide",
+        "checkUpdates": "Check for Updates",
+        "viewLicenses": "View Licenses",
+        "supportGroup": "Support Group"
+    },
+    "tasksMenu": {
+        "addLanguage": "Add Language",
+        "editLanguage": "Edit Language",
+        "removeLanguage": "Remove Language",
+        "moveLanguageUp": "Move Language Up",
+        "moveLanguageDown": "Move Language Down",
+        "addRule": "Add Rule",
+        "editRule": "Edit Rule",
+        "removeRule": "Remove Rule",
+        "moveRuleUp": "Move Rule Up",
+        "moveRuleDown": "Move Rule Down",
+        "toggleDeveloperTools": "Toggle Developer Tools"
+    },
+    "windowsMenu": {
+        "quit": "Exit",
+        "about": "About..."
+    },
+    "linuxMenu": {
+        "quit": "Quit",
+        "about": "About..."
     }
 }

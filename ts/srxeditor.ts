@@ -213,7 +213,7 @@ class SRXEditor {
             });
         } catch (error: any) {
             if (error instanceof Error) {
-                dialog.showErrorBox('Error', error.message);
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), error.message);
             } else {
                 console.log(error);
             }
@@ -228,7 +228,7 @@ class SRXEditor {
             this.loadPreferences();
         } catch (error: any) {
             if (error instanceof Error) {
-                dialog.showErrorBox('Error', error.message);
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), error.message);
             } else {
                 console.log(error);
             }
@@ -273,97 +273,97 @@ class SRXEditor {
 
     createMenu(): void {
         let fileMenu: Menu = Menu.buildFromTemplate([
-            { label: 'New', accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
-            { label: 'Open', accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
-            { label: 'Close', accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
-            { label: 'Save', accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
-            { label: 'Save As', accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFile(); } }
+            { label: SRXEditor.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'saveAsFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFile(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
-            { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
-            { label: 'Redo', accelerator: 'CmdOrCtrl+Y', role: 'redo' },
+            { label: SRXEditor.i18n.getString('editMenu', 'undo'), accelerator: 'CmdOrCtrl+Z', role: 'undo' },
+            { label: SRXEditor.i18n.getString('editMenu', 'redo'), accelerator: 'CmdOrCtrl+Y', role: 'redo' },
             new MenuItem({ type: 'separator' }),
-            { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-            { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-            { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+            { label: SRXEditor.i18n.getString('editMenu', 'cut'), accelerator: 'CmdOrCtrl+X', role: 'cut' },
+            { label: SRXEditor.i18n.getString('editMenu', 'copy'), accelerator: 'CmdOrCtrl+C', role: 'copy' },
+            { label: SRXEditor.i18n.getString('editMenu', 'paste'), accelerator: 'CmdOrCtrl+V', role: 'paste' },
             new MenuItem({ type: 'separator' }),
-            { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
+            { label: SRXEditor.i18n.getString('editMenu', 'selectAll'), accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
-            { label: 'SRXEditor User Guide', accelerator: 'F1', click: () => { this.showHelp(); } },
+            { label: SRXEditor.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); } },
             new MenuItem({ type: 'separator' }),
-            { label: 'Check for Updates', click: () => { this.checkUpdates(false); } },
-            { label: 'View Licenses', click: () => { this.showLicenses('main'); } },
+            { label: SRXEditor.i18n.getString('helpMenu', 'checkUpdates'), click: () => { this.checkUpdates(false); } },
+            { label: SRXEditor.i18n.getString('helpMenu', 'viewLicenses'), click: () => { this.showLicenses('main'); } },
             new MenuItem({ type: 'separator' }),
-            { label: 'Support Group', click: () => { this.showSupportGroup(); } }
+            { label: SRXEditor.i18n.getString('helpMenu', 'supportGroup'), click: () => { this.showSupportGroup(); } }
         ]);
         let tasksMenu: Menu = Menu.buildFromTemplate([
-            new MenuItem({ label: 'Add Language', click: () => { SRXEditor.addLanguage() } }),
-            new MenuItem({ label: 'Edit Language', click: () => { SRXEditor.mainWindow.webContents.send('edit-language'); } }),
-            new MenuItem({ label: 'Remove Language', click: () => { SRXEditor.mainWindow.webContents.send('remove-language'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'addLanguage'), click: () => { SRXEditor.addLanguage() } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'editLanguage'), click: () => { SRXEditor.mainWindow.webContents.send('edit-language'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'removeLanguage'), click: () => { SRXEditor.mainWindow.webContents.send('remove-language'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Language Up', accelerator: 'Alt+Up', click: () => { SRXEditor.mainWindow.webContents.send('language-up'); } }),
-            new MenuItem({ label: 'Move Language Down', accelerator: 'Alt+Down', click: () => { SRXEditor.mainWindow.webContents.send('language-down'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'moveLanguageUp'), accelerator: 'Alt+Up', click: () => { SRXEditor.mainWindow.webContents.send('language-up'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'moveLanguageDown'), accelerator: 'Alt+Down', click: () => { SRXEditor.mainWindow.webContents.send('language-down'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Add Rule', click: () => { SRXEditor.mainWindow.webContents.send('add-rule'); } }),
-            new MenuItem({ label: 'Edit Rule', click: () => { SRXEditor.mainWindow.webContents.send('edit-rule'); } }),
-            new MenuItem({ label: 'Remove Rule', click: () => { SRXEditor.mainWindow.webContents.send('remove-rule'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'addRule'), click: () => { SRXEditor.mainWindow.webContents.send('add-rule'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'editRule'), click: () => { SRXEditor.mainWindow.webContents.send('edit-rule'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'removeRule'), click: () => { SRXEditor.mainWindow.webContents.send('remove-rule'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Move Rule Up', accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); } }),
-            new MenuItem({ label: 'Move Rule Down', accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'moveRuleUp'), accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'moveRuleDown'), accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); } }),
         ]);
         if (!app.isPackaged) {
             tasksMenu.append(new MenuItem({ type: 'separator' }));
-            tasksMenu.append(new MenuItem({ label: 'Toggle Developer Tools', accelerator: 'F12', role: 'toggleDevTools' }));
+            tasksMenu.append(new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'toggleDeveloperTools'), accelerator: 'F12', role: 'toggleDevTools' }));
         }
         let settingsMenu: Menu = Menu.buildFromTemplate([{ label: 'Preferences', click: () => { SRXEditor.showSettings(); } }]);
         let appleMenu: Menu = Menu.buildFromTemplate([
-            new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }),
+            new MenuItem({ label: SRXEditor.i18n.getString('appleMenu', 'about'), click: () => { SRXEditor.showAbout(); } }),
             new MenuItem({
-                label: 'Preferences', submenu: [
-                    { label: 'Settings', accelerator: 'Cmd+,', click: () => { SRXEditor.showSettings(); } }
+                label: SRXEditor.i18n.getString('appleMenu', 'preferences'), submenu: [
+                    { label: SRXEditor.i18n.getString('appleMenu', 'settings'), accelerator: 'Cmd+,', click: () => { SRXEditor.showSettings(); } }
                 ]
             }),
             new MenuItem({ type: 'separator' }),
             new MenuItem({
-                label: 'Services', role: 'services', submenu: [
-                    { label: 'No services', enabled: false }
+                label: SRXEditor.i18n.getString('appleMenu', 'services'), role: 'services', submenu: [
+                    { label: SRXEditor.i18n.getString('appleMenu', 'noServices'), enabled: false }
                 ]
             }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: 'Quit SRXEditor', accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
+            new MenuItem({ label: SRXEditor.i18n.getString('appleMenu', 'quit'), accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
         ]);
 
         let template: MenuItem[] = process.platform === 'darwin' ?
             [
-                new MenuItem({ label: 'SRXEditor', role: 'appMenu', submenu: appleMenu }),
+                new MenuItem({ label: app.getName(), role: 'appMenu', submenu: appleMenu }),
                 new MenuItem({ label: SRXEditor.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
-                new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
-                new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
-                new MenuItem({ label: '&Help', role: 'help', submenu: helpMenu })
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'editMenu'), role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'tasksMenu'), submenu: tasksMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'helpMenu'), role: 'help', submenu: helpMenu })
             ] : [
                 new MenuItem({ label: SRXEditor.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
-                new MenuItem({ label: '&Edit', role: 'editMenu', submenu: editMenu }),
-                new MenuItem({ label: '&Tasks', submenu: tasksMenu }),
-                new MenuItem({ label: '&Settings', submenu: settingsMenu }),
-                new MenuItem({ label: '&Help', submenu: helpMenu })
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'editMenu'), role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'tasksMenu'), submenu: tasksMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'settingsMenu'), submenu: settingsMenu }),
+                new MenuItem({ label: SRXEditor.i18n.getString('menu', 'helpMenu'), submenu: helpMenu })
             ];
 
         if (process.platform === 'win32') {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (file.submenu as Menu).append(new MenuItem({ label: 'Exit', accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
+            (file.submenu as Menu).append(new MenuItem({ label: SRXEditor.i18n.getString('windowsMenu', 'quit'), accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
             let help: MenuItem = template[4] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
+            (help.submenu as Menu).append(new MenuItem({ label: SRXEditor.i18n.getString('windowsMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
         if (process.platform === 'linux') {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (file.submenu as Menu).append(new MenuItem({ label: 'Quit', accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
+            (file.submenu as Menu).append(new MenuItem({ label: SRXEditor.i18n.getString('linuxMenu', 'quit'), accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
             let help: MenuItem = template[4] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (help.submenu as Menu).append(new MenuItem({ label: 'About...', click: () => { SRXEditor.showAbout(); } }));
+            (help.submenu as Menu).append(new MenuItem({ label: SRXEditor.i18n.getString('linuxMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
         Menu.setApplicationMenu(Menu.buildFromTemplate(template));
     }
@@ -409,7 +409,7 @@ class SRXEditor {
             this.changed = true;
             SRXEditor.mainWindow.documentEdited = true;
         } else {
-            dialog.showErrorBox('Error', 'Language not found');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Language not found');
         }
     }
 
@@ -476,7 +476,7 @@ class SRXEditor {
             if (reason instanceof Error) {
                 console.error(reason.message);
             }
-            dialog.showErrorBox('Error', 'Unable to open support group page');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unable to open support group page');
         });
     }
 
@@ -515,7 +515,7 @@ class SRXEditor {
             licenseFile = 'electron.txt';
             title = 'MIT License';
         } else {
-            dialog.showErrorBox('Error', 'Unknown license');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unknown license');
             return;
         }
         let licenseWindow = new BrowserWindow({
@@ -641,7 +641,7 @@ class SRXEditor {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }
-                dialog.showErrorBox('Error', 'Unable to open SRXEditor User Guide');
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unable to open SRXEditor User Guide');
             });
         });
     }
@@ -667,8 +667,8 @@ class SRXEditor {
         dialog.showOpenDialog(SRXEditor.mainWindow, {
             title: 'Open SRX File',
             filters: [
-                { name: 'SRX Files', extensions: ['srx'] },
-                { name: 'All Files', extensions: ['*'] }
+                { name: SRXEditor.i18n.getString('srxeditor', 'srxFiles'), extensions: ['srx'] },
+                { name: SRXEditor.i18n.getString('srxeditor', 'allFiles'), extensions: ['*'] }
             ],
             properties: ['openFile']
         }).then(result => {
@@ -677,7 +677,7 @@ class SRXEditor {
             }
         }).catch((err) => {
             if (err instanceof Error) {
-                dialog.showErrorBox('Error', err.message);
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), err.message);
             }
             console.log(err);
         });
@@ -695,16 +695,16 @@ class SRXEditor {
             this.root = this.doc.getRoot();
             if (this.root) {
                 if (this.root.getName() !== 'srx') {
-                    dialog.showErrorBox('Error', 'Selected file is not an SRX document');
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Selected file is not an SRX document');
                     return;
                 }
                 let version: XMLAttribute | undefined = this.root.getAttribute('version');
                 if (!version) {
-                    dialog.showErrorBox('Error', 'Missing "version" attribute in <srx> element');
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Missing "version" attribute in <srx> element');
                     return;
                 }
                 if (version.getValue() !== '2.0') {
-                    dialog.showErrorBox('Error', 'Unsupported SRX version: ' + version.getValue());
+                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Unsupported SRX version: ' + version.getValue());
                     return;
                 }
             }
@@ -712,12 +712,12 @@ class SRXEditor {
             this.parseFile();
             SRXEditor.mainWindow.webContents.send('set-status', '');
             SRXEditor.currentFile = filePath;
-            SRXEditor.mainWindow.setTitle('SRXEditor - ' + SRXEditor.currentFile);
+            SRXEditor.mainWindow.setTitle(app.getName() + ' - ' + SRXEditor.currentFile);
             this.changed = false;
             SRXEditor.mainWindow.documentEdited = false;
         } catch (error: any) {
             if (error instanceof Error) {
-                dialog.showErrorBox('Error', error.message);
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), error.message);
             } else {
                 console.log(error);
             }
@@ -756,7 +756,7 @@ class SRXEditor {
                                         }
                                         this.rulesMap.set(languagerulename, rulesArray);
                                     } else {
-                                        dialog.showErrorBox('Error', 'Missing "languagerulename" attribute in <languagerules> element');
+                                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Missing "languagerulename" attribute in <languagerules> element');
                                         return;
                                     }
                                 }
@@ -780,11 +780,11 @@ class SRXEditor {
                 }
                 SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
             } else {
-                dialog.showErrorBox('Error', 'No children found in the document');
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'No children found in the document');
                 return;
             }
         } else {
-            dialog.showErrorBox('Error', 'Selected file is not a valid SRX document');
+            dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'), 'Selected file is not a valid SRX document');
         }
     }
 

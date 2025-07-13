@@ -15,10 +15,17 @@ class Main {
     electron = require('electron');
     selectedLanguageMap: string = '';
     selectedRule: Rule | undefined = undefined;
+    yes: string = 'Yes';
+    no: string = 'No';
+    languagesLoaded: boolean = false;
 
     constructor() {
         this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
             this.setHeight(height);
+        });
+        this.electron.ipcRenderer.on('set-yes-no', (event: Electron.IpcRendererEvent, arg: { yes: string, no: string }) => {
+            this.yes = arg.yes;
+            this.no = arg.no;
         });
         (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-file');
@@ -122,6 +129,7 @@ class Main {
     }
 
     setLanguageMap(languageMap: Array<LanguageMap>) {
+        this.languagesLoaded = languageMap.length > 0;
         let table: HTMLTableSectionElement = (document.getElementById('LanguageMap') as HTMLTableSectionElement);
         let LanguageMap: HTMLTableSectionElement = table;
         LanguageMap.innerHTML = '';
@@ -151,7 +159,8 @@ class Main {
             let cell1: HTMLTableCellElement = row.insertCell(0);
             let cell2: HTMLTableCellElement = row.insertCell(1);
             let cell3: HTMLTableCellElement = row.insertCell(2);
-            cell1.innerHTML = rules[i].break ? 'Yes' : 'No';
+            cell1.innerHTML = rules[i].break ? this.yes : this.no;
+            cell1.classList.add('center');
             cell2.innerHTML = rules[i].beforeBreak || '';
             cell3.innerHTML = rules[i].afterBreak || '';
             row.addEventListener('click', () => {
@@ -165,76 +174,140 @@ class Main {
     }
 
     addLanguage() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         this.electron.ipcRenderer.send('add-language');
     }
 
     editLanguage() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('edit-language', this.selectedLanguageMap);
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     removeLanguage() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('remove-language', this.selectedLanguageMap);
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     moveLanguageUp() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('move-language-up', this.selectedLanguageMap);
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     moveLanguageDown() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('move-language-down', this.selectedLanguageMap);
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     addRule() {
+        if (!this.languagesLoaded) {
+            return;
+        }
         if (this.selectedLanguageMap !== '') {
             this.electron.ipcRenderer.send('add-rule', this.selectedLanguageMap);
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     editRule() {
-        if (this.selectedRule !== undefined) {
-            let pair: Pair = {
-                langName: this.selectedLanguageMap,
-                rule: this.selectedRule
-            };
-            this.electron.ipcRenderer.send('edit-rule', pair);
+        if (!this.languagesLoaded) {
+            return;
+        }
+        if (this.selectedLanguageMap !== '') {
+            if (this.selectedRule !== undefined) {
+                let pair: Pair = {
+                    langName: this.selectedLanguageMap,
+                    rule: this.selectedRule
+                };
+                this.electron.ipcRenderer.send('edit-rule', pair);
+            } else {
+                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+            }
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     removeRule() {
-        if (this.selectedRule !== undefined) {
-            let pair: Pair = {
-                langName: this.selectedLanguageMap,
-                rule: this.selectedRule
-            };
-            this.electron.ipcRenderer.send('remove-rule', pair);
+        if (!this.languagesLoaded) {
+            return;
+        }
+        if (this.selectedLanguageMap !== '') {
+            if (this.selectedRule !== undefined) {
+                let pair: Pair = {
+                    langName: this.selectedLanguageMap,
+                    rule: this.selectedRule
+                };
+                this.electron.ipcRenderer.send('remove-rule', pair);
+            } else {
+                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+            }
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     moveRuleUp() {
-        if (this.selectedRule !== undefined) {
-            let pair: Pair = {
-                langName: this.selectedLanguageMap,
-                rule: this.selectedRule
-            };
-            this.electron.ipcRenderer.send('move-rule-up', pair);
+        if (!this.languagesLoaded) {
+            return;
+        }
+        if (this.selectedLanguageMap !== '') {
+            if (this.selectedRule !== undefined) {
+                let pair: Pair = {
+                    langName: this.selectedLanguageMap,
+                    rule: this.selectedRule
+                };
+                this.electron.ipcRenderer.send('move-rule-up', pair);
+            } else {
+                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+            }
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
     moveRuleDown() {
-        if (this.selectedRule !== undefined) {
-            let pair: Pair = {
-                langName: this.selectedLanguageMap,
-                rule: this.selectedRule
-            };
-            this.electron.ipcRenderer.send('move-rule-down', pair);
+        if (!this.languagesLoaded) {
+            return;
+        }
+        if (this.selectedLanguageMap !== '') {
+            if (this.selectedRule !== undefined) {
+                let pair: Pair = {
+                    langName: this.selectedLanguageMap,
+                    rule: this.selectedRule
+                };
+                this.electron.ipcRenderer.send('move-rule-down', pair);
+            } else {
+                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+            }
+        } else {
+            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 }

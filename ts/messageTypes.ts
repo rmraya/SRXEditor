@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-export enum MessageTypes {
+enum MessageTypes {
     none = "none",
     info = "info",
     error = "error",

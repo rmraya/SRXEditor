@@ -14,7 +14,6 @@ import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Men
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
-import { MessageTypes } from './messageTypes';
 
 class SRXEditor {
 
@@ -24,6 +23,8 @@ class SRXEditor {
     static updatesWindow: BrowserWindow;
     static settingsWindow: BrowserWindow;
     static licensesWindow: BrowserWindow;
+    static ruleWindow: BrowserWindow;
+    static languageWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -63,6 +64,7 @@ class SRXEditor {
             this.createWindow();
             this.createMenu();
             SRXEditor.mainWindow.once('ready-to-show', () => {
+                SRXEditor.mainWindow.webContents.send('set-yes-no', { yes: SRXEditor.i18n.getString('srxeditor', 'yes'), no: SRXEditor.i18n.getString('srxeditor', 'no') });
                 SRXEditor.mainWindow.show();
                 SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
                 this.startup();
@@ -79,6 +81,13 @@ class SRXEditor {
         });
         ipcMain.on('open-help', () => {
             this.showHelp();
+        });
+        ipcMain.on('show-message', (event: IpcMainEvent, arg: { type: MessageTypes, messageId: string }) => {
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: arg.type,
+                message: SRXEditor.i18n.getString('srxeditor', arg.messageId),
+                buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
+            });
         });
         ipcMain.on('close-about', () => {
             if (SRXEditor.aboutWindow) {
@@ -248,6 +257,12 @@ class SRXEditor {
         if ('licenses' === arg.window) {
             SRXEditor.licensesWindow.setContentSize(arg.width, arg.height, true);
         }
+        if ('rulesDialog' === arg.window) {
+            SRXEditor.ruleWindow.setContentSize(arg.width, arg.height, true);
+        }
+        if ('languageDialog' === arg.window) {
+            SRXEditor.languageWindow.setContentSize(arg.width, arg.height, true);
+        }
     }
 
     createWindow(): void {
@@ -393,7 +408,28 @@ class SRXEditor {
     }
 
     static addRule(languageName: string): void {
-        throw new Error('Method not implemented.');
+        SRXEditor.ruleWindow = new BrowserWindow({
+            parent: this.mainWindow,
+            width: 450,
+            height: 200,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.ruleWindow.setMenu(null);
+        SRXEditor.ruleWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'rules.html'));
+        SRXEditor.ruleWindow.once('ready-to-show', () => {
+            SRXEditor.ruleWindow.show();
+        });
+        this.ruleWindow.on('close', () => {
+            this.mainWindow.focus();
+        });
     }
 
     removeLanguage(languageName: string): void {
@@ -419,7 +455,28 @@ class SRXEditor {
     }
 
     static addLanguage(): void {
-        throw new Error('Method not implemented.');
+       SRXEditor.languageWindow = new BrowserWindow({
+            parent: this.mainWindow,
+            width: 450,
+            height: 180,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.languageWindow.setMenu(null);
+        SRXEditor.languageWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'languageRules.html'));
+        SRXEditor.languageWindow.once('ready-to-show', () => {
+            SRXEditor.languageWindow.show();
+        });
+        this.languageWindow.on('close', () => {
+            this.mainWindow.focus();
+        });
     }
 
     static showSettings(): void {

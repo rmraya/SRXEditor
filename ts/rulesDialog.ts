@@ -20,7 +20,7 @@ class RulesDialog {
         this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        this.electron.on('set-rule', (event: Electron.IpcRendererEvent, rule: Rule) => {
+        this.electron.ipcRenderer.on('set-rule', (event: Electron.IpcRendererEvent, rule: Rule) => {
             this.oldRule = rule;
             (document.getElementById('breaks') as HTMLInputElement).checked = rule.break;
             (document.getElementById('beforeBreak') as HTMLInputElement).value = rule.beforeBreak ? rule.beforeBreak : '';

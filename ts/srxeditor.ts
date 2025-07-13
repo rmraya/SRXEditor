@@ -455,7 +455,7 @@ class SRXEditor {
     }
 
     static addLanguage(): void {
-       SRXEditor.languageWindow = new BrowserWindow({
+        SRXEditor.languageWindow = new BrowserWindow({
             parent: this.mainWindow,
             width: 450,
             height: 180,

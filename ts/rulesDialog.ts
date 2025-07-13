@@ -14,6 +14,7 @@ class RulesDialog {
 
     electron = require('electron');
     oldRule: Rule | undefined = undefined;
+    languageName: string = '';
 
     constructor() {
         this.electron.ipcRenderer.send('get-theme');
@@ -25,6 +26,9 @@ class RulesDialog {
             (document.getElementById('breaks') as HTMLInputElement).checked = rule.break;
             (document.getElementById('beforeBreak') as HTMLInputElement).value = rule.beforeBreak ? rule.beforeBreak : '';
             (document.getElementById('afterBreak') as HTMLInputElement).value = rule.afterBreak ? rule.afterBreak : '';
+        });
+        this.electron.ipcRenderer.on('set-language-name', (event: Electron.IpcRendererEvent, languageName: string) => {
+            this.languageName = languageName;
         });
         document.getElementById('save')!.addEventListener('click', () => {
             this.saveRule();
@@ -44,9 +48,9 @@ class RulesDialog {
         }
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };
         if (this.oldRule) {
-            this.electron.ipcRenderer.send('update-rule', this.oldRule, rule);
+            this.electron.ipcRenderer.send('update-rule', { oldRule: this.oldRule, rule: rule, languageName: this.languageName });
         } else {
-            this.electron.ipcRenderer.send('save-rule', rule);
+            this.electron.ipcRenderer.send('save-rule', { rule: rule, languageName: this.languageName });
         }
     }
 }

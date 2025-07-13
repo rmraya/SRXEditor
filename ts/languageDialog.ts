@@ -36,7 +36,7 @@ class LanguageDialog {
 
     saveLanguage(): void {
         let langName: string = (document.getElementById('langName') as HTMLInputElement).value.trim();
-         if (langName.length === 0 ) {
+        if (langName.length === 0) {
             this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyLangName' });
             return;
         }
@@ -47,7 +47,7 @@ class LanguageDialog {
         }
         let language: LanguageMap = { langName: langName, pattern: pattern };
         if (this.oldLanguage) {
-            this.electron.ipcRenderer.send('update-language', this.oldLanguage, language);
+            this.electron.ipcRenderer.send('update-language', { oldLanguage: this.oldLanguage, language: language });
         } else {
             this.electron.ipcRenderer.send('save-language', language);
         }

@@ -425,6 +425,7 @@ class SRXEditor {
         SRXEditor.ruleWindow.setMenu(null);
         SRXEditor.ruleWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'rules.html'));
         SRXEditor.ruleWindow.once('ready-to-show', () => {
+            SRXEditor.ruleWindow.webContents.send('set-language-name', languageName);
             SRXEditor.ruleWindow.show();
         });
         this.ruleWindow.on('close', () => {

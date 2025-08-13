@@ -564,6 +564,7 @@ pre {
 	visibility: hidden;
 	padding: 4px;
 	border-radius: 2px;
+	box-shadow: 0px 2px 4px var(--gray110);
 	white-space: nowrap;
 	/* Position the tooltip */
 	position: absolute;

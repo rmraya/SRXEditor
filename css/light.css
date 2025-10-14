@@ -518,6 +518,7 @@ label {
 
 .bordered {
 	border: 1px solid var(--gray160);
+	border-radius: 4px;
 }
 
 .topBorder {

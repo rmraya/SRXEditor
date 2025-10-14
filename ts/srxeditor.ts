@@ -752,25 +752,31 @@ class SRXEditor {
         try {
             xmlParser.parseFile(filePath);
             this.doc = (contentHandler as DOMBuilder).getDocument();
-            this.root = this.doc.getRoot();
-            if (this.root) {
-                if (this.root.getName() !== 'srx') {
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
-                        SRXEditor.i18n.getString('srxeditor', 'notSrx'));
-                    return;
+            if (this.doc) {
+                this.root = this.doc.getRoot();
+                if (this.root) {
+                    if (this.root.getName() !== 'srx') {
+                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                            SRXEditor.i18n.getString('srxeditor', 'notSrx'));
+                        return;
+                    }
+                    let version: XMLAttribute | undefined = this.root.getAttribute('version');
+                    if (!version) {
+                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                            SRXEditor.i18n.getString('srxeditor', 'missingVersion'));
+                        return;
+                    }
+                    if (version.getValue() !== '2.0') {
+                        let message: string = SRXEditor.i18n.getString('srxeditor', 'unsupportedVersion');
+                        dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                            SRXEditor.i18n.format(message, [version.getValue()]));
+                        return;
+                    }
                 }
-                let version: XMLAttribute | undefined = this.root.getAttribute('version');
-                if (!version) {
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
-                        SRXEditor.i18n.getString('srxeditor', 'missingVersion'));
-                    return;
-                }
-                if (version.getValue() !== '2.0') {
-                    let message: string = SRXEditor.i18n.getString('srxeditor', 'unsupportedVersion');
-                    dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
-                        SRXEditor.i18n.format(message, [version.getValue()]));
-                    return;
-                }
+            } else {
+                dialog.showErrorBox(SRXEditor.i18n.getString('srxeditor', 'error'),
+                    SRXEditor.i18n.getString('srxeditor', 'notValidSrx'));
+                return;
             }
             SRXEditor.mainWindow.webContents.send('set-status', SRXEditor.i18n.getString('srxeditor', 'loadingSRX'));
             this.parseFile();

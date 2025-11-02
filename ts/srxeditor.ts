@@ -331,7 +331,7 @@ class SRXEditor {
             tasksMenu.append(new MenuItem({ type: 'separator' }));
             tasksMenu.append(new MenuItem({ label: SRXEditor.i18n.getString('tasksMenu', 'toggleDeveloperTools'), accelerator: 'F12', role: 'toggleDevTools' }));
         }
-        let settingsMenu: Menu = Menu.buildFromTemplate([{ label: 'Preferences', click: () => { SRXEditor.showSettings(); } }]);
+        let settingsMenu: Menu = Menu.buildFromTemplate([{ label: SRXEditor.i18n.getString('settingsMenu', 'preferences'), click: () => { SRXEditor.showSettings(); } }]);
         let appleMenu: Menu = Menu.buildFromTemplate([
             new MenuItem({ label: SRXEditor.i18n.getString('appleMenu', 'about'), click: () => { SRXEditor.showAbout(); } }),
             new MenuItem({
@@ -725,7 +725,7 @@ class SRXEditor {
 
     showOpenDialog(): void {
         dialog.showOpenDialog(SRXEditor.mainWindow, {
-            title: 'Open SRX File',
+            title: SRXEditor.i18n.getString('srxeditor', 'openSrxFile'),
             filters: [
                 { name: SRXEditor.i18n.getString('srxeditor', 'srxFiles'), extensions: ['srx'] },
                 { name: SRXEditor.i18n.getString('srxeditor', 'allFiles'), extensions: ['*'] }
@@ -782,7 +782,7 @@ class SRXEditor {
             this.parseFile();
             SRXEditor.mainWindow.webContents.send('set-status', '');
             SRXEditor.currentFile = filePath;
-            SRXEditor.mainWindow.setTitle(app.getName() + ' - ' + SRXEditor.currentFile);
+            SRXEditor.mainWindow.setTitle(SRXEditor.i18n.format(SRXEditor.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), SRXEditor.currentFile]));
             this.changed = false;
             SRXEditor.mainWindow.documentEdited = false;
         } catch (error: any) {

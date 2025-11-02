@@ -1,6 +1,8 @@
 {
     "srxeditor": {
+        "mainWindowTitle": "{0} - {1}",
         "serverStatus": "Server status: {0}",
+        "openSrxFile": "Open SRX File",
         "loadingSRX": "Loading SRX...",
         "noUpdates": "There are currently no updates available",
         "fileSaved": "File saved",
@@ -84,5 +86,8 @@
     "linuxMenu": {
         "quit": "Quit",
         "about": "About..."
+    },
+    "settingsMenu": {
+        "preferences": "Preferences"
     }
 }

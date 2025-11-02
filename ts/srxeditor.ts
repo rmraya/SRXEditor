@@ -12,7 +12,7 @@
 
 import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
+import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 
 class SRXEditor {
@@ -75,6 +75,9 @@ class SRXEditor {
         });
         ipcMain.on('open-file', () => {
             this.showOpenDialog();
+        });
+        ipcMain.on('new-file', () => {
+            this.newFile();
         });
         ipcMain.on('save-file', () => {
             this.saveFile();
@@ -862,7 +865,34 @@ class SRXEditor {
     }
 
     newFile(): void {
-        throw new Error('Method not implemented.');
+        this.doc = new XMLDocument();
+        this.root = new XMLElement('srx');
+        this.root.setAttribute(new XMLAttribute('version', '2.0'));
+        this.root.setAttribute(new XMLAttribute('xmlns', 'http://www.lisa.org/srx20'));
+        this.root.setAttribute(new XMLAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance'));
+        this.root.setAttribute(new XMLAttribute('xsi:schemaLocation', 'http://www.lisa.org/srx20 srx20.xsd'));
+        this.doc.setRoot(this.root);
+        this.root.addComment(new XMLComment('Created by SRXEditor - https://www.maxprograms.com/srxeditor/'));
+
+        this.header = new XMLElement('header');
+        this.header.setAttribute(new XMLAttribute('cascade', 'yes'));
+        this.header.setAttribute(new XMLAttribute('segmentsubflows', 'yes'));
+        this.root.addElement(this.header);
+
+        let body: XMLElement = new XMLElement('body');
+        let languagerules: XMLElement = new XMLElement('languagerules');
+        body.addElement(languagerules);
+        let maprules: XMLElement = new XMLElement('maprules');
+        body.addElement(maprules);
+        this.root.addElement(body);
+        
+        SRXEditor.currentFile = SRXEditor.i18n.getString('srxeditor', 'untitled');
+        SRXEditor.mainWindow.setTitle(SRXEditor.i18n.format(SRXEditor.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), SRXEditor.currentFile]));
+        this.languageMap = [];
+        this.rulesMap = new Map<string, Rule[]>();
+        SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
+        this.changed = true;
+        SRXEditor.mainWindow.documentEdited = true;
     }
 
     startup(): void {

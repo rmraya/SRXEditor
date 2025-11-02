@@ -30,6 +30,9 @@ class Main {
         (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('open-file');
         });
+        (document.getElementById('newFile') as HTMLAnchorElement).addEventListener('click', () => {
+            this.electron.ipcRenderer.send('new-file');
+        });
         (document.getElementById('saveFile') as HTMLAnchorElement).addEventListener('click', () => {
             this.electron.ipcRenderer.send('save-file');
         });

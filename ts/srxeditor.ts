@@ -297,7 +297,7 @@ class SRXEditor {
             { label: SRXEditor.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
             { label: SRXEditor.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
             { label: SRXEditor.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
-            { label: SRXEditor.i18n.getString('fileMenu', 'saveAsFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'saveAsFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFileAs(); } },
             { label: SRXEditor.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFile(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
@@ -714,6 +714,36 @@ class SRXEditor {
 
     saveFile(): void {
         if (this.doc) {
+            if (SRXEditor.currentFile === SRXEditor.i18n.getString('srxeditor', 'untitled')) {
+                this.saveFileAs();
+                return;
+            }
+            XMLWriter.writeDocument(this.doc, SRXEditor.currentFile);
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: 'info',
+                message: SRXEditor.i18n.getString('srxeditor', 'fileSaved'),
+                buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
+            });
+            this.changed = false;
+            SRXEditor.mainWindow.documentEdited = false;
+        }
+    }
+
+    saveFileAs(): void {
+        if (this.doc) {
+            let savePath: string | undefined = dialog.showSaveDialogSync(SRXEditor.mainWindow, {
+                title: SRXEditor.i18n.getString('srxeditor', 'saveSrxFile'),
+                defaultPath: SRXEditor.currentFile === SRXEditor.i18n.getString('srxeditor', 'untitled') ? 'untitled.srx' : SRXEditor.currentFile,
+                filters: [
+                    { name: SRXEditor.i18n.getString('srxeditor', 'srxFiles'), extensions: ['srx'] },
+                    { name: SRXEditor.i18n.getString('srxeditor', 'allFiles'), extensions: ['*'] }
+                ]
+            });
+            if (!savePath) {
+                return;
+            }
+            SRXEditor.currentFile = savePath;
+            SRXEditor.mainWindow.setTitle(SRXEditor.i18n.format(SRXEditor.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), SRXEditor.currentFile]));
             XMLWriter.writeDocument(this.doc, SRXEditor.currentFile);
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: 'info',

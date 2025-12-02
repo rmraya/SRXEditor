@@ -3,6 +3,7 @@
         "mainWindowTitle": "{0} - {1}",
         "serverStatus": "Server status: {0}",
         "openSrxFile": "Open SRX File",
+        "saveSrxFile": "Save SRX File",
         "loadingSRX": "Loading SRX...",
         "noUpdates": "There are currently no updates available",
         "fileSaved": "File saved",

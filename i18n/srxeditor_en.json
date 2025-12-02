@@ -51,7 +51,7 @@
         "newFile": "New File",
         "openFile": "Open File",
         "saveFile": "Save File",
-        "saveAsFile": "Save As...",
+        "saveFileAs": "Save File As...",
         "closeFile": "Close File"
     },
     "editMenu": {

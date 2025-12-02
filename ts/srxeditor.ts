@@ -297,8 +297,8 @@ class SRXEditor {
             { label: SRXEditor.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
             { label: SRXEditor.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
             { label: SRXEditor.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
-            { label: SRXEditor.i18n.getString('fileMenu', 'saveAsFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFileAs(); } },
-            { label: SRXEditor.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFile(); } }
+            { label: SRXEditor.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
+            { label: SRXEditor.i18n.getString('fileMenu', 'saveFileAs'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFileAs(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
             { label: SRXEditor.i18n.getString('editMenu', 'undo'), accelerator: 'CmdOrCtrl+Z', role: 'undo' },

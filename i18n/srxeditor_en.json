@@ -28,7 +28,8 @@
         "notValidSrx": "Selected file is not a valid SRX document",
         "helpError": "Unable to open SRXEditor User Guide",
         "supportError": "Unable to open support group page",
-        "unknownLicense": "Unknown license"
+        "unknownLicense": "Unknown license",
+        "untitled": "Untitled.srx"
     },
     "menu": {
         "fileMenu": "&File",

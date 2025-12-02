@@ -12,7 +12,7 @@
 
 import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ContentHandler, DOMBuilder, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
+import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n';
 
 class SRXEditor {
@@ -85,7 +85,7 @@ class SRXEditor {
         ipcMain.on('open-help', () => {
             this.showHelp();
         });
-        ipcMain.on('show-message', (event: IpcMainEvent, arg: { type: MessageTypes, messageId: string }) => {
+        ipcMain.on('show-message', (event: IpcMainEvent, arg: { type: ('none' | 'info' | 'error' | 'question' | 'warning'), messageId: string }) => {
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: arg.type,
                 message: SRXEditor.i18n.getString('srxeditor', arg.messageId),
@@ -169,6 +169,9 @@ class SRXEditor {
                     window.webContents.send('set-theme', SRXEditor.currentCss);
                 }
             }
+            BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
+                window.webContents.send('set-theme', SRXEditor.currentCss);
+            });
         });
         ipcMain.on('get-versions', (event: IpcMainEvent) => {
             event.sender.send('set-versions', {
@@ -442,7 +445,7 @@ class SRXEditor {
             this.languageMap.splice(index, 1);
             SRXEditor.mainWindow.webContents.send('set-language-map', this.languageMap);
             dialog.showMessageBox(SRXEditor.mainWindow, {
-                type: MessageTypes.info,
+                type: 'info',
                 message: SRXEditor.i18n.getString('srxeditor', 'languageRemoved'),
                 buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
             });
@@ -621,7 +624,7 @@ class SRXEditor {
                         let message: string = SRXEditor.i18n.getString('srxeditor', 'serverStatus');
                         let formattedMessage: string = SRXEditor.i18n.format(message, ['' + response.statusCode]);
                         dialog.showMessageBoxSync(SRXEditor.mainWindow, {
-                            type: MessageTypes.info,
+                            type: 'info',
                             message: formattedMessage
                         });
                     }
@@ -670,7 +673,7 @@ class SRXEditor {
                         } else {
                             if (!silent) {
                                 dialog.showMessageBoxSync(SRXEditor.mainWindow, {
-                                    type: MessageTypes.info,
+                                    type: 'info',
                                     message: SRXEditor.i18n.getString('SRXEditor', 'noUpdates')
                                 });
                             }
@@ -678,7 +681,7 @@ class SRXEditor {
                     } catch (reason: any) {
                         if (!silent) {
                             dialog.showMessageBoxSync(SRXEditor.mainWindow, {
-                                type: MessageTypes.error,
+                                type: 'error',
                                 message: reason.message
                             });
                         }
@@ -688,7 +691,7 @@ class SRXEditor {
             req.on('error', (error: Error) => {
                 if (!silent) {
                     dialog.showMessageBoxSync(SRXEditor.mainWindow, {
-                        type: MessageTypes.error,
+                        type: 'error',
                         message: error.message
                     });
                 }
@@ -713,7 +716,7 @@ class SRXEditor {
         if (this.doc) {
             XMLWriter.writeDocument(this.doc, SRXEditor.currentFile);
             dialog.showMessageBox(SRXEditor.mainWindow, {
-                type: MessageTypes.info,
+                type: 'info',
                 message: SRXEditor.i18n.getString('srxeditor', 'fileSaved'),
                 buttons: [SRXEditor.i18n.getString('srxeditor', 'OK')]
             });
@@ -885,7 +888,10 @@ class SRXEditor {
         let maprules: XMLElement = new XMLElement('maprules');
         body.addElement(maprules);
         this.root.addElement(body);
-        
+
+        let indenter: Indenter = new Indenter(2);
+        indenter.indent(this.root);
+
         SRXEditor.currentFile = SRXEditor.i18n.getString('srxeditor', 'untitled');
         SRXEditor.mainWindow.setTitle(SRXEditor.i18n.format(SRXEditor.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), SRXEditor.currentFile]));
         this.languageMap = [];

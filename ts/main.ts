@@ -20,6 +20,10 @@ class Main {
     languagesLoaded: boolean = false;
 
     constructor() {
+        this.electron.ipcRenderer.send('get-theme');
+        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+            (document.getElementById('theme') as HTMLLinkElement).href = theme;
+        });
         this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
             this.setHeight(height);
         });
@@ -47,10 +51,6 @@ class Main {
         });
         (document.getElementById('removeLang') as HTMLButtonElement).addEventListener('click', () => {
             this.removeLanguage();
-        });
-        this.electron.ipcRenderer.send('get-theme');
-        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
-            (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
         this.electron.ipcRenderer.on('set-status', (event: Electron.IpcRendererEvent, status: string) => {
             this.setStatus(status);

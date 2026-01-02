@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,22 +10,22 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-interface Rule {
+export interface Rule {
     break: boolean;
     beforeBreak?: string;
     afterBreak?: string;
 }
 
-interface LanguageRule {
+export interface LanguageRule {
     rules: Rule[];
 }
 
-interface LanguageMap {
+export interface LanguageMap {
     langName: string;
     pattern: string;
 }
 
-interface Pair {
+export interface Pair {
     langName: string;
     rule: Rule;
 }

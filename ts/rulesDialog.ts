@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,31 +10,34 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-class RulesDialog {
+import { ipcRenderer, IpcRendererEvent } from 'electron';
+import { MessageTypes } from './messageTypes.js';
+import type { Rule } from './model.js';
 
-    electron = require('electron');
+export class RulesDialog {
+
     oldRule: Rule | undefined = undefined;
     languageName: string = '';
 
     constructor() {
-        this.electron.ipcRenderer.send('get-theme');
-        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+        ipcRenderer.send('get-theme');
+        ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        this.electron.ipcRenderer.on('set-rule', (event: Electron.IpcRendererEvent, rule: Rule) => {
+        ipcRenderer.on('set-rule', (event: IpcRendererEvent, rule: Rule) => {
             this.oldRule = rule;
             (document.getElementById('breaks') as HTMLInputElement).checked = rule.break;
             (document.getElementById('beforeBreak') as HTMLInputElement).value = rule.beforeBreak ? rule.beforeBreak : '';
             (document.getElementById('afterBreak') as HTMLInputElement).value = rule.afterBreak ? rule.afterBreak : '';
         });
-        this.electron.ipcRenderer.on('set-language-name', (event: Electron.IpcRendererEvent, languageName: string) => {
+        ipcRenderer.on('set-language-name', (event: IpcRendererEvent, languageName: string) => {
             this.languageName = languageName;
         });
         document.getElementById('save')!.addEventListener('click', () => {
             this.saveRule();
         });
         setTimeout(() => {
-            this.electron.ipcRenderer.send('set-height', { window: 'rulesDialog', width: document.body.clientWidth, height: document.body.clientHeight });
+            ipcRenderer.send('set-height', { window: 'rulesDialog', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
     }
 
@@ -43,14 +46,14 @@ class RulesDialog {
         let beforeBreak: string = (document.getElementById('beforeBreak') as HTMLInputElement).value;
         let afterBreak: string = (document.getElementById('afterBreak') as HTMLInputElement).value;
         if (beforeBreak.length === 0 && afterBreak.length === 0) {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyBeforeAfter' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyBeforeAfter' });
             return;
         }
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };
         if (this.oldRule) {
-            this.electron.ipcRenderer.send('update-rule', { oldRule: this.oldRule, rule: rule, languageName: this.languageName });
+            ipcRenderer.send('update-rule', { oldRule: this.oldRule, rule: rule, languageName: this.languageName });
         } else {
-            this.electron.ipcRenderer.send('save-rule', { rule: rule, languageName: this.languageName });
+            ipcRenderer.send('save-rule', { rule: rule, languageName: this.languageName });
         }
     }
 }

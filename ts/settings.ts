@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,17 +10,17 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-class Settings {
-
-    electron = require('electron');
+import { ipcRenderer, IpcRendererEvent } from 'electron';
+import { Preferences } from './preferences.js';
+export class Settings {
 
     constructor() {
-        this.electron.ipcRenderer.send('get-theme');
-        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+        ipcRenderer.send('get-theme');
+        ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        this.electron.ipcRenderer.send('get-preferences');
-        this.electron.ipcRenderer.on('set-preferences', (event: Electron.IpcRendererEvent, preferences: Preferences) => {
+        ipcRenderer.send('get-preferences');
+        ipcRenderer.on('set-preferences', (event: IpcRendererEvent, preferences: Preferences) => {
             (document.getElementById('appLangSelect') as HTMLSelectElement).value = preferences.language;
             (document.getElementById('themeColor') as HTMLSelectElement).value = preferences.theme;
         });
@@ -33,11 +33,11 @@ class Settings {
                 this.saveSettings();
             }
             if (event.code === 'Escape') {
-                this.electron.ipcRenderer.send('close-preferences');
+                ipcRenderer.send('close-preferences');
             }
         });
         setTimeout(() => {
-            this.electron.ipcRenderer.send('set-height', { window: 'settings', width: document.body.clientWidth, height: document.body.clientHeight });
+            ipcRenderer.send('set-height', { window: 'settings', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
     }
 
@@ -45,6 +45,6 @@ class Settings {
         let language: string = (document.getElementById('appLangSelect') as HTMLSelectElement).value;
         let theme: string = (document.getElementById('themeColor') as HTMLSelectElement).value;
         let preferences: Preferences = { language: language, theme: theme };
-        this.electron.ipcRenderer.send('save-preferences', preferences);
+        ipcRenderer.send('save-preferences', preferences);
     }
 }

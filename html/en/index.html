@@ -6,7 +6,7 @@
     <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
 </head>
 
-<body style="width: 100%; height: 100vh; overflow:hidden;" onload="new Main();">
+<body style="width: 100%; height: 100vh; overflow:hidden;">
 
     <div class="topBar" id="toolbar">
 
@@ -139,8 +139,10 @@
 
     </div>
     <div class="status" id="status" style="display: none;"></div>
-    <script src="../../js/main.js"></script>
-    <script src="../../js/messageTypes.js"></script>
+    <script>
+        const { Main } = require('../../js/main.js');
+        new Main();
+    </script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
     <link id="theme" rel="stylesheet" type="text/css" href="../../css/dark.css">
 </head>
 
-<body class="dialogBody" onload="new Updates();">
+<body class="dialogBody">
 
     <div class="row">
         <img src="../../icons/srxeditor.png" width="120" style="padding: 10px;" />
@@ -28,7 +28,10 @@
     <div class="buttonArea">
         <button id="download">Download Update</button>
     </div>
-    <script src="../../js/updates.js"></script>
+    <script>
+        const { Updates } = require('../../js/updates.js');
+        new Updates();
+    </script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
     <link id="theme" rel="stylesheet" type="text/css" href="../../css/dark.css">
 </head>
 
-<body class="dialogBody" onload="new RulesDialog();">
+<body class="dialogBody">
 
     <table>
         <tr>
@@ -36,8 +36,10 @@
     <div class="buttonArea">
         <button id="save">Save Rule</button>
     </div>
-    <script src="../../js/rulesDialog.js"></script>
-    <script src="../../js/messageTypes.js"></script>
+    <script>
+        const { RulesDialog } = require('../../js/rulesDialog.js');
+        new RulesDialog();
+    </script>
 </body>
 
 </html>

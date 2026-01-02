@@ -6,7 +6,7 @@
     <link id="theme" rel="stylesheet" type="text/css" href="../../css/dark.css">
 </head>
 
-<body class="dialogBody" onload="new Settings();">
+<body class="dialogBody">
     <table>
         <tr>
             <td class="middle noWrap"><label for="appLangSelect">Application Language</label></td>
@@ -32,7 +32,10 @@
     <div class="buttonArea">
         <button id="saveSettings">Save Settings</button>
     </div>
-    <script src="../../js/settings.js"></script>
+    <script>
+        const { Settings } = require('../../js/settings.js');
+        new Settings();
+    </script>
 </body>
 
 </html>

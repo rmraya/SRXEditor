@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,14 +10,16 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
+import { app, BrowserWindow, ClientRequest, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { join } from 'node:path';
 import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
-import { I18n } from './i18n';
+import { I18n } from './i18n.js';
+import { LanguageMap, Pair, Rule } from './model.js';
+import { Preferences } from './preferences.js';
 
-class SRXEditor {
+export class SRXEditor {
 
-    static path = require('path');
     static mainWindow: BrowserWindow;
     static aboutWindow: BrowserWindow;
     static updatesWindow: BrowserWindow;
@@ -56,9 +58,9 @@ class SRXEditor {
         if (process.platform === 'linux') {
             app.commandLine.appendSwitch('gtk-version', '3');
         }
-        SRXEditor.appHome = SRXEditor.path.join(app.getPath('appData'), app.name);
-        SRXEditor.appIcon = SRXEditor.path.join(app.getAppPath(), 'icons', 'srxeditor.png');
-        SRXEditor.i18n = new I18n(SRXEditor.path.join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
+        SRXEditor.appHome = join(app.getPath('appData'), app.name);
+        SRXEditor.appIcon = join(app.getAppPath(), 'icons', 'srxeditor.png');
+        SRXEditor.i18n = new I18n(join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
         app.on('ready', () => {
             this.loadPreferences();
             this.createWindow();
@@ -152,9 +154,9 @@ class SRXEditor {
             SRXEditor.moveRuleDown(pair);
         });
         nativeTheme.on('updated', () => {
-            let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
-            let light: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'light.css');
-            let highcontrast: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'highcontrast.css');
+            let dark: string = 'file://' + join(app.getAppPath(), 'css', 'dark.css');
+            let light: string = 'file://' + join(app.getAppPath(), 'css', 'light.css');
+            let highcontrast: string = 'file://' + join(app.getAppPath(), 'css', 'highcontrast.css');
             if (SRXEditor.currentPreferences.theme === 'system') {
                 if (nativeTheme.shouldUseDarkColors) {
                     SRXEditor.currentCss = dark;
@@ -194,10 +196,10 @@ class SRXEditor {
 
     loadPreferences(): void {
         try {
-            let dark: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'dark.css');
-            let light: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'light.css');
-            let highContrast: string = 'file://' + SRXEditor.path.join(app.getAppPath(), 'css', 'highcontrast.css');
-            let preferencesPath: string = SRXEditor.path.join(app.getPath('appData'), app.getName(), 'preferences.json');
+            let dark: string = 'file://' + join(app.getAppPath(), 'css', 'dark.css');
+            let light: string = 'file://' + join(app.getAppPath(), 'css', 'light.css');
+            let highContrast: string = 'file://' + join(app.getAppPath(), 'css', 'highcontrast.css');
+            let preferencesPath: string = join(app.getPath('appData'), app.getName(), 'preferences.json');
             if (existsSync(preferencesPath)) {
                 let preferences: string = readFileSync(preferencesPath, 'utf8');
                 SRXEditor.currentPreferences = JSON.parse(preferences);
@@ -237,7 +239,7 @@ class SRXEditor {
 
     savePreferences(preferences: Preferences): void {
         try {
-            let preferencesPath: string = SRXEditor.path.join(app.getPath('appData'), app.getName(), 'preferences.json');
+            let preferencesPath: string = join(app.getPath('appData'), app.getName(), 'preferences.json');
             writeFileSync(preferencesPath, JSON.stringify(preferences, null, 2), 'utf8');
             SRXEditor.settingsWindow.close();
             this.loadPreferences();
@@ -286,7 +288,7 @@ class SRXEditor {
                 contextIsolation: false
             }
         });
-        SRXEditor.mainWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'index.html'));
+        SRXEditor.mainWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'index.html'));
         SRXEditor.mainWindow.on('resize', () => {
             SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
         });
@@ -429,7 +431,7 @@ class SRXEditor {
             }
         });
         SRXEditor.ruleWindow.setMenu(null);
-        SRXEditor.ruleWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'rules.html'));
+        SRXEditor.ruleWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'rules.html'));
         SRXEditor.ruleWindow.once('ready-to-show', () => {
             SRXEditor.ruleWindow.webContents.send('set-language-name', languageName);
             SRXEditor.ruleWindow.show();
@@ -477,7 +479,7 @@ class SRXEditor {
             }
         });
         SRXEditor.languageWindow.setMenu(null);
-        SRXEditor.languageWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'languageRules.html'));
+        SRXEditor.languageWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'languageRules.html'));
         SRXEditor.languageWindow.once('ready-to-show', () => {
             SRXEditor.languageWindow.show();
         });
@@ -502,7 +504,7 @@ class SRXEditor {
             }
         });
         SRXEditor.settingsWindow.setMenu(null);
-        SRXEditor.settingsWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'settings.html'));
+        SRXEditor.settingsWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'settings.html'));
         SRXEditor.settingsWindow.once('ready-to-show', () => {
             SRXEditor.settingsWindow.show();
         });
@@ -527,7 +529,7 @@ class SRXEditor {
             }
         });
         SRXEditor.aboutWindow.setMenu(null);
-        SRXEditor.aboutWindow.loadURL('file://' + this.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'about.html'));
+        SRXEditor.aboutWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'about.html'));
         SRXEditor.aboutWindow.once('ready-to-show', () => {
             SRXEditor.aboutWindow.show();
         });
@@ -561,7 +563,7 @@ class SRXEditor {
             }
         });
         SRXEditor.licensesWindow.setMenu(null);
-        SRXEditor.licensesWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'licenses.html'));
+        SRXEditor.licensesWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'licenses.html'));
         SRXEditor.licensesWindow.once('ready-to-show', () => {
             SRXEditor.licensesWindow.show();
         });
@@ -596,7 +598,7 @@ class SRXEditor {
             }
         });
         licenseWindow.setMenu(null);
-        let filePath = SRXEditor.path.join(app.getAppPath(), 'html', 'licenses', licenseFile);
+        let filePath = join(app.getAppPath(), 'html', 'licenses', licenseFile);
         let fileUrl: URL = new URL('file://' + filePath);
         licenseWindow.loadURL(fileUrl.href);
         licenseWindow.once('ready-to-show', () => {
@@ -613,7 +615,7 @@ class SRXEditor {
 
     checkUpdates(silent: boolean): void {
         session.defaultSession.clearCache().then(() => {
-            let req: Electron.ClientRequest = net.request({
+            let req: ClientRequest = net.request({
                 url: 'https://maxprograms.com/srxeditor.json',
                 session: session.defaultSession
             });
@@ -663,7 +665,7 @@ class SRXEditor {
                                 }
                             });
                             SRXEditor.updatesWindow.setMenu(null);
-                            SRXEditor.updatesWindow.loadURL('file://' + SRXEditor.path.join(app.getAppPath(), 'html', SRXEditor.lang, 'updates.html'));
+                            SRXEditor.updatesWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'updates.html'));
                             SRXEditor.updatesWindow.once('ready-to-show', () => {
                                 SRXEditor.updatesWindow.show();
                             });
@@ -701,8 +703,8 @@ class SRXEditor {
     }
 
     showHelp(): void {
-        shell.openExternal('file://' + SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
-            shell.openPath(SRXEditor.path.join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'SRXEditor.pdf')).catch((reason: any) => {
+        shell.openExternal('file://' + join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
+            shell.openPath(join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'SRXEditor.pdf')).catch((reason: any) => {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }

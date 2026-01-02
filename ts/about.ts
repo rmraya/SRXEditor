@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,25 +10,25 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-class About {
+import { ipcRenderer, IpcRendererEvent } from 'electron';
 
-    electron = require('electron');
-
+export class About {
+    
     constructor() {
-        this.electron.ipcRenderer.send('get-theme');
-        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+        ipcRenderer.send('get-theme');
+        ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        this.electron.ipcRenderer.send('get-versions');
-        this.electron.ipcRenderer.on('set-versions', (event: Electron.IpcRendererEvent, arg: any) => {
+        ipcRenderer.send('get-versions');
+        ipcRenderer.on('set-versions', (event: IpcRendererEvent, arg: any) => {
             (document.getElementById('current') as HTMLSpanElement).innerText = arg.current;
             setTimeout(() => {
-                this.electron.ipcRenderer.send('set-height', { window: 'about', width: document.body.clientWidth, height: document.body.clientHeight });
+                ipcRenderer.send('set-height', { window: 'about', width: document.body.clientWidth, height: document.body.clientHeight });
             }, 200);
         });
         document.addEventListener('keydown', (event: KeyboardEvent) => {
             if (event.code === 'Escape') {
-                this.electron.ipcRenderer.send('close-about');
+                ipcRenderer.send('close-about');
             }
         });
     }

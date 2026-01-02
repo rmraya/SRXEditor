@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008-2025 Maxprograms.
+ * Copyright (c) 2008-2026 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -10,9 +10,12 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-class Main {
+import { ipcRenderer, IpcRendererEvent } from 'electron';
+import { MessageTypes } from './messageTypes.js';
+import type { LanguageMap, Pair, Rule } from './model.js';
 
-    electron = require('electron');
+export class Main {
+
     selectedLanguageMap: string = '';
     selectedRule: Rule | undefined = undefined;
     yes: string = 'Yes';
@@ -20,28 +23,28 @@ class Main {
     languagesLoaded: boolean = false;
 
     constructor() {
-        this.electron.ipcRenderer.send('get-theme');
-        this.electron.ipcRenderer.on('set-theme', (event: Electron.IpcRendererEvent, theme: string) => {
+        ipcRenderer.send('get-theme');
+        ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        this.electron.ipcRenderer.on('set-height', (event: Electron.IpcRendererEvent, height: number) => {
+        ipcRenderer.on('set-height', (event: IpcRendererEvent, height: number) => {
             this.setHeight(height);
         });
-        this.electron.ipcRenderer.on('set-yes-no', (event: Electron.IpcRendererEvent, arg: { yes: string, no: string }) => {
+        ipcRenderer.on('set-yes-no', (event: IpcRendererEvent, arg: { yes: string, no: string }) => {
             this.yes = arg.yes;
             this.no = arg.no;
         });
         (document.getElementById('openFile') as HTMLAnchorElement).addEventListener('click', () => {
-            this.electron.ipcRenderer.send('open-file');
+            ipcRenderer.send('open-file');
         });
         (document.getElementById('newFile') as HTMLAnchorElement).addEventListener('click', () => {
-            this.electron.ipcRenderer.send('new-file');
+            ipcRenderer.send('new-file');
         });
         (document.getElementById('saveFile') as HTMLAnchorElement).addEventListener('click', () => {
-            this.electron.ipcRenderer.send('save-file');
+            ipcRenderer.send('save-file');
         });
         (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
-            this.electron.ipcRenderer.send('open-help');
+            ipcRenderer.send('open-help');
         });
         (document.getElementById('addLang') as HTMLButtonElement).addEventListener('click', () => {
             this.addLanguage();
@@ -52,25 +55,25 @@ class Main {
         (document.getElementById('removeLang') as HTMLButtonElement).addEventListener('click', () => {
             this.removeLanguage();
         });
-        this.electron.ipcRenderer.on('set-status', (event: Electron.IpcRendererEvent, status: string) => {
+        ipcRenderer.on('set-status', (event: IpcRendererEvent, status: string) => {
             this.setStatus(status);
         });
-        this.electron.ipcRenderer.on('set-language-map', (event: Electron.IpcRendererEvent, languageMap: Array<LanguageMap>) => {
+        ipcRenderer.on('set-language-map', (event: IpcRendererEvent, languageMap: Array<LanguageMap>) => {
             this.setLanguageMap(languageMap);
         });
-        this.electron.ipcRenderer.on('set-language-rules', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('set-language-rules', (event: IpcRendererEvent, rules: Rule[]) => {
             this.setLanguageRules(rules);
         });
-        this.electron.ipcRenderer.on('edit-language', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('edit-language', (event: IpcRendererEvent, rules: Rule[]) => {
             this.editLanguage();
         });
-        this.electron.ipcRenderer.on('remove-language', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('remove-language', (event: IpcRendererEvent, rules: Rule[]) => {
             this.removeLanguage();
         });
-        this.electron.ipcRenderer.on('language-up', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('language-up', (event: IpcRendererEvent, rules: Rule[]) => {
             this.moveLanguageDown();
         });
-        this.electron.ipcRenderer.on('language-down', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('language-down', (event: IpcRendererEvent, rules: Rule[]) => {
             this.moveLanguageDown();
         });
         (document.getElementById('addRule') as HTMLButtonElement).addEventListener('click', () => {
@@ -82,19 +85,19 @@ class Main {
         (document.getElementById('removeRule') as HTMLButtonElement).addEventListener('click', () => {
             this.removeRule();
         });
-        this.electron.ipcRenderer.on('add-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('add-rule', (event: IpcRendererEvent, rules: Rule[]) => {
             this.addRule();
         });
-        this.electron.ipcRenderer.on('edit-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('edit-rule', (event: IpcRendererEvent, rules: Rule[]) => {
             this.editRule();
         });
-        this.electron.ipcRenderer.on('remove-rule', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('remove-rule', (event: IpcRendererEvent, rules: Rule[]) => {
             this.removeRule();
         });
-        this.electron.ipcRenderer.on('rule-up', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('rule-up', (event: IpcRendererEvent, rules: Rule[]) => {
             this.moveRuleUp();
         });
-        this.electron.ipcRenderer.on('rule-down', (event: Electron.IpcRendererEvent, rules: Rule[]) => {
+        ipcRenderer.on('rule-down', (event: IpcRendererEvent, rules: Rule[]) => {
             this.moveRuleDown();
         });
         document.getElementById('moveLanguageUp')?.addEventListener('click', () => {
@@ -110,7 +113,7 @@ class Main {
             this.moveRuleDown();
         });
         setTimeout(() => {
-            this.electron.ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
+            ipcRenderer.send('set-height', { window: 'main', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
     }
 
@@ -145,7 +148,7 @@ class Main {
             row.addEventListener('click', () => {
                 if (this.selectedLanguageMap !== languageMap[i].langName) {
                     this.selectedLanguageMap = languageMap[i].langName;
-                    this.electron.ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
+                    ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
                 }
                 table.getElementsByClassName('selected')[0]?.classList.remove('selected');
                 row.classList.add('selected');
@@ -180,7 +183,7 @@ class Main {
         if (!this.languagesLoaded) {
             return;
         }
-        this.electron.ipcRenderer.send('add-language');
+        ipcRenderer.send('add-language');
     }
 
     editLanguage() {
@@ -188,9 +191,9 @@ class Main {
             return;
         }
         if (this.selectedLanguageMap !== '') {
-            this.electron.ipcRenderer.send('edit-language', this.selectedLanguageMap);
+            ipcRenderer.send('edit-language', this.selectedLanguageMap);
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -199,9 +202,9 @@ class Main {
             return;
         }
         if (this.selectedLanguageMap !== '') {
-            this.electron.ipcRenderer.send('remove-language', this.selectedLanguageMap);
+            ipcRenderer.send('remove-language', this.selectedLanguageMap);
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -210,9 +213,9 @@ class Main {
             return;
         }
         if (this.selectedLanguageMap !== '') {
-            this.electron.ipcRenderer.send('move-language-up', this.selectedLanguageMap);
+            ipcRenderer.send('move-language-up', this.selectedLanguageMap);
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -221,9 +224,9 @@ class Main {
             return;
         }
         if (this.selectedLanguageMap !== '') {
-            this.electron.ipcRenderer.send('move-language-down', this.selectedLanguageMap);
+            ipcRenderer.send('move-language-down', this.selectedLanguageMap);
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -232,9 +235,9 @@ class Main {
             return;
         }
         if (this.selectedLanguageMap !== '') {
-            this.electron.ipcRenderer.send('add-rule', this.selectedLanguageMap);
+            ipcRenderer.send('add-rule', this.selectedLanguageMap);
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -248,12 +251,12 @@ class Main {
                     langName: this.selectedLanguageMap,
                     rule: this.selectedRule
                 };
-                this.electron.ipcRenderer.send('edit-rule', pair);
+                ipcRenderer.send('edit-rule', pair);
             } else {
-                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
             }
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -267,12 +270,12 @@ class Main {
                     langName: this.selectedLanguageMap,
                     rule: this.selectedRule
                 };
-                this.electron.ipcRenderer.send('remove-rule', pair);
+                ipcRenderer.send('remove-rule', pair);
             } else {
-                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
             }
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -286,12 +289,12 @@ class Main {
                     langName: this.selectedLanguageMap,
                     rule: this.selectedRule
                 };
-                this.electron.ipcRenderer.send('move-rule-up', pair);
+                ipcRenderer.send('move-rule-up', pair);
             } else {
-                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
             }
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 
@@ -305,12 +308,12 @@ class Main {
                     langName: this.selectedLanguageMap,
                     rule: this.selectedRule
                 };
-                this.electron.ipcRenderer.send('move-rule-down', pair);
+                ipcRenderer.send('move-rule-down', pair);
             } else {
-                this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
             }
         } else {
-            this.electron.ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
         }
     }
 }

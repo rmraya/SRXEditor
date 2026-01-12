@@ -34,7 +34,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "typesbcp47": "^1.15.0",
-    "typesxml": "^1.16.0"
+    "typesbcp47": "^1.17.0",
+    "typesxml": "^1.17.0"
   }
 }

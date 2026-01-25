@@ -2,7 +2,6 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="srxeditor_introduction">
     <title>SRXEditor</title>
-    <shortdesc/>
     <conbody><p>SRXEditor is a cross-platform editor of segmentation rules, designed to use
         Segmentation Rules eXchange (SRX) 2.0, the open XML-based standard published by
         LISA.</p>
@@ -46,5 +45,7 @@
                 <stentry>Thai</stentry>
             </strow>
         </simpletable>        
+      <p>The following picture shows SRXEditor User Interface: <image href="../images/SRXEditor.png"
+          placement="break" scalefit="yes"/></p>        
     </conbody>
 </concept>

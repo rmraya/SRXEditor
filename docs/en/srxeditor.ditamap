@@ -4,7 +4,7 @@
     <booktitle>
         <mainbooktitle>
             <ph>SRXEditor User Guide</ph>
-            <image href="images/SRXEditor/Violet_squares.jpg" placement="break"/>
+            <image href="images/icon.png" placement="break"/>
         </mainbooktitle>
         <booktitlealt>
             <ph>Copyright © 2008-2026 Maxprograms</ph>
@@ -24,17 +24,6 @@
         <topichead navtitle="Basic Concepts">
             <topicref href="concepts/srx20.dita" navtitle="SRX"/>
             <topicref href="concepts/regular_expressions.dita" navtitle="Regular Expressions"/>
-        </topichead>
-    </chapter>
-    <chapter>
-        <topicmeta>
-            <navtitle>User Interface</navtitle>
-        </topicmeta>
-        <topicref href="concepts/srxeditor_main_gui.dita"/>
-        <topichead navtitle="Menus">
-            <topicref href="references/srxeditor_file_menu.dita"/>
-            <topicref href="references/srxeditor_options_menu.dita"/>
-            <topicref href="references/srxeditor_help_menu.dita"/>
         </topichead>
     </chapter>
     <chapter>

@@ -1,5 +1,5 @@
 .DS_Store
-docs/out/
+docs/en/out/
 node_modules/
 js/
 srxeditor-darwin-arm64/

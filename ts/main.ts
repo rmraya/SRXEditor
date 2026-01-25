@@ -71,10 +71,13 @@ export class Main {
             this.removeLanguage();
         });
         ipcRenderer.on('language-up', (event: IpcRendererEvent, rules: Rule[]) => {
-            this.moveLanguageDown();
+            this.moveLanguageUp();
         });
         ipcRenderer.on('language-down', (event: IpcRendererEvent, rules: Rule[]) => {
             this.moveLanguageDown();
+        });
+        ipcRenderer.on('select-language', (event: IpcRendererEvent, languageName: string) => {
+            this.selectLanguage(languageName)
         });
         (document.getElementById('addRule') as HTMLButtonElement).addEventListener('click', () => {
             this.addRule();
@@ -101,7 +104,7 @@ export class Main {
             this.moveRuleDown();
         });
         document.getElementById('moveLanguageUp')?.addEventListener('click', () => {
-            this.moveLanguageDown();
+            this.moveLanguageUp();
         });
         document.getElementById('moveLanguageDown')?.addEventListener('click', () => {
             this.moveLanguageDown();
@@ -141,6 +144,7 @@ export class Main {
         LanguageMap.innerHTML = '';
         for (let i = 0; i < languageMap.length; i++) {
             let row: HTMLTableRowElement = LanguageMap.insertRow(i);
+            row.setAttribute('data-lang', languageMap[i].langName);
             let cell1: HTMLTableCellElement = row.insertCell(0);
             let cell2: HTMLTableCellElement = row.insertCell(1);
             cell1.innerHTML = languageMap[i].langName;
@@ -154,6 +158,17 @@ export class Main {
                 row.classList.add('selected');
             });
         }
+    }
+
+    selectLanguage(languageName: string) {
+        this.selectedLanguageMap = languageName;
+        document.querySelectorAll('#LanguageMap tr').forEach((row) => {
+            row.classList.remove('selected');
+            if (row.getAttribute('data-lang') === languageName) {
+                row.classList.add('selected');
+            }
+        });
+        ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
     }
 
     setLanguageRules(rules: Rule[]) {
@@ -176,6 +191,13 @@ export class Main {
                 table.getElementsByClassName('selected')[0]?.classList.remove('selected');
                 row.classList.add('selected');
             });
+            if (this.selectedRule) {
+                if (rules[i].break === this.selectedRule.break &&
+                    rules[i].beforeBreak === this.selectedRule.beforeBreak &&
+                    rules[i].afterBreak === this.selectedRule.afterBreak) {
+                    row.classList.add('selected');
+                }
+            }
         }
     }
 
@@ -271,6 +293,7 @@ export class Main {
                     rule: this.selectedRule
                 };
                 ipcRenderer.send('remove-rule', pair);
+                this.selectedRule = undefined;
             } else {
                 ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
             }

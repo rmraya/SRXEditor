@@ -178,6 +178,8 @@ export class SRXEditor {
             BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
                 window.webContents.send('set-theme', SRXEditor.currentCss);
             });
+            // Rebuild the application menu so icons reflect the current theme
+            this.createMenu();
         });
         ipcMain.on('get-versions', (event: IpcMainEvent) => {
             event.sender.send('set-versions', {
@@ -233,6 +235,8 @@ export class SRXEditor {
             BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
                 window.webContents.send('set-theme', SRXEditor.currentCss);
             });
+            // Rebuild the application menu so icons reflect the current theme
+            this.createMenu();
         } catch (error: any) {
             if (error instanceof Error) {
                 dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'), error.message);
@@ -299,12 +303,24 @@ export class SRXEditor {
         });
     }
 
+    getIconFolder(): string {
+        if (process.platform === 'darwin') {
+            return nativeTheme.shouldUseHighContrastColors ? 'dark' : (nativeTheme.shouldUseDarkColors ? 'dark' : 'light');
+        }
+        const theme = SRXEditor.currentPreferences.theme;
+        if (theme === 'highcontrast' || (theme === 'system' && nativeTheme.shouldUseHighContrastColors)) {
+            return 'dark';
+        }
+        return (theme === 'dark' || (theme === 'system' && nativeTheme.shouldUseDarkColors)) ? 'dark' : 'light';
+    }
+
     createMenu(): void {
+        const iconFolder: string = this.getIconFolder();
         let fileMenu: Menu = Menu.buildFromTemplate([
-            { label: this.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'new.png') },
-            { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'open.png') },
+            { label: this.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'new.png') },
+            { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'open.png') },
             { label: this.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
-            { label: this.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'save.png') },
+            { label: this.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'save.png') },
             { label: this.i18n.getString('fileMenu', 'saveFileAs'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFileAs(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
@@ -318,7 +334,7 @@ export class SRXEditor {
             { label: this.i18n.getString('editMenu', 'selectAll'), accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
-            { label: this.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); },icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'help.png') },
+            { label: this.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'help.png') },
             new MenuItem({ type: 'separator' }),
             { label: this.i18n.getString('helpMenu', 'checkUpdates'), click: () => { this.checkUpdates(false); } },
             { label: this.i18n.getString('helpMenu', 'viewLicenses'), click: () => { this.showLicenses('main'); } },
@@ -343,7 +359,7 @@ export class SRXEditor {
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleUp'), accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); } }),
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleDown'), accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); } }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: this.i18n.getString('tasksMenu', 'testRules'), click: () => { this.testRules(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'test.png') })
+            new MenuItem({ label: this.i18n.getString('tasksMenu', 'testRules'), click: () => { this.testRules(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'test.png') })
         ]);
         if (!app.isPackaged) {
             viewMenu.append(new MenuItem({ type: 'separator' }));

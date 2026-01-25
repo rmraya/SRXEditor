@@ -235,7 +235,6 @@ export class SRXEditor {
             BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
                 window.webContents.send('set-theme', SRXEditor.currentCss);
             });
-            // Rebuild the application menu so icons reflect the current theme
             this.createMenu();
         } catch (error: any) {
             if (error instanceof Error) {
@@ -304,7 +303,7 @@ export class SRXEditor {
     }
 
     getIconFolder(): string {
-        if (process.platform === 'darwin') {
+        if (process.platform === 'darwin' || process.platform === 'linux') {
             return nativeTheme.shouldUseHighContrastColors ? 'dark' : (nativeTheme.shouldUseDarkColors ? 'dark' : 'light');
         }
         const theme = SRXEditor.currentPreferences.theme;

@@ -10,16 +10,8 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-export enum MessageTypes {
-    none = "none",
-    info = "info",
-    error = "error",
-    question = "question",
-    warning = "warning"
-}
+export class TestRules {
 
-export interface Message {
-    type: MessageTypes;
-    window: string;
-    messageId: string;
+    constructor() {
+    }
 }

@@ -43,6 +43,9 @@ export class Main {
         (document.getElementById('saveFile') as HTMLAnchorElement).addEventListener('click', () => {
             ipcRenderer.send('save-file');
         });
+        (document.getElementById('testRules') as HTMLAnchorElement).addEventListener('click', () => {
+            ipcRenderer.send('test-rules');
+        });
         (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
             ipcRenderer.send('open-help');
         });
@@ -215,7 +218,7 @@ export class Main {
         if (this.selectedLanguageMap !== '') {
             ipcRenderer.send('edit-language', this.selectedLanguageMap);
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -226,7 +229,7 @@ export class Main {
         if (this.selectedLanguageMap !== '') {
             ipcRenderer.send('remove-language', this.selectedLanguageMap);
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -237,7 +240,7 @@ export class Main {
         if (this.selectedLanguageMap !== '') {
             ipcRenderer.send('move-language-up', this.selectedLanguageMap);
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -248,7 +251,7 @@ export class Main {
         if (this.selectedLanguageMap !== '') {
             ipcRenderer.send('move-language-down', this.selectedLanguageMap);
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -259,7 +262,7 @@ export class Main {
         if (this.selectedLanguageMap !== '') {
             ipcRenderer.send('add-rule', this.selectedLanguageMap);
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -275,10 +278,10 @@ export class Main {
                 };
                 ipcRenderer.send('edit-rule', pair);
             } else {
-                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noRuleSelected' });
             }
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -295,10 +298,10 @@ export class Main {
                 ipcRenderer.send('remove-rule', pair);
                 this.selectedRule = undefined;
             } else {
-                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noRuleSelected' });
             }
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -314,10 +317,10 @@ export class Main {
                 };
                 ipcRenderer.send('move-rule-up', pair);
             } else {
-                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noRuleSelected' });
             }
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 
@@ -333,10 +336,10 @@ export class Main {
                 };
                 ipcRenderer.send('move-rule-down', pair);
             } else {
-                ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noRuleSelected' });
+                ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noRuleSelected' });
             }
         } else {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'noLanguageSelected' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'main', messageId: 'noLanguageSelected' });
         }
     }
 }

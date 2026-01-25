@@ -39,12 +39,12 @@ export class LanguageDialog {
     saveLanguage(): void {
         let langName: string = (document.getElementById('langName') as HTMLInputElement).value.trim();
         if (langName.length === 0) {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyLangName' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'languageDialog', messageId: 'emptyLangName' });
             return;
         }
         let pattern: string = (document.getElementById('pattern') as HTMLInputElement).value.trim();
         if (pattern.length === 0) {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyPattern' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'languageDialog', messageId: 'emptyPattern' });
             return;
         }
         let language: LanguageMap = { langName: langName, pattern: pattern };

@@ -14,11 +14,6 @@
         "no": "No",
         "languageRemoved": "Language removed",
         "languageNotFound": "Language not found",
-        "noLanguageSelected": "Select language",
-        "noRuleSelected": "Select rule",
-        "emptyLangName": "Enter language name",
-        "emptyPattern": "Enter language pattern",
-        "emptyBeforeAfter": "Before and After Break fields cannot be both empty",
         "srxFiles": "SRX Files",
         "allFiles": "All Files",
         "notSrx": "Selected file is not an SRX document",
@@ -35,6 +30,7 @@
     "menu": {
         "fileMenu": "&File",
         "editMenu": "&Edit",
+        "viewMenu": "&View",
         "tasksMenu": "&Tasks",
         "helpMenu": "&Help",
         "settingsMenu": "&Settings"
@@ -68,6 +64,10 @@
         "viewLicenses": "View Licenses",
         "supportGroup": "Support Group"
     },
+    "viewMenu": {
+        "toggleFullScreen": "Toggle Full Screen",
+        "toggleDeveloperTools": "Toggle Developer Tools"
+    },
     "tasksMenu": {
         "addLanguage": "Add Language",
         "editLanguage": "Edit Language",
@@ -79,7 +79,7 @@
         "removeRule": "Remove Rule",
         "moveRuleUp": "Move Rule Up",
         "moveRuleDown": "Move Rule Down",
-        "toggleDeveloperTools": "Toggle Developer Tools"
+        "testRules": "Test Rules"
     },
     "windowsMenu": {
         "quit": "Exit",
@@ -89,7 +89,24 @@
         "quit": "Quit",
         "about": "About..."
     },
+    "main": {
+        "noLanguageSelected": "Select language",
+        "noRuleSelected": "Select rule"
+    },
     "settingsMenu": {
         "preferences": "Preferences"
+    },
+    "segmenter": {
+        "unableToParse": "Unable to parse SRX document",
+        "missingRoot": "SRX document has no root element",
+        "notSrxDocument": "Not an SRX document",
+        "unsupportedVersion": "Unsupported SRX version: {0}"
+    },
+    "languageDialog": {
+        "emptyLangName": "Enter language name",
+        "emptyPattern": "Enter language pattern"
+    },
+    "rulesDialog": {
+        "emptyBeforeAfter": "Before and After Break fields cannot be both empty"
     }
 }

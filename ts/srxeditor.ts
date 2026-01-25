@@ -17,6 +17,7 @@ import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComme
 import { I18n } from './i18n.js';
 import { LanguageMap, Pair, Rule } from './model.js';
 import { Preferences } from './preferences.js';
+import { Message } from './messageTypes.js';
 
 export class SRXEditor {
 
@@ -59,7 +60,7 @@ export class SRXEditor {
             app.commandLine.appendSwitch('gtk-version', '3');
         }
         SRXEditor.appHome = join(app.getPath('appData'), app.name);
-        SRXEditor.appIcon = join(app.getAppPath(), 'icons', 'srxeditor.png');
+        SRXEditor.appIcon = join(app.getAppPath(), 'img', 'srxeditor.png');
         this.i18n = new I18n(join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
         app.on('ready', () => {
             this.loadPreferences();
@@ -87,10 +88,10 @@ export class SRXEditor {
         ipcMain.on('open-help', () => {
             this.showHelp();
         });
-        ipcMain.on('show-message', (event: IpcMainEvent, arg: { type: ('none' | 'info' | 'error' | 'question' | 'warning'), messageId: string }) => {
+        ipcMain.on('show-message', (event: IpcMainEvent, arg: Message) => {
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: arg.type,
-                message: this.i18n.getString('srxeditor', arg.messageId),
+                message: this.i18n.getString(arg.window, arg.messageId),
                 buttons: [this.i18n.getString('srxeditor', 'OK')]
             });
         });
@@ -152,6 +153,9 @@ export class SRXEditor {
         });
         ipcMain.on('move-rule-down', (event: IpcMainEvent, pair: Pair) => {
             this.moveRuleDown(pair);
+        });
+        ipcMain.on('test-rules', () => {
+            this.testRules();
         });
         nativeTheme.on('updated', () => {
             let dark: string = 'file://' + join(app.getAppPath(), 'css', 'dark.css');
@@ -297,10 +301,10 @@ export class SRXEditor {
 
     createMenu(): void {
         let fileMenu: Menu = Menu.buildFromTemplate([
-            { label: this.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); } },
-            { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); } },
+            { label: this.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'new.png') },
+            { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'open.png') },
             { label: this.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
-            { label: this.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); } },
+            { label: this.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'save.png') },
             { label: this.i18n.getString('fileMenu', 'saveFileAs'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFileAs(); } }
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
@@ -314,12 +318,15 @@ export class SRXEditor {
             { label: this.i18n.getString('editMenu', 'selectAll'), accelerator: 'CmdOrCtrl+A', role: 'selectAll' }
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
-            { label: this.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); } },
+            { label: this.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); },icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'help.png') },
             new MenuItem({ type: 'separator' }),
             { label: this.i18n.getString('helpMenu', 'checkUpdates'), click: () => { this.checkUpdates(false); } },
             { label: this.i18n.getString('helpMenu', 'viewLicenses'), click: () => { this.showLicenses('main'); } },
             new MenuItem({ type: 'separator' }),
             { label: this.i18n.getString('helpMenu', 'supportGroup'), click: () => { this.showSupportGroup(); } }
+        ]);
+        let viewMenu: Menu = Menu.buildFromTemplate([
+            { label: this.i18n.getString('viewMenu', 'toggleFullScreen'), accelerator: process.platform === 'darwin' ? 'Ctrl+Cmd+F' : 'F11', role: 'togglefullscreen' },
         ]);
         let tasksMenu: Menu = Menu.buildFromTemplate([
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'addLanguage'), click: () => { this.addLanguage() } }),
@@ -335,10 +342,12 @@ export class SRXEditor {
             new MenuItem({ type: 'separator' }),
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleUp'), accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); } }),
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleDown'), accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); } }),
+            new MenuItem({ type: 'separator' }),
+            new MenuItem({ label: this.i18n.getString('tasksMenu', 'testRules'), click: () => { this.testRules(); }, icon: join(app.getAppPath(), 'img', SRXEditor.currentPreferences.theme === 'light' ? 'light' : 'dark', 'test.png') })
         ]);
         if (!app.isPackaged) {
-            tasksMenu.append(new MenuItem({ type: 'separator' }));
-            tasksMenu.append(new MenuItem({ label: this.i18n.getString('tasksMenu', 'toggleDeveloperTools'), accelerator: 'F12', role: 'toggleDevTools' }));
+            viewMenu.append(new MenuItem({ type: 'separator' }));
+            viewMenu.append(new MenuItem({ label: this.i18n.getString('viewMenu', 'toggleDeveloperTools'), accelerator: 'F12', click: () => { BrowserWindow.getFocusedWindow()?.webContents.toggleDevTools(); } }));
         }
         let settingsMenu: Menu = Menu.buildFromTemplate([{ label: this.i18n.getString('settingsMenu', 'preferences'), click: () => { SRXEditor.showSettings(); } }]);
         let appleMenu: Menu = Menu.buildFromTemplate([
@@ -363,11 +372,13 @@ export class SRXEditor {
                 new MenuItem({ label: app.getName(), role: 'appMenu', submenu: appleMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'editMenu'), role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: this.i18n.getString('menu', 'viewMenu'), role: 'viewMenu', submenu: viewMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'tasksMenu'), submenu: tasksMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'helpMenu'), role: 'help', submenu: helpMenu })
             ] : [
                 new MenuItem({ label: this.i18n.getString('menu', 'fileMenu'), role: 'fileMenu', submenu: fileMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'editMenu'), role: 'editMenu', submenu: editMenu }),
+                new MenuItem({ label: this.i18n.getString('menu', 'viewMenu'), role: 'viewMenu', submenu: viewMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'tasksMenu'), submenu: tasksMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'settingsMenu'), submenu: settingsMenu }),
                 new MenuItem({ label: this.i18n.getString('menu', 'helpMenu'), submenu: helpMenu })
@@ -994,6 +1005,10 @@ export class SRXEditor {
         SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
         this.changed = true;
         SRXEditor.mainWindow.documentEdited = true;
+    }
+
+    testRules(): void {
+
     }
 
     startup(): void {

@@ -3,20 +3,22 @@
 
 <head>
     <title>Test</title>
-    <link id="theme" rel="stylesheet" type="text/css" href="../../css/dark.css">
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
 </head>
 
 <body class="dialogBody">
-
-    <h2>Sample text</h2>
-
     <table class="fill_width">
         <tr>
-            <td class="middle fill_width" style="height: 220px;"><input id="test" type="textarea" class="fill_width fill_height"></td>
+            <td class="middle">
+                <label for="test">Test Area</label>
+            </td>
+        <tr>
+            <td class="middle fill_width" style="height: 120px;"><input id="test" type="textarea"
+                    class="fill_width fill_height"></td>
         </tr>
         <tr>
             <td class="middle row" style="margin-top: 8px;">
-                <label for="srcLangSelect">Source Language</label>       
+                <label for="srcLangSelect">Source Language</label>
                 <select id="srcLangSelect" class="table_select fill_width"></select>
             </td>
         </tr>
@@ -25,7 +27,10 @@
     <div class="buttonArea">
         <button id="test">Test Rules</button>
     </div>
-
+    <script>
+        const { TestRules } = require('../../js/testRules.js');
+        new TestRules();
+    </script>
 </body>
 
 </html>

@@ -46,7 +46,7 @@ export class RulesDialog {
         let beforeBreak: string = (document.getElementById('beforeBreak') as HTMLInputElement).value;
         let afterBreak: string = (document.getElementById('afterBreak') as HTMLInputElement).value;
         if (beforeBreak.length === 0 && afterBreak.length === 0) {
-            ipcRenderer.send('show-message', { type: MessageTypes.warning, messageId: 'emptyBeforeAfter' });
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'rulesDialog', messageId: 'emptyBeforeAfter' });
             return;
         }
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };

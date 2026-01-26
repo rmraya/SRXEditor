@@ -214,7 +214,7 @@ export class Segmenter {
     }
 
     private endsWith(text: string, exp: string): boolean {
-        const pattern: RegExp = new RegExp(exp, 'g');
+        const pattern: RegExp = new RegExp(exp, 'gu');
         let match: RegExpExecArray | null;
         while ((match = pattern.exec(text)) !== null) {
             if (match[0].length === 0) {
@@ -229,7 +229,7 @@ export class Segmenter {
     }
 
     private startsWith(text: string, exp: string): boolean {
-        const pattern: RegExp = new RegExp(exp);
+        const pattern: RegExp = new RegExp(exp, 'u');
         const match: RegExpExecArray | null = pattern.exec(text);
         return !!match && match.index === 0;
     }
@@ -340,7 +340,7 @@ export class Segmenter {
                 const patternAttr: XMLAttribute | undefined = map.getAttribute('languagepattern');
                 const nameAttr: XMLAttribute | undefined = map.getAttribute('languagerulename');
                 if (patternAttr && nameAttr) {
-                    const pattern: RegExp = new RegExp('^(?:' + patternAttr.getValue() + ')$');
+                    const pattern: RegExp = new RegExp('^(?:' + patternAttr.getValue() + ')$', 'u');
                     if (pattern.test(srcLanguage)) {
                         maps.push(nameAttr.getValue());
                         if (!this.cascade) {

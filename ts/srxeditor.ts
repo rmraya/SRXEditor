@@ -404,7 +404,7 @@ export class SRXEditor {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'quit'), accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[4] as MenuItem;
+            let help: MenuItem = template[5] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
@@ -412,7 +412,7 @@ export class SRXEditor {
             let file: MenuItem = template[0] as MenuItem;
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'quit'), accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[4] as MenuItem;
+            let help: MenuItem = template[5] as MenuItem;
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }

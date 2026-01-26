@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
 <task id="create_srx_file">
     <title>Create SRX File</title>
     <shortdesc>Create an SRX file that can be used for segmenting documents by translation tools that support SRX 2.0.</shortdesc>
-    <prolog/>
     <taskbody>
         <steps>
             <step>
                 <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>New File</uicontrol>
-                    or click the <image href="../images/SRXEditor/paper.png" placement="inline"
+                    or click the <image href="../images/new.svg" placement="inline"
                         height="16"/> button.</cmd>
             </step>
             <step>
@@ -58,11 +57,13 @@
             </step>
             <step>
                 <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Save
-                        File</uicontrol> or click the <image href="../images/SRXEditor/save.png"
+                        File</uicontrol> or click the <image href="../images/save.svg"
                         height="16"/> button to specify a file name for the SRX file and save
                     it.</cmd>
             </step>
         </steps>
-        <result>A new SRX 2.0 file is generated and saved under the selected name.</result>
+        <result>
+          <p>A new SRX 2.0 file is generated and saved under the selected name.</p>
+        </result>
     </taskbody>
 </task>

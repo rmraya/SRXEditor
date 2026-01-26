@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
 <task id="edit_srx_file">
     <title>Edit existing SRX File</title>
     <shortdesc>Modify the content of an existing SRX file to segment text appropriately when using a tool that supports SRX 2.0</shortdesc>
-    <prolog/>
     <taskbody>
         <steps>
             <step>
                 <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Open
-                        File</uicontrol> or click the <image href="../images/SRXEditor/open.png"
+                        File</uicontrol> or click the <image href="../images/open.svg"
                         placement="inline" height="16"/> button.</cmd>
             </step>
             <step>
@@ -36,12 +35,14 @@
             </step>
             <step>
                 <cmd>In the <uicontrol>File</uicontrol> menu, select <uicontrol>Save
-                        File</uicontrol> or click the <image href="../images/SRXEditor/save.png"
+                        File</uicontrol> or click the <image href="../images/save.svg"
                         height="16"/> button to save your changes. Use the <uicontrol>Save File
                         As...</uicontrol> option to save the modified SRX file under a different
                     name.</cmd>
             </step>            
         </steps>
-        <result>The selected SRX file is saved with its content updated.</result>
+        <result>
+          <p>The selected SRX file is saved with its content updated.</p>
+        </result>
     </taskbody>
 </task>

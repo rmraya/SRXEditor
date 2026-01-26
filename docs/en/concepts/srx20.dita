@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="srx20">
     <title>SRX: Segmentation Rules eXchange</title>
     <prolog>
@@ -14,8 +14,10 @@
         <p>SRX uses regular expressions to indicate the conditions under which a given text needs to
             be broken or kept as is.</p>
         <p>SRX version 2.0 was officially accepted as an OSCAR standard in April 2008. </p>
-        <p>SRX specification is currently available at <xref
-                href="http://www.ttt.org/oscarStandards/srx/" format="html" scope="external"
-                >http://www.ttt.org/oscarStandards/srx/</xref>.</p>
+        <p>SRX specification is currently available as HTML page at <xref
+        href="https://web.archive.org/web/20111128173000/http://www.lisa.org/fileadmin/standards/srx20.html"
+        format="html" scope="external">Web Archive</xref> or in PDF format from <xref
+        href="https://www.maxprograms.com/support/srx20.pdf" scope="external" format="pdf"
+        >Maxprograms</xref>.</p>
     </conbody>
 </concept>

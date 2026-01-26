@@ -23,6 +23,7 @@
         "noChildren": "No children found in the document",
         "notValidSrx": "Selected file is not a valid SRX document",
         "helpError": "Unable to open SRXEditor User Guide",
+        "specificationError": "Unable to open SRX Specification",
         "supportError": "Unable to open support group page",
         "unknownLicense": "Unknown license",
         "untitled": "Untitled.srx"
@@ -60,6 +61,7 @@
     },
     "helpMenu": {
         "userGuide": "SRXEditor User Guide",
+        "specification": "SRX Specification",
         "checkUpdates": "Check for Updates",
         "viewLicenses": "View Licenses",
         "supportGroup": "Support Group"

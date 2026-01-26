@@ -334,6 +334,7 @@ export class SRXEditor {
         ]);
         let helpMenu: Menu = Menu.buildFromTemplate([
             { label: this.i18n.getString('helpMenu', 'userGuide'), accelerator: 'F1', click: () => { this.showHelp(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'help.png') },
+            { label: this.i18n.getString('helpMenu', 'specification'), click: () => { this.showSpecification(); } },
             new MenuItem({ type: 'separator' }),
             { label: this.i18n.getString('helpMenu', 'checkUpdates'), click: () => { this.checkUpdates(false); } },
             { label: this.i18n.getString('helpMenu', 'viewLicenses'), click: () => { this.showLicenses('main'); } },
@@ -793,7 +794,7 @@ export class SRXEditor {
 
     showHelp(): void {
         shell.openExternal('file://' + join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
-            shell.openPath(join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf', 'SRXEditor.pdf')).catch((reason: any) => {
+            shell.openPath(join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch((reason: any) => {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }
@@ -803,6 +804,18 @@ export class SRXEditor {
         });
     }
 
+    showSpecification(): void {
+        shell.openExternal('file://' + join(app.getAppPath(), 'srx20.pdf')).catch(() => {
+            shell.openPath(join(app.getAppPath(), 'srx20.pdf')).catch((reason: any) => {
+                if (reason instanceof Error) {
+                    console.error(reason.message);
+                }
+                dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'),
+                    this.i18n.getString('srxeditor', 'specificationError'));
+            });
+        });
+    }
+    
     saveFile(): void {
         if (this.doc) {
             if (this.currentFile === this.i18n.getString('srxeditor', 'untitled')) {

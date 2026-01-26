@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/glossary.dtd">
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary Entry//EN" "glossaryentry.dtd">
 <glossentry id="SRX">
     <glossterm>SRX</glossterm>
     <glossdef>Segmentation Rules eXchange (SRX) is an XML-based open standard, originally published

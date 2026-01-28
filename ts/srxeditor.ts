@@ -302,19 +302,8 @@ export class SRXEditor {
         });
     }
 
-    getIconFolder(): string {
-        if (process.platform === 'darwin' || process.platform === 'linux') {
-            return nativeTheme.shouldUseHighContrastColors ? 'dark' : (nativeTheme.shouldUseDarkColors ? 'dark' : 'light');
-        }
-        const theme = SRXEditor.currentPreferences.theme;
-        if (theme === 'highcontrast' || (theme === 'system' && nativeTheme.shouldUseHighContrastColors)) {
-            return 'dark';
-        }
-        return (theme === 'dark' || (theme === 'system' && nativeTheme.shouldUseDarkColors)) ? 'dark' : 'light';
-    }
-
     createMenu(): void {
-        const iconFolder: string = this.getIconFolder();
+        const iconFolder: string = nativeTheme.shouldUseHighContrastColors ? 'dark' : (nativeTheme.shouldUseDarkColors ? 'dark' : 'light');
         let fileMenu: Menu = Menu.buildFromTemplate([
             { label: this.i18n.getString('fileMenu', 'newFile'), accelerator: 'CmdOrCtrl+N', click: () => { this.newFile(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'new.png') },
             { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'open.png') },

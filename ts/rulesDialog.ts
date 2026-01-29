@@ -12,11 +12,11 @@
 
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { MessageTypes } from './messageTypes.js';
-import type { Rule } from './model.js';
+import type { Rule, Pair } from './model.js';
 
 export class RulesDialog {
 
-    oldRule: Rule | undefined = undefined;
+    oldPair: Pair | undefined = undefined;
     languageName: string = '';
 
     constructor() {
@@ -24,11 +24,11 @@ export class RulesDialog {
         ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
-        ipcRenderer.on('set-rule', (event: IpcRendererEvent, rule: Rule) => {
-            this.oldRule = rule;
-            (document.getElementById('breaks') as HTMLInputElement).checked = rule.break;
-            (document.getElementById('beforeBreak') as HTMLInputElement).value = rule.beforeBreak ? rule.beforeBreak : '';
-            (document.getElementById('afterBreak') as HTMLInputElement).value = rule.afterBreak ? rule.afterBreak : '';
+        ipcRenderer.on('set-pair', (event: IpcRendererEvent, pair: Pair) => {
+            this.oldPair = pair;
+            (document.getElementById('breaks') as HTMLInputElement).checked = pair.rule.break;
+            (document.getElementById('beforeBreak') as HTMLInputElement).value = pair.rule.beforeBreak ? pair.rule.beforeBreak : '';
+            (document.getElementById('afterBreak') as HTMLInputElement).value = pair.rule.afterBreak ? pair.rule.afterBreak : '';
         });
         ipcRenderer.on('set-language-name', (event: IpcRendererEvent, languageName: string) => {
             this.languageName = languageName;
@@ -50,10 +50,12 @@ export class RulesDialog {
             return;
         }
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };
-        if (this.oldRule) {
-            ipcRenderer.send('update-rule', { oldRule: this.oldRule, rule: rule, languageName: this.languageName });
+        if (this.oldPair) {
+            let pair: Pair = { rule: rule, langName: this.languageName };
+            ipcRenderer.send('update-pair', { oldPair: this.oldPair, pair: pair });
         } else {
-            ipcRenderer.send('save-rule', { rule: rule, languageName: this.languageName });
+            let pair: Pair = { rule: rule, langName: this.languageName };
+            ipcRenderer.send('save-pair', pair);
         }
     }
 }

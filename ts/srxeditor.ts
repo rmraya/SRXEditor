@@ -15,9 +15,9 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'node:path';
 import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n.js';
+import { Message } from './messageTypes.js';
 import { LanguageMap, Pair, Rule } from './model.js';
 import { Preferences } from './preferences.js';
-import { Message } from './messageTypes.js';
 
 export class SRXEditor {
 
@@ -133,6 +133,12 @@ export class SRXEditor {
         ipcMain.on('edit-language', (event: IpcMainEvent, languageName: string) => {
             this.editLanguage(languageName);
         });
+        ipcMain.on('save-language', (event: IpcMainEvent, language: LanguageMap) => {
+            this.saveLanguage(language);
+        });
+        ipcMain.on('update-language', (event: IpcMainEvent, arg: { oldLanguage: LanguageMap; language: LanguageMap; }) => {
+            this.updateLanguage(arg.oldLanguage, arg.language);
+        });
         ipcMain.on('remove-language', (event: IpcMainEvent, languageName: string) => {
             this.removeLanguage(languageName);
         });
@@ -144,6 +150,12 @@ export class SRXEditor {
         });
         ipcMain.on('edit-rule', (event: IpcMainEvent, pair: Pair) => {
             this.editRule(pair);
+        });
+        ipcMain.on('save-rule', (event: IpcMainEvent, pair: Pair) => {
+            this.saveRule(pair);
+        });
+        ipcMain.on('update-pair', (event: IpcMainEvent, arg: { oldPair: Pair; pair: Pair; }) => {
+            this.updateRule(arg.oldPair, arg.pair);
         });
         ipcMain.on('remove-rule', (event: IpcMainEvent, pair: Pair) => {
             this.removeRule(pair);
@@ -491,7 +503,37 @@ export class SRXEditor {
     }
 
     editRule(pair: Pair): void {
-        throw new Error('Method not implemented.');
+        if (SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()) {
+            SRXEditor.ruleWindow.focus();
+            SRXEditor.ruleWindow.webContents.send('set-pair', pair);
+            return;
+        }
+        SRXEditor.ruleWindow = new BrowserWindow({
+            parent: SRXEditor.mainWindow,
+            width: 450,
+            height: 200,
+            minimizable: false,
+            maximizable: false,
+            resizable: true,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.ruleWindow.setMenu(null);
+        SRXEditor.ruleWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'rules.html'));
+        SRXEditor.ruleWindow.once('ready-to-show', () => {
+            SRXEditor.ruleWindow.show();
+            setTimeout(() => {
+                SRXEditor.ruleWindow.webContents.send('set-pair', pair);
+                SRXEditor
+            }, 200);
+        });
+        SRXEditor.ruleWindow.on('close', () => {
+            SRXEditor.mainWindow.focus();
+        });
     }
 
     addRule(languageName: string): void {
@@ -539,10 +581,48 @@ export class SRXEditor {
     }
 
     editLanguage(languageName: string): void {
-        throw new Error('Method not implemented.');
+        let languageMap: LanguageMap | undefined = this.languageList?.find((map: LanguageMap) => map.langName === languageName);
+        if (!languageMap) {
+            dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'),
+                this.i18n.getString('srxeditor', 'languageNotFound'));
+        }
+        if (SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()) {
+            SRXEditor.languageWindow.focus();
+            SRXEditor.languageWindow.webContents.send('set-language', languageMap);
+            return;
+        }
+        SRXEditor.languageWindow = new BrowserWindow({
+            parent: SRXEditor.mainWindow,
+            width: 450,
+            height: 180,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.languageWindow.setMenu(null);
+        SRXEditor.languageWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'languageRules.html'));
+        SRXEditor.languageWindow.once('ready-to-show', () => {
+            SRXEditor.languageWindow.show();
+            setTimeout(() => {
+                SRXEditor.languageWindow.webContents.send('set-language', languageMap);
+            }, 200);
+        });
+        SRXEditor.languageWindow.on('close', () => {
+            SRXEditor.mainWindow.focus();
+        });
     }
 
     addLanguage(): void {
+        if (SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()) {
+            SRXEditor.languageWindow.focus();
+            return;
+        }
         SRXEditor.languageWindow = new BrowserWindow({
             parent: SRXEditor.mainWindow,
             width: 450,
@@ -804,7 +884,7 @@ export class SRXEditor {
             });
         });
     }
-    
+
     saveFile(): void {
         if (this.doc) {
             if (this.currentFile === this.i18n.getString('srxeditor', 'untitled')) {
@@ -1022,6 +1102,70 @@ export class SRXEditor {
         SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
         this.changed = true;
         SRXEditor.mainWindow.documentEdited = true;
+    }
+
+    saveLanguage(language: LanguageMap): void {
+        if (this.languageList) {
+            this.languageList.push(language);
+            SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
+            this.changed = true;
+            SRXEditor.mainWindow.documentEdited = true;
+            SRXEditor.mainWindow.webContents.send('select-language', language.langName);
+            if (SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()) {
+                SRXEditor.languageWindow.close();
+            }
+        }
+    }
+
+    updateLanguage(oldLanguage: LanguageMap, language: LanguageMap): void {
+        if (this.languageList) {
+            let index: number = this.languageList.findIndex((map: LanguageMap) => map.langName === oldLanguage.langName);
+            if (index !== -1) {
+                this.languageList[index] = language;
+                SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
+                this.changed = true;
+                SRXEditor.mainWindow.documentEdited = true;
+                SRXEditor.mainWindow.webContents.send('select-language', language.langName);
+                if (SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()) {
+                    SRXEditor.languageWindow.close();
+                }
+            }
+        }
+    }
+
+    saveRule(pair: Pair): void {
+        if (this.rulesMap.has(pair.langName)) {
+            let rules: Rule[] = this.rulesMap.get(pair.langName) ?? [];
+            if (rules.findIndex((rule: Rule) => rule.break === pair.rule.break &&
+                rule.beforeBreak === pair.rule.beforeBreak &&
+                rule.afterBreak === pair.rule.afterBreak) !== -1) {
+                dialog.showErrorBox(this.i18n.getString('srxeditor', 'warning'),
+                    this.i18n.getString('srxeditor', 'duplicateRule'));
+            }
+            rules.push(pair.rule);
+            this.rulesMap.set(pair.langName, rules);
+            SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
+            SRXEditor.mainWindow.webContents.send('select-rule', pair.rule);
+            if (SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()) {
+                SRXEditor.ruleWindow.close();
+            }
+        }
+    }
+
+    updateRule(oldPair: Pair, newPair: Pair): void {
+        if (this.rulesMap.has(oldPair.langName)) {
+            let rules: Rule[] = this.rulesMap.get(oldPair.langName) ?? [];
+            let index: number = this.findRule(rules, oldPair.rule);
+            if (index !== -1) {
+                rules[index] = newPair.rule;
+                this.rulesMap.set(oldPair.langName, rules);
+                SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
+                SRXEditor.mainWindow.webContents.send('select-rule', newPair.rule);
+                if (SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()) {
+                    SRXEditor.ruleWindow.close();
+                }
+            }
+        }
     }
 
     testRules(): void {

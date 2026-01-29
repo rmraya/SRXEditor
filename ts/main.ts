@@ -80,7 +80,11 @@ export class Main {
             this.moveLanguageDown();
         });
         ipcRenderer.on('select-language', (event: IpcRendererEvent, languageName: string) => {
-            this.selectLanguage(languageName)
+            this.selectLanguage(languageName);
+        });
+        ipcRenderer.on('select-rule', (event: IpcRendererEvent, rule: Rule) => {
+            this.selectedRule = rule;
+            this.selectRule(rule);
         });
         (document.getElementById('addRule') as HTMLButtonElement).addEventListener('click', () => {
             this.addRule();
@@ -169,6 +173,7 @@ export class Main {
             row.classList.remove('selected');
             if (row.getAttribute('data-lang') === languageName) {
                 row.classList.add('selected');
+                row.scrollIntoView({ block: 'center', behavior: 'smooth' });
             }
         });
         ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
@@ -180,6 +185,7 @@ export class Main {
         LanguageRules.innerHTML = '';
         for (let i = 0; i < rules.length; i++) {
             let row: HTMLTableRowElement = LanguageRules.insertRow(i);
+            row.setAttribute('data-rule', JSON.stringify(rules[i]));
             let cell1: HTMLTableCellElement = row.insertCell(0);
             let cell2: HTMLTableCellElement = row.insertCell(1);
             let cell3: HTMLTableCellElement = row.insertCell(2);
@@ -194,14 +200,23 @@ export class Main {
                 table.getElementsByClassName('selected')[0]?.classList.remove('selected');
                 row.classList.add('selected');
             });
-            if (this.selectedRule) {
-                if (rules[i].break === this.selectedRule.break &&
-                    rules[i].beforeBreak === this.selectedRule.beforeBreak &&
-                    rules[i].afterBreak === this.selectedRule.afterBreak) {
-                    row.classList.add('selected');
-                }
-            }
         }
+        if (this.selectedRule) {
+            this.selectRule(this.selectedRule);
+        }
+    }
+
+    selectRule(rule: Rule) {
+        document.querySelectorAll('#LanguageRules tr').forEach((row) => {
+            row.classList.remove('selected');
+            let rowRule: Rule = JSON.parse(row.getAttribute('data-rule') || '{}');
+            if (rowRule.break === rule.break &&
+                rowRule.beforeBreak === (rule.beforeBreak || '') &&
+                rowRule.afterBreak === (rule.afterBreak || '')) {
+                row.classList.add('selected');
+                row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }
+        });
     }
 
     addLanguage() {

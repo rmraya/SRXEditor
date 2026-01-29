@@ -10,6 +10,7 @@
         "OK": "OK",
         "cancel": "Cancel",
         "error": "Error",
+        "warning": "Warning",
         "yes": "Yes",
         "no": "No",
         "languageRemoved": "Language removed",
@@ -26,7 +27,8 @@
         "specificationError": "Unable to open SRX Specification",
         "supportError": "Unable to open support group page",
         "unknownLicense": "Unknown license",
-        "untitled": "Untitled.srx"
+        "untitled": "Untitled.srx",
+        "duplicateRule": "Duplicated rule"
     },
     "menu": {
         "fileMenu": "&File",

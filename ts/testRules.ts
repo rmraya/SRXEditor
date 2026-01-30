@@ -10,8 +10,14 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
+import { ipcRenderer, IpcRendererEvent } from "electron";
+
 export class TestRules {
 
     constructor() {
+        ipcRenderer.send('get-theme');
+        ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
+            (document.getElementById('theme') as HTMLLinkElement).href = theme;
+        });
     }
 }

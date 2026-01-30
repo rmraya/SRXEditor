@@ -13,14 +13,14 @@
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 
 export class About {
-    
+
     constructor() {
         ipcRenderer.send('get-theme');
         ipcRenderer.on('set-theme', (event: IpcRendererEvent, theme: string) => {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
         ipcRenderer.send('get-versions');
-        ipcRenderer.on('set-versions', (event: IpcRendererEvent, arg: any) => {
+        ipcRenderer.on('set-versions', (event: IpcRendererEvent, arg: { current: string; latest: string; }) => {
             (document.getElementById('current') as HTMLSpanElement).innerText = arg.current;
             setTimeout(() => {
                 ipcRenderer.send('set-height', { window: 'about', width: document.body.clientWidth, height: document.body.clientHeight });

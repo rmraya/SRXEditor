@@ -247,8 +247,8 @@ export class Segmenter {
                 break;
             }
             const tag: string = text.substring(start + Segmenter.STARTIGNORE.length, end);
-            text = text.substring(0, start) + String.fromCharCode(0xE000 + k) + text.substring(end + Segmenter.ENDIGNORE.length);
-            this.tags.set(String.fromCharCode(0xE000 + k), tag);
+            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + Segmenter.ENDIGNORE.length);
+            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
             k++;
             start = text.indexOf(Segmenter.STARTIGNORE);
             end = text.indexOf(Segmenter.ENDIGNORE);
@@ -267,8 +267,8 @@ export class Segmenter {
                 break;
             }
             const tag: string = text.substring(start, end + 6);
-            text = text.substring(0, start) + String.fromCharCode(0xE000 + k) + text.substring(end + 6);
-            this.tags.set(String.fromCharCode(0xE000 + k), tag);
+            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + 6);
+            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
             k++;
             start = text.indexOf('<mrk ');
             end = text.indexOf('</mrk>');
@@ -282,8 +282,8 @@ export class Segmenter {
                 break;
             }
             const tag: string = text.substring(start, end + 5);
-            text = text.substring(0, start) + String.fromCharCode(0xE000 + k) + text.substring(end + 5);
-            this.tags.set(String.fromCharCode(0xE000 + k), tag);
+            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + 5);
+            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
             k++;
             start = text.indexOf('<ph');
             end = text.indexOf('</ph>');
@@ -313,8 +313,8 @@ export class Segmenter {
             }
             if (c === '>' && inElement) {
                 inElement = false;
-                this.tags.set(String.fromCharCode(0xE000 + k), element);
-                buffer += String.fromCharCode(0xE000 + k);
+                this.tags.set(String.fromCodePoint(0xE000 + k), element);
+                buffer += String.fromCodePoint(0xE000 + k);
                 element = '';
                 k++;
             }
@@ -380,7 +380,7 @@ export class Segmenter {
             if (nodeType === Constants.TEXT_NODE) {
                 result += (node as TextNode).getValue();
             } else {
-                const placeholder: string = String.fromCharCode(0xE000 + this.tagId);
+                const placeholder: string = String.fromCodePoint(0xE000 + this.tagId);
                 this.tags.set(placeholder, node.toString());
                 result += placeholder;
                 this.tagId++;

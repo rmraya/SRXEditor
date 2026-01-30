@@ -52,10 +52,10 @@ export class RulesDialog {
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };
         if (this.oldPair) {
             let pair: Pair = { rule: rule, langName: this.languageName };
-            ipcRenderer.send('update-pair', { oldPair: this.oldPair, pair: pair });
+            ipcRenderer.send('update-rule', { oldPair: this.oldPair, pair: pair });
         } else {
             let pair: Pair = { rule: rule, langName: this.languageName };
-            ipcRenderer.send('save-pair', pair);
+            ipcRenderer.send('save-rule', pair);
         }
     }
 }

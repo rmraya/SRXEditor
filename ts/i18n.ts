@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 
 export class I18n {
 

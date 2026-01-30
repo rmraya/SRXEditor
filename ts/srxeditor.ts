@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 import { app, BrowserWindow, ClientRequest, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
 import { I18n } from './i18n.js';
@@ -70,7 +70,7 @@ export class SRXEditor {
                 SRXEditor.mainWindow.webContents.send('set-yes-no', { yes: this.i18n.getString('srxeditor', 'yes'), no: this.i18n.getString('srxeditor', 'no') });
                 SRXEditor.mainWindow.show();
                 SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
-                this.startup();
+                this.checkUpdates(true);
             });
         });
         ipcMain.on('set-height', (event: IpcMainEvent, arg: { window: string, width: number, height: number }) => {
@@ -113,6 +113,9 @@ export class SRXEditor {
                 SRXEditor.updatesWindow.close();
             }
         });
+        ipcMain.on('download-latest', () => {
+            this.downloadLatest();
+        });
         ipcMain.on('close-preferences', () => {
             if (SRXEditor.settingsWindow) {
                 SRXEditor.settingsWindow.close();
@@ -154,7 +157,7 @@ export class SRXEditor {
         ipcMain.on('save-rule', (event: IpcMainEvent, pair: Pair) => {
             this.saveRule(pair);
         });
-        ipcMain.on('update-pair', (event: IpcMainEvent, arg: { oldPair: Pair; pair: Pair; }) => {
+        ipcMain.on('update-rule', (event: IpcMainEvent, arg: { oldPair: Pair; pair: Pair; }) => {
             this.updateRule(arg.oldPair, arg.pair);
         });
         ipcMain.on('remove-rule', (event: IpcMainEvent, pair: Pair) => {
@@ -207,9 +210,9 @@ export class SRXEditor {
         });
     }
 
-    getRules(languageName: string) {
+    getRules(languageName: string): void {
         let rules: Rule[] | undefined = this.rulesMap.get(languageName);
-        SRXEditor.mainWindow.webContents.send('set-language-rules', rules ? rules : []);
+        SRXEditor.mainWindow.webContents.send('set-language-rules', rules ?? []);
     }
 
     loadPreferences(): void {
@@ -402,18 +405,18 @@ export class SRXEditor {
             ];
 
         if (process.platform === 'win32') {
-            let file: MenuItem = template[0] as MenuItem;
+            let file: MenuItem = template[0];
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'quit'), accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[5] as MenuItem;
+            let help: MenuItem = template[5];
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
         if (process.platform === 'linux') {
-            let file: MenuItem = template[0] as MenuItem;
+            let file: MenuItem = template[0];
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'quit'), accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
-            let help: MenuItem = template[5] as MenuItem;
+            let help: MenuItem = template[5];
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
@@ -528,7 +531,6 @@ export class SRXEditor {
             SRXEditor.ruleWindow.show();
             setTimeout(() => {
                 SRXEditor.ruleWindow.webContents.send('set-pair', pair);
-                SRXEditor
             }, 200);
         });
         SRXEditor.ruleWindow.on('close', () => {
@@ -1169,11 +1171,11 @@ export class SRXEditor {
     }
 
     testRules(): void {
-
+        throw new Error('Method not implemented.');
     }
 
-    startup(): void {
-        this.checkUpdates(true);
+    downloadLatest(): void {
+        throw new Error('Method not implemented.');
     }
 }
 

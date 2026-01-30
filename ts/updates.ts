@@ -20,7 +20,7 @@ export class Updates {
             (document.getElementById('theme') as HTMLLinkElement).href = theme;
         });
         ipcRenderer.send('get-versions');
-        ipcRenderer.on('set-versions', (event: IpcRendererEvent, arg: any) => {
+        ipcRenderer.on('set-versions', (event: IpcRendererEvent, arg: { current: string; latest: string; }) => {
             (document.getElementById('current') as HTMLTableCellElement).innerText = arg.current;
             (document.getElementById('latest') as HTMLTableCellElement).innerText = arg.latest;
             setTimeout(() => {

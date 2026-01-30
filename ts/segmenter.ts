@@ -10,7 +10,7 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { Catalog, Constants, DOMBuilder, SAXParser, TextNode, XMLAttribute, XMLDocument, XMLElement, XMLNode, XMLUtils } from 'typesxml';
+import { Catalog, DOMBuilder, SAXParser, XMLAttribute, XMLDocument, XMLElement } from 'typesxml';
 import { I18n } from './i18n.js';
 
 export class Segmenter {
@@ -63,84 +63,6 @@ export class Segmenter {
 
     segment(text: string): string[] {
         return this.segmentString(text, true);
-    }
-
-    segmentElement(source: XMLElement): XMLElement {
-        this.tags = new Map<string, string>();
-        this.tagId = 0;
-        let pureText: string = this.pureText(source);
-        const parts: Array<string> = new Array<string>();
-        for (let pos = 0; pos < pureText.length; pos++) {
-            const left: string = this.hideTags(pureText.substring(0, pos));
-            const right: string = this.hideTags(pureText.substring(pos));
-            if (left.length === 0) {
-                continue;
-            }
-            for (let i = 0; i < this.rules.length; i++) {
-                const rule: XMLElement = this.rules[i];
-                const breaks: boolean = rule.getAttribute('break')?.getValue() === 'yes' || !rule.getAttribute('break');
-                const before: XMLElement | undefined = rule.getChild('beforebreak');
-                const after: XMLElement | undefined = rule.getChild('afterbreak');
-                const beforexp: string = before ? before.getText() : '';
-                const afterxp: string = after ? after.getText() : '';
-                if (beforexp && afterxp) {
-                    if (this.endsWith(left, beforexp) && this.startsWith(right, afterxp)) {
-                        if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
-                        }
-                        break;
-                    }
-                } else if (beforexp) {
-                    if (this.endsWith(left, beforexp)) {
-                        if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
-                        }
-                        break;
-                    }
-                } else {
-                    if (this.startsWith(right, afterxp)) {
-                        if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        parts.push(pureText);
-        const result: Array<string> = new Array<string>(parts.length);
-        for (let i = 0; i < parts.length; i++) {
-            result[i] = this.cleanup(XMLUtils.cleanString(parts[i]));
-        }
-        if (result.length === 1) {
-            const res: XMLElement = new XMLElement('seg-source');
-            const mrk: XMLElement = new XMLElement('mrk');
-            mrk.setAttribute(new XMLAttribute('mtype', 'seg'));
-            mrk.setAttribute(new XMLAttribute('mid', '1'));
-            mrk.setContent([...source.getContent()]);
-            res.addElement(mrk);
-            return res;
-        }
-        const res: XMLElement = new XMLElement('seg-source');
-        for (let i = 0; i < result.length; i++) {
-            const seg: string = '<mrk mtype="seg" mid="' + (i + 1) + '">' + result[i] + '</mrk>';
-            const builder: DOMBuilder = new DOMBuilder();
-            const parser: SAXParser = new SAXParser();
-            parser.setContentHandler(builder);
-            parser.parseString(seg);
-            const docu: XMLDocument | undefined = builder.getDocument();
-            const mrk: XMLElement | undefined = docu?.getRoot();
-            if (mrk) {
-                res.addElement(mrk);
-            }
-        }
-        return res;
     }
 
     private segmentString(text: string, prepare: boolean): string[] {
@@ -370,23 +292,6 @@ export class Segmenter {
         const header: XMLElement | undefined = this.root.getChild('header');
         const cascadeAttr: XMLAttribute | undefined = header?.getAttribute('cascade');
         return cascadeAttr?.getValue() === 'yes';
-    }
-
-    private pureText(element: XMLElement): string {
-        let result = '';
-        const nodes: Array<XMLNode> = element.getContent();
-        for (const node of nodes) {
-            const nodeType: number = node.getNodeType();
-            if (nodeType === Constants.TEXT_NODE) {
-                result += (node as TextNode).getValue();
-            } else {
-                const placeholder: string = String.fromCodePoint(0xE000 + this.tagId);
-                this.tags.set(placeholder, node.toString());
-                result += placeholder;
-                this.tagId++;
-            }
-        }
-        return result;
     }
 
     private validateRoot(): void {

@@ -44,7 +44,7 @@ export class Main {
             ipcRenderer.send('save-file');
         });
         (document.getElementById('testRules') as HTMLAnchorElement).addEventListener('click', () => {
-            ipcRenderer.send('test-rules');
+            ipcRenderer.send('show-test-rules');
         });
         (document.getElementById('help') as HTMLAnchorElement).addEventListener('click', () => {
             ipcRenderer.send('open-help');

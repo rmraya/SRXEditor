@@ -6,15 +6,17 @@
     <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
 </head>
 
-<body class="dialogBody">
-    <table class="fill_width">
+<body class="dialogBody" style="height: 100vh;">
+    <table id="testTable" class="fill_width" style="height:200px;">
         <tr>
             <td class="middle">
-                <label for="test">Test Area</label>
+                <label for="testBox">Sample Text</label>
             </td>
         <tr>
-            <td class="middle fill_width" style="height: 120px;"><input id="test" type="textarea"
-                    class="fill_width fill_height"></td>
+            <td class="middle fill_width" style="height: 100%">
+                <textarea id="testBox" class="fill_width fill_height"></textarea>
+            </td>
+        </tr>
         </tr>
         <tr>
             <td class="middle row" style="margin-top: 8px;">
@@ -24,8 +26,8 @@
         </tr>
     </table>
 
-    <div class="buttonArea">
-        <button id="test">Test Rules</button>
+    <div id="buttonArea" class="buttonArea">
+        <button id="testButton">Test Rules</button>
     </div>
     <script>
         const { TestRules } = require('../../js/testRules.js');

@@ -112,5 +112,8 @@
     },
     "rulesDialog": {
         "emptyBeforeAfter": "Before and After Break fields cannot be both empty"
+    },
+    "testRules": {
+        "emptyText": "Enter sample text"
     }
 }

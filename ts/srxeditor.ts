@@ -28,6 +28,7 @@ export class SRXEditor {
     static licensesWindow: BrowserWindow;
     static ruleWindow: BrowserWindow;
     static languageWindow: BrowserWindow;
+    static testRulesWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -169,8 +170,14 @@ export class SRXEditor {
         ipcMain.on('move-rule-down', (event: IpcMainEvent, pair: Pair) => {
             this.moveRuleDown(pair);
         });
-        ipcMain.on('test-rules', () => {
-            this.testRules();
+        ipcMain.on('show-test-rules', () => {
+            this.showTestRules();
+        });
+        ipcMain.on('get-locale', () => {
+            SRXEditor.testRulesWindow.webContents.send('set-locale', SRXEditor.lang);
+        });
+        ipcMain.on('test-rules', (event: IpcMainEvent, arg: { text: string; srcLang: string; }) => {
+            this.testRules(arg.text, arg.srcLang);
         });
         nativeTheme.on('updated', () => {
             let dark: string = 'file://' + join(app.getAppPath(), 'css', 'dark.css');
@@ -294,6 +301,9 @@ export class SRXEditor {
         if ('languageDialog' === arg.window) {
             SRXEditor.languageWindow.setContentSize(arg.width, arg.height, true);
         }
+        if ('testRules' === arg.window) {
+            SRXEditor.testRulesWindow.setContentSize(arg.width, arg.height, true);
+        }
     }
 
     createWindow(): void {
@@ -363,7 +373,7 @@ export class SRXEditor {
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleUp'), accelerator: 'CmdOrCtrl+Up', click: () => { SRXEditor.mainWindow.webContents.send('rule-up'); }, icon: join(app.getAppPath(), 'img', iconFolder, 'arrowUp.png') }),
             new MenuItem({ label: this.i18n.getString('tasksMenu', 'moveRuleDown'), accelerator: 'CmdOrCtrl+Down', click: () => { SRXEditor.mainWindow.webContents.send('rule-down'); }, icon: join(app.getAppPath(), 'img', iconFolder, 'arrowDown.png') }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: this.i18n.getString('tasksMenu', 'testRules'), click: () => { this.testRules(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'test.png') })
+            new MenuItem({ label: this.i18n.getString('tasksMenu', 'testRules'), click: () => { this.showTestRules(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'test.png') })
         ]);
         if (!app.isPackaged) {
             viewMenu.append(new MenuItem({ type: 'separator' }));
@@ -1170,7 +1180,35 @@ export class SRXEditor {
         }
     }
 
-    testRules(): void {
+    showTestRules(): void {
+        if (this.languageList) {
+            SRXEditor.testRulesWindow = new BrowserWindow({
+                parent: SRXEditor.mainWindow,
+                width: 500,
+                minWidth: 450,
+                height: 280,
+                minimizable: false,
+                maximizable: false,
+                resizable: true,
+                show: false,
+                icon: SRXEditor.appIcon,
+                webPreferences: {
+                    nodeIntegration: true,
+                    contextIsolation: false
+                }
+            });
+            SRXEditor.testRulesWindow.setMenu(null);
+            SRXEditor.testRulesWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'test.html'));
+            SRXEditor.testRulesWindow.once('ready-to-show', () => {
+                SRXEditor.testRulesWindow.show();
+            });
+            SRXEditor.testRulesWindow.on('close', () => {
+                SRXEditor.mainWindow.focus();
+            });
+        }
+    }
+
+    testRules(text: string, srcLang: string): void {
         throw new Error('Method not implemented.');
     }
 

@@ -24,7 +24,7 @@ export class TestRules {
         ipcRenderer.send('get-locale');
         ipcRenderer.on('set-locale', (event: IpcRendererEvent, locale: string) => {
             let languages: Language[] = LanguageUtils.getLanguages(locale);
-            const srcLangSelect = document.getElementById('srcLangSelect') as HTMLSelectElement;
+            const srcLangSelect: HTMLSelectElement = document.getElementById('srcLangSelect') as HTMLSelectElement;
             for (let lang of languages) {
                 let option: HTMLOptionElement = document.createElement('option');
                 option.value = lang.code;
@@ -36,10 +36,11 @@ export class TestRules {
             this.testRules();
         });
         window.addEventListener('resize', () => {
-            const buttonsHeight = (document.getElementById('buttonArea') as HTMLDivElement).offsetHeight;
-            const newHeight = document.body.clientHeight - buttonsHeight - 16; //16: padding
+            const buttonsHeight: number = (document.getElementById('buttonArea') as HTMLDivElement).offsetHeight;
+            const newHeight: number = document.body.clientHeight - buttonsHeight - 32; // 32: padding
             (document.getElementById('testTable') as HTMLTableElement).style.height = newHeight + 'px';
         });
+        (document.getElementById('testBox') as HTMLTextAreaElement).focus();
         setTimeout(() => {
             ipcRenderer.send('set-height', { window: 'testRules', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 100);

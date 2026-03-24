@@ -36,6 +36,7 @@ export class RulesDialog {
         document.getElementById('save')!.addEventListener('click', () => {
             this.saveRule();
         });
+        (document.getElementById('beforeBreak') as HTMLInputElement).focus();
         setTimeout(() => {
             ipcRenderer.send('set-height', { window: 'rulesDialog', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -49,6 +50,26 @@ export class RulesDialog {
             ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'rulesDialog', messageId: 'emptyBeforeAfter' });
             return;
         }
+
+        let invalidRegexp: boolean = false;
+        if (beforeBreak.length > 0) {
+            try {
+                new RegExp(beforeBreak, 'u');
+            } catch {
+                invalidRegexp = true;
+            }
+        }
+        if (afterBreak.length > 0) {
+            try {
+                new RegExp(afterBreak, 'u');
+            } catch {
+                invalidRegexp = true;
+            }
+        }
+        if (invalidRegexp) {
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'rulesDialog', messageId: 'invalidRegexp' });
+        }
+
         let rule: Rule = { break: breaks, beforeBreak: beforeBreak, afterBreak: afterBreak };
         if (this.oldPair) {
             let pair: Pair = { rule: rule, langName: this.languageName };

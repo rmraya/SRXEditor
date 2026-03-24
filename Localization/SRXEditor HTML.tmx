@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx PUBLIC "-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN" "tmx14.dtd" >
+<tmx version="1.4">
+<header creationtool="Swordfish" creationtoolversion="5.20.0" srclang="en"  adminlang="en" datatype="xml" o-tmf="unknown" segtype="block" creationdate="20260323T104845Z"/>
+<body>
+<tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-0-0-0">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="next-en-es">1874286503-0-1-1</prop>
+  <prop type="xliff-segment">1874286503-0-0-0</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-0-1-1">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-0-0-0</prop>
+  <prop type="next-en-es">1874286503-0-2-2</prop>
+  <prop type="xliff-segment">1874286503-0-1-1</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-0-2-2">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-0-1-1</prop>
+  <prop type="next-en-es">1874286503-0-3-3</prop>
+  <prop type="xliff-segment">1874286503-0-2-2</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-0-3-3">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-0-2-2</prop>
+  <prop type="next-en-es">1874286503-0-4-4</prop>
+  <prop type="xliff-segment">1874286503-0-3-3</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Version <ph x="110904">&lt;ph id="ph0"/&gt;</ph>2.x</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Versión <ph x="110904">&lt;ph id="ph0"/&gt;</ph>2.x</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-0-4-4">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-0-3-3</prop>
+  <prop type="xliff-segment">1874286503-0-4-4</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Copyright © 2008-2026 Maxprograms</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Copyright © 2008-2026 Maxprograms</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-10-10">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-9-9</prop>
+  <prop type="next-en-es">1874286503-1-11-11-0</prop>
+  <prop type="xliff-segment">1874286503-1-10-10</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Yes<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Si<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-11-11-0">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-10-10</prop>
+  <prop type="next-en-es">1874286503-1-11-11-1</prop>
+  <prop type="xliff-segment">1874286503-1-11-11-0</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Format Handle:</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Manejo de formato:</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-11-11-1">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-11-11-0</prop>
+  <prop type="next-en-es">1874286503-1-12-12</prop>
+  <prop type="xliff-segment">1874286503-1-11-11-1</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg> Start</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg> Inicio</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-12-12">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-11-11-1</prop>
+  <prop type="next-en-es">1874286503-1-13-13-0</prop>
+  <prop type="xliff-segment">1874286503-1-12-12</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>No<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Yes</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>No<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Si</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-13-13-0">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-12-12</prop>
+  <prop type="next-en-es">1874286503-1-13-13-1</prop>
+  <prop type="xliff-segment">1874286503-1-13-13-0</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Format Handle:</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Manejo de formato:</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-13-13-1">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-13-13-0</prop>
+  <prop type="next-en-es">1874286503-1-14-14</prop>
+  <prop type="xliff-segment">1874286503-1-13-13-1</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg> End</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg> Fin</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-14-14">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-13-13-1</prop>
+  <prop type="next-en-es">1874286503-1-15-15-0</prop>
+  <prop type="xliff-segment">1874286503-1-14-14</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Yes<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Si<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-15-15-0">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-14-14</prop>
+  <prop type="next-en-es">1874286503-1-15-15-1</prop>
+  <prop type="xliff-segment">1874286503-1-15-15-0</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Format Handle:</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Manejo de formato:</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-15-15-1">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-15-15-0</prop>
+  <prop type="next-en-es">1874286503-1-16-16</prop>
+  <prop type="xliff-segment">1874286503-1-15-15-1</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg> Isolated</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg> Aislado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-16-16">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-15-15-1</prop>
+  <prop type="next-en-es">1874286503-1-17-17</prop>
+  <prop type="xliff-segment">1874286503-1-16-16</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>No<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Yes</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>No<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Si</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-17-17">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-16-16</prop>
+  <prop type="xliff-segment">1874286503-1-17-17</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Save Header</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Guardar Encabezado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-5-5">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1--</prop>
+  <prop type="next-en-es">1874286503-1-6-6</prop>
+  <prop type="xliff-segment">1874286503-1-5-5</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-6-6">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-5-5</prop>
+  <prop type="next-en-es">1874286503-1-7-7</prop>
+  <prop type="xliff-segment">1874286503-1-6-6</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Header</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Encabezado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-7-7">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-6-6</prop>
+  <prop type="next-en-es">1874286503-1-8-8</prop>
+  <prop type="xliff-segment">1874286503-1-7-7</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Cascade Rules</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Reglas en cascada</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-8-8">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-7-7</prop>
+  <prop type="next-en-es">1874286503-1-9-9</prop>
+  <prop type="xliff-segment">1874286503-1-8-8</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Yes<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Si<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>No</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-1-9-9">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-1-8-8</prop>
+  <prop type="next-en-es">1874286503-1-10-10</prop>
+  <prop type="xliff-segment">1874286503-1-9-9</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Segment Subflows</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Segmentar subflujos</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-18-18">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2--</prop>
+  <prop type="next-en-es">1874286503-2-19-19</prop>
+  <prop type="xliff-segment">1874286503-2-18-18</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-19-19">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-18-18</prop>
+  <prop type="next-en-es">1874286503-2-20-20</prop>
+  <prop type="xliff-segment">1874286503-2-19-19</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-20-20">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-19-19</prop>
+  <prop type="next-en-es">1874286503-2-21-21</prop>
+  <prop type="xliff-segment">1874286503-2-20-20</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Open File<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph><ph x="110908">&lt;ph id="ph4"/&gt;</ph><ph x="110909">&lt;ph id="ph5"/&gt;</ph> <ph x="110910">&lt;ph id="ph6"/&gt;</ph>New File<ph x="110911">&lt;ph id="ph7"/&gt;</ph> <ph x="110912">&lt;ph id="ph8"/&gt;</ph> <ph x="110913">&lt;ph id="ph9"/&gt;</ph><ph x="3438103">&lt;ph id="ph10"/&gt;</ph><ph x="3438104">&lt;ph id="ph11"/&gt;</ph><ph x="3438105">&lt;ph id="ph12"/&gt;</ph><ph x="3438106">&lt;ph id="ph13"/&gt;</ph>Save File<ph x="3438107">&lt;ph id="ph14"/&gt;</ph><ph x="3438108">&lt;ph id="ph15"/&gt;</ph> <ph x="3438109">&lt;ph id="ph16"/&gt;</ph><ph x="3438110">&lt;ph id="ph17"/&gt;</ph> <ph x="3438111">&lt;ph id="ph18"/&gt;</ph> <ph x="3438112">&lt;ph id="ph19"/&gt;</ph><ph x="3438134">&lt;ph id="ph20"/&gt;</ph>Edit Header<ph x="3438135">&lt;ph id="ph21"/&gt;</ph><ph x="3438136">&lt;ph id="ph22"/&gt;</ph> <ph x="3438137">&lt;ph id="ph23"/&gt;</ph><ph x="3438138">&lt;ph id="ph24"/&gt;</ph><ph x="3438139">&lt;ph id="ph25"/&gt;</ph><ph x="3438140">&lt;ph id="ph26"/&gt;</ph><ph x="3438141">&lt;ph id="ph27"/&gt;</ph>Test Rules<ph x="3438142">&lt;ph id="ph28"/&gt;</ph><ph x="3438143">&lt;ph id="ph29"/&gt;</ph> <ph x="3438165">&lt;ph id="ph30"/&gt;</ph> <ph x="3438166">&lt;ph id="ph31"/&gt;</ph> <ph x="3438167">&lt;ph id="ph32"/&gt;</ph><ph x="3438168">&lt;ph id="ph33"/&gt;</ph><ph x="3438169">&lt;ph id="ph34"/&gt;</ph><ph x="3438170">&lt;ph id="ph35"/&gt;</ph><ph x="3438171">&lt;ph id="ph36"/&gt;</ph>Help</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Abrir Archivo<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph><ph x="110908">&lt;ph id="ph4"/&gt;</ph><ph x="110909">&lt;ph id="ph5"/&gt;</ph> <ph x="110910">&lt;ph id="ph6"/&gt;</ph>Nuevo Archivo<ph x="110911">&lt;ph id="ph7"/&gt;</ph> <ph x="110912">&lt;ph id="ph8"/&gt;</ph> <ph x="110913">&lt;ph id="ph9"/&gt;</ph><ph x="3438103">&lt;ph id="ph10"/&gt;</ph><ph x="3438104">&lt;ph id="ph11"/&gt;</ph><ph x="3438105">&lt;ph id="ph12"/&gt;</ph><ph x="3438106">&lt;ph id="ph13"/&gt;</ph>Guardar Archivo<ph x="3438107">&lt;ph id="ph14"/&gt;</ph><ph x="3438108">&lt;ph id="ph15"/&gt;</ph> <ph x="3438109">&lt;ph id="ph16"/&gt;</ph><ph x="3438110">&lt;ph id="ph17"/&gt;</ph> <ph x="3438111">&lt;ph id="ph18"/&gt;</ph> <ph x="3438112">&lt;ph id="ph19"/&gt;</ph><ph x="3438134">&lt;ph id="ph20"/&gt;</ph>Editar Encabezado<ph x="3438135">&lt;ph id="ph21"/&gt;</ph><ph x="3438136">&lt;ph id="ph22"/&gt;</ph> <ph x="3438137">&lt;ph id="ph23"/&gt;</ph><ph x="3438138">&lt;ph id="ph24"/&gt;</ph><ph x="3438139">&lt;ph id="ph25"/&gt;</ph><ph x="3438140">&lt;ph id="ph26"/&gt;</ph><ph x="3438141">&lt;ph id="ph27"/&gt;</ph>Probar Reglas<ph x="3438142">&lt;ph id="ph28"/&gt;</ph><ph x="3438143">&lt;ph id="ph29"/&gt;</ph> <ph x="3438165">&lt;ph id="ph30"/&gt;</ph> <ph x="3438166">&lt;ph id="ph31"/&gt;</ph> <ph x="3438167">&lt;ph id="ph32"/&gt;</ph><ph x="3438168">&lt;ph id="ph33"/&gt;</ph><ph x="3438169">&lt;ph id="ph34"/&gt;</ph><ph x="3438170">&lt;ph id="ph35"/&gt;</ph><ph x="3438171">&lt;ph id="ph36"/&gt;</ph>Ayuda</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-21-21">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-20-20</prop>
+  <prop type="next-en-es">1874286503-2-22-22</prop>
+  <prop type="xliff-segment">1874286503-2-21-21</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Languages</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Idiomas</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-22-22">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-21-21</prop>
+  <prop type="next-en-es">1874286503-2-23-23</prop>
+  <prop type="xliff-segment">1874286503-2-22-22</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Language Name<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Language Pattern</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Nombre de Idioma<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Patrón de Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-23-23">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-22-22</prop>
+  <prop type="next-en-es">1874286503-2-24-24</prop>
+  <prop type="xliff-segment">1874286503-2-23-23</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Move Language Up<ph x="110904">&lt;ph id="ph0"/&gt;</ph><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph><ph x="110910">&lt;ph id="ph6"/&gt;</ph>Move Language Down</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Mover Idioma Arriba<ph x="110904">&lt;ph id="ph0"/&gt;</ph><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph><ph x="110910">&lt;ph id="ph6"/&gt;</ph>Mover Idioma Abajo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-24-24">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-23-23</prop>
+  <prop type="next-en-es">1874286503-2-25-25</prop>
+  <prop type="xliff-segment">1874286503-2-24-24</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Add Language<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Edit Language<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Remove Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Añadir Idioma<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Editar Idioma<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Eliminar Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-25-25">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-24-24</prop>
+  <prop type="next-en-es">1874286503-2-26-26</prop>
+  <prop type="xliff-segment">1874286503-2-25-25</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Rules</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Reglas</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-26-26">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-25-25</prop>
+  <prop type="next-en-es">1874286503-2-27-27</prop>
+  <prop type="xliff-segment">1874286503-2-26-26</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Break<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Before Break<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>After Break</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Quiebre<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Antes del quiebre<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Después del quiebre</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-27-27">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-26-26</prop>
+  <prop type="next-en-es">1874286503-2-28-28</prop>
+  <prop type="xliff-segment">1874286503-2-27-27</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Move Rule Up<ph x="110904">&lt;ph id="ph0"/&gt;</ph><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph><ph x="110910">&lt;ph id="ph6"/&gt;</ph>Move Rule Down</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Mover Regla Arriba<ph x="110904">&lt;ph id="ph0"/&gt;</ph><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph><ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph><ph x="110910">&lt;ph id="ph6"/&gt;</ph>Mover Regla Abajo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-2-28-28">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-2-27-27</prop>
+  <prop type="xliff-segment">1874286503-2-28-28</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Add Rule<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Edit Rule<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Remove Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Añadir Regla<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Editar Regla<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Eliminar Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-3-29-29">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-3--</prop>
+  <prop type="next-en-es">1874286503-3-30-30</prop>
+  <prop type="xliff-segment">1874286503-3-29-29</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-3-30-30">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-3-29-29</prop>
+  <prop type="next-en-es">1874286503-3-31-31</prop>
+  <prop type="xliff-segment">1874286503-3-30-30</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-3-31-31">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-3-30-30</prop>
+  <prop type="next-en-es">1874286503-3-32-32</prop>
+  <prop type="xliff-segment">1874286503-3-31-31</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Language Name</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Nombre de Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-3-32-32">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-3-31-31</prop>
+  <prop type="next-en-es">1874286503-3-33-33</prop>
+  <prop type="xliff-segment">1874286503-3-32-32</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Language Pattern</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Patrón de Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-3-33-33">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-3-32-32</prop>
+  <prop type="xliff-segment">1874286503-3-33-33</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Save Language Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Guardar Regla de Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-34-34">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4--</prop>
+  <prop type="next-en-es">1874286503-4-35-35</prop>
+  <prop type="xliff-segment">1874286503-4-34-34</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Licenses</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Licencias</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-35-35">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-34-34</prop>
+  <prop type="next-en-es">1874286503-4-36-36</prop>
+  <prop type="xliff-segment">1874286503-4-35-35</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-36-36">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-35-35</prop>
+  <prop type="next-en-es">1874286503-4-37-37</prop>
+  <prop type="xliff-segment">1874286503-4-36-36</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-37-37">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-36-36</prop>
+  <prop type="next-en-es">1874286503-4-38-38</prop>
+  <prop type="xliff-segment">1874286503-4-37-37</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Electron</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Electron</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-38-38">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-37-37</prop>
+  <prop type="next-en-es">1874286503-4-39-39</prop>
+  <prop type="xliff-segment">1874286503-4-38-38</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>MIT License</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Licencia MIT</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-39-39">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-38-38</prop>
+  <prop type="next-en-es">1874286503-4-40-40</prop>
+  <prop type="xliff-segment">1874286503-4-39-39</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>TypesXML</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>TypesXML</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-40-40">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-39-39</prop>
+  <prop type="next-en-es">1874286503-4-41-41</prop>
+  <prop type="xliff-segment">1874286503-4-40-40</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-41-41">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-40-40</prop>
+  <prop type="next-en-es">1874286503-4-42-42</prop>
+  <prop type="xliff-segment">1874286503-4-41-41</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>TypesBCP47</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>TypesBCP47</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-4-42-42">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-4-41-41</prop>
+  <prop type="xliff-segment">1874286503-4-42-42</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Eclipse Public License 1.0</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-43-43">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5--</prop>
+  <prop type="next-en-es">1874286503-5-44-44</prop>
+  <prop type="xliff-segment">1874286503-5-43-43</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-44-44">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5-43-43</prop>
+  <prop type="next-en-es">1874286503-5-45-45</prop>
+  <prop type="xliff-segment">1874286503-5-44-44</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110905">&lt;ph id="ph1"/&gt;</ph> <ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-45-45">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5-44-44</prop>
+  <prop type="next-en-es">1874286503-5-46-46</prop>
+  <prop type="xliff-segment">1874286503-5-45-45</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Breaks Segment</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Quiebra segmento</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-46-46">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5-45-45</prop>
+  <prop type="next-en-es">1874286503-5-47-47</prop>
+  <prop type="xliff-segment">1874286503-5-46-46</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Before Break</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Antes del quiebre</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-47-47">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5-46-46</prop>
+  <prop type="next-en-es">1874286503-5-48-48</prop>
+  <prop type="xliff-segment">1874286503-5-47-47</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>After Break</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Después de quiebre</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-5-48-48">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-5-47-47</prop>
+  <prop type="xliff-segment">1874286503-5-48-48</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Save Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Guardar Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-49-49">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6--</prop>
+  <prop type="next-en-es">1874286503-6-50-50</prop>
+  <prop type="xliff-segment">1874286503-6-49-49</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-50-50">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-49-49</prop>
+  <prop type="next-en-es">1874286503-6-51-51</prop>
+  <prop type="xliff-segment">1874286503-6-50-50</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Settings</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Configuración</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-51-51">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-50-50</prop>
+  <prop type="next-en-es">1874286503-6-52-52</prop>
+  <prop type="xliff-segment">1874286503-6-51-51</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Application Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Idioma de la aplicación</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-52-52">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-51-51</prop>
+  <prop type="next-en-es">1874286503-6-53-53</prop>
+  <prop type="xliff-segment">1874286503-6-52-52</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>English<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Spanish</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Inglés<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Español</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-53-53">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-52-52</prop>
+  <prop type="next-en-es">1874286503-6-54-54</prop>
+  <prop type="xliff-segment">1874286503-6-53-53</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Theme</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Tema</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-54-54">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-53-53</prop>
+  <prop type="next-en-es">1874286503-6-55-55</prop>
+  <prop type="xliff-segment">1874286503-6-54-54</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>System Default<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Dark<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Light<ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph>High Contrast</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Predeterminado del Sistema<ph x="110904">&lt;ph id="ph0"/&gt;</ph> <ph x="110905">&lt;ph id="ph1"/&gt;</ph>Oscuro<ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph>Claro<ph x="110908">&lt;ph id="ph4"/&gt;</ph> <ph x="110909">&lt;ph id="ph5"/&gt;</ph>Alto Contraste</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-6-55-55">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-6-54-54</prop>
+  <prop type="xliff-segment">1874286503-6-55-55</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Save Settings</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Guardar Configuración</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-7-56-56">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-7--</prop>
+  <prop type="next-en-es">1874286503-7-57-57</prop>
+  <prop type="xliff-segment">1874286503-7-56-56</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-7-57-57">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-7-56-56</prop>
+  <prop type="next-en-es">1874286503-7-58-58</prop>
+  <prop type="xliff-segment">1874286503-7-57-57</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Test</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Prueba</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-7-58-58">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-7-57-57</prop>
+  <prop type="next-en-es">1874286503-7-59-59</prop>
+  <prop type="xliff-segment">1874286503-7-58-58</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Sample Text</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Texto de prueba</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-7-59-59">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-7-58-58</prop>
+  <prop type="next-en-es">1874286503-7-60-60</prop>
+  <prop type="xliff-segment">1874286503-7-59-59</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Source Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Idioma Origen</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-7-60-60">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-7-59-59</prop>
+  <prop type="xliff-segment">1874286503-7-60-60</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Test Rules</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Probar Reglas</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-8-61-61">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-8--</prop>
+  <prop type="next-en-es">1874286503-8-62-62</prop>
+  <prop type="xliff-segment">1874286503-8-61-61</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>en</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>es</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-8-62-62">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-8-61-61</prop>
+  <prop type="xliff-segment">1874286503-8-62-62</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Test Results</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg><ph x="110906">&lt;ph id="ph2"/&gt;</ph> <ph x="110907">&lt;ph id="ph3"/&gt;</ph> <ph x="110908">&lt;ph id="ph4"/&gt;</ph>Resultados</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-9-63-63">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-9--</prop>
+  <prop type="next-en-es">1874286503-9-64-64</prop>
+  <prop type="xliff-segment">1874286503-9-63-63</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Software Updates</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Actualizaciones de software</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-9-64-64">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-9-63-63</prop>
+  <prop type="next-en-es">1874286503-9-65-65</prop>
+  <prop type="xliff-segment">1874286503-9-64-64</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>An updated version of SRXEditor is available</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Está disponible una versión actualizada de SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-9-65-65">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-9-64-64</prop>
+  <prop type="next-en-es">1874286503-9-66-66</prop>
+  <prop type="xliff-segment">1874286503-9-65-65</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Installed Version:</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Versión instalada:</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-9-66-66">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-9-65-65</prop>
+  <prop type="next-en-es">1874286503-9-67-67</prop>
+  <prop type="xliff-segment">1874286503-9-66-66</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Latest Version:</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Versión disponible:</seg>
+  </tuv>
+</tu><tu creationdate="20260323T104845Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1874286503-9-67-67">
+  <prop type="project">SRXEditor HTML</prop>
+  <prop type="prev-en-es">1874286503-9-66-66</prop>
+  <prop type="xliff-segment">1874286503-9-67-67</prop>
+  <tuv creationdate="20260323T104845Z" xml:lang="en">
+    <seg>Download Update</seg>
+  </tuv>
+  <tuv creationdate="20260323T104845Z" xml:lang="es">
+    <seg>Descargar Actualización</seg>
+  </tuv>
+</tu></body>
+</tmx>

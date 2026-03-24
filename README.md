@@ -17,7 +17,7 @@ Ready to use installers are available at [SRXEditor's Home Page](https://www.max
 
 ## Build Requirements
 
-- node.js v22.16.0 (LTS) or later (<https://nodejs.org/>)
+- node.js v24.14.0 (LTS) or later (<https://nodejs.org/>)
 
 ### Build Procedure
 

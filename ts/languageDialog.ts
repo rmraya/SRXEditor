@@ -31,6 +31,7 @@ export class LanguageDialog {
         document.getElementById('save')!.addEventListener('click', () => {
             this.saveLanguage();
         });
+        (document.getElementById('langName') as HTMLInputElement).focus();
         setTimeout(() => {
             ipcRenderer.send('set-height', { window: 'languageDialog', width: document.body.clientWidth, height: document.body.clientHeight });
         }, 200);
@@ -45,6 +46,12 @@ export class LanguageDialog {
         let pattern: string = (document.getElementById('pattern') as HTMLInputElement).value.trim();
         if (pattern.length === 0) {
             ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'languageDialog', messageId: 'emptyPattern' });
+            return;
+        }
+        try {
+            new RegExp(pattern, 'u');
+        } catch {
+            ipcRenderer.send('show-message', { type: MessageTypes.warning, window: 'languageDialog', messageId: 'invalidPattern' });
             return;
         }
         let language: LanguageMap = { langName: langName, pattern: pattern };

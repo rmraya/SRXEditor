@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx PUBLIC "-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN" "tmx14.dtd" >
+<tmx version="1.4">
+<header creationtool="Swordfish" creationtoolversion="5.20.0" srclang="en"  adminlang="en" datatype="xml" o-tmf="unknown" segtype="block" creationdate="20260323T111953Z"/>
+<body>
+<tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-0-0">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="next-en-es">1487844331-1-1-1</prop>
+  <prop type="xliff-segment">1487844331-1-0-0</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Toggle Developer Tools</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Herramientas Para Desarrolladores</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-1-1">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-0-0</prop>
+  <prop type="next-en-es">1487844331-1-2-2</prop>
+  <prop type="xliff-segment">1487844331-1-1-1</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Toggle Full Screen</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Pantalla Completa</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-10-10">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-9-9</prop>
+  <prop type="next-en-es">1487844331-1-11-11</prop>
+  <prop type="xliff-segment">1487844331-1-10-10</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Exit</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Salir</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-100-100">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-99-99</prop>
+  <prop type="xliff-segment">1487844331-1-100-100</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Edit Header</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Editar Encabezado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-11-11">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-10-10</prop>
+  <prop type="next-en-es">1487844331-1-12-12</prop>
+  <prop type="xliff-segment">1487844331-1-11-11</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;Edit</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>&amp;Editar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-12-12">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-11-11</prop>
+  <prop type="next-en-es">1487844331-1-13-13</prop>
+  <prop type="xliff-segment">1487844331-1-12-12</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;Settings</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>&amp;Configuración</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-13-13">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-12-12</prop>
+  <prop type="next-en-es">1487844331-1-14-14</prop>
+  <prop type="xliff-segment">1487844331-1-13-13</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;View</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>&amp;Ver</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-14-14">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-13-13</prop>
+  <prop type="next-en-es">1487844331-1-15-15</prop>
+  <prop type="xliff-segment">1487844331-1-14-14</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;Help</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>A&amp;yuda</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-15-15">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-14-14</prop>
+  <prop type="next-en-es">1487844331-1-16-16</prop>
+  <prop type="xliff-segment">1487844331-1-15-15</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;Tasks</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>&amp;Tareas</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-16-16">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-15-15</prop>
+  <prop type="next-en-es">1487844331-1-17-17</prop>
+  <prop type="xliff-segment">1487844331-1-16-16</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>&amp;File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>&amp;Archivo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-17-17">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-16-16</prop>
+  <prop type="next-en-es">1487844331-1-18-18</prop>
+  <prop type="xliff-segment">1487844331-1-17-17</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Undo</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Deshacer</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-18-18">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-17-17</prop>
+  <prop type="next-en-es">1487844331-1-19-19</prop>
+  <prop type="xliff-segment">1487844331-1-18-18</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Select All</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Seleccionar Todo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-19-19">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-18-18</prop>
+  <prop type="next-en-es">1487844331-1-20-20</prop>
+  <prop type="xliff-segment">1487844331-1-19-19</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Cut</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Cortar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-2-2">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-1-1</prop>
+  <prop type="next-en-es">1487844331-1-3-3</prop>
+  <prop type="xliff-segment">1487844331-1-2-2</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>View Licenses</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Ver Licencias</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-20-20">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-19-19</prop>
+  <prop type="next-en-es">1487844331-1-21-21</prop>
+  <prop type="xliff-segment">1487844331-1-20-20</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Redo</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Rehacer</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-21-21">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-20-20</prop>
+  <prop type="next-en-es">1487844331-1-22-22</prop>
+  <prop type="xliff-segment">1487844331-1-21-21</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Copy</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Copiar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-22-22">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-21-21</prop>
+  <prop type="next-en-es">1487844331-1-23-23</prop>
+  <prop type="xliff-segment">1487844331-1-22-22</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Paste</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Pegar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-23-23">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-22-22</prop>
+  <prop type="next-en-es">1487844331-1-24-24</prop>
+  <prop type="xliff-segment">1487844331-1-23-23</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Settings</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Configuración</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-24-24">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-23-23</prop>
+  <prop type="next-en-es">1487844331-1-25-25</prop>
+  <prop type="xliff-segment">1487844331-1-24-24</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Preferences</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Preferencias</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-25-25">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-24-24</prop>
+  <prop type="next-en-es">1487844331-1-26-26</prop>
+  <prop type="xliff-segment">1487844331-1-25-25</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>No services available</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No hay servicios disponibles</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-26-26">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-25-25</prop>
+  <prop type="next-en-es">1487844331-1-27-27</prop>
+  <prop type="xliff-segment">1487844331-1-26-26</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>About SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Acerca de SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-27-27">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-26-26</prop>
+  <prop type="next-en-es">1487844331-1-28-28</prop>
+  <prop type="xliff-segment">1487844331-1-27-27</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Quit SRXEditor</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Salir de SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-28-28">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-27-27</prop>
+  <prop type="next-en-es">1487844331-1-29-29</prop>
+  <prop type="xliff-segment">1487844331-1-28-28</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Services</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Servicios</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-29-29">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-28-28</prop>
+  <prop type="next-en-es">1487844331-1-30-30</prop>
+  <prop type="xliff-segment">1487844331-1-29-29</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Preferences</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Preferencias</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-3-3">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-2-2</prop>
+  <prop type="next-en-es">1487844331-1-4-4</prop>
+  <prop type="xliff-segment">1487844331-1-3-3</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>SRX Specification</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Especificación de SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-30-30">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-29-29</prop>
+  <prop type="next-en-es">1487844331-1-31-31</prop>
+  <prop type="xliff-segment">1487844331-1-30-30</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Before and After Break fields cannot be both empty</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Los campos Antes y Después del quiebre no pueden estar ambos vacíos</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-31-31">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-30-30</prop>
+  <prop type="next-en-es">1487844331-1-32-32</prop>
+  <prop type="xliff-segment">1487844331-1-31-31</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>One or more regular expressions appear to be invalid and may fail during segmentation</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Una o más expresiones regulares parecen ser inválidas y pueden fallar durante la segmentación</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-32-32">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-31-31</prop>
+  <prop type="next-en-es">1487844331-1-33-33</prop>
+  <prop type="xliff-segment">1487844331-1-32-32</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Enter sample text</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Ingrese texto de prueba</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-33-33">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-32-32</prop>
+  <prop type="next-en-es">1487844331-1-34-34</prop>
+  <prop type="xliff-segment">1487844331-1-33-33</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Not an SRX document</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No es un documento SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-34-34">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-33-33</prop>
+  <prop type="next-en-es">1487844331-1-35-35</prop>
+  <prop type="xliff-segment">1487844331-1-34-34</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>SRX document has no root element</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El documento SRX no tiene elemento raíz</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-35-35">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-34-34</prop>
+  <prop type="next-en-es">1487844331-1-36-36</prop>
+  <prop type="xliff-segment">1487844331-1-35-35</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unsupported SRX version: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Versión de SRX no compatible: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-36-36">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-35-35</prop>
+  <prop type="next-en-es">1487844331-1-37-37</prop>
+  <prop type="xliff-segment">1487844331-1-36-36</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unable to parse SRX document</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se pudo analizar el documento SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-37-37">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-36-36</prop>
+  <prop type="next-en-es">1487844331-1-38-38</prop>
+  <prop type="xliff-segment">1487844331-1-37-37</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Enter language name</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Ingrese el nombre del idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-38-38">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-37-37</prop>
+  <prop type="next-en-es">1487844331-1-39-39</prop>
+  <prop type="xliff-segment">1487844331-1-38-38</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Enter language pattern</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Ingrese el patrón de idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-39-39">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-38-38</prop>
+  <prop type="next-en-es">1487844331-1-40-40</prop>
+  <prop type="xliff-segment">1487844331-1-39-39</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Language pattern is not a valid regular expression</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El patrón de idioma no es una expresión regular válida</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-4-4">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-3-3</prop>
+  <prop type="next-en-es">1487844331-1-5-5</prop>
+  <prop type="xliff-segment">1487844331-1-4-4</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>SRXEditor User Guide</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Manual del Usuario de SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-40-40">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-39-39</prop>
+  <prop type="next-en-es">1487844331-1-41-41</prop>
+  <prop type="xliff-segment">1487844331-1-40-40</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>There are currently no updates available</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No hay actualizaciones disponibles</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-41-41">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-40-40</prop>
+  <prop type="next-en-es">1487844331-1-42-42</prop>
+  <prop type="xliff-segment">1487844331-1-41-41</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Cancel</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Cancelar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-42-42">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-41-41</prop>
+  <prop type="next-en-es">1487844331-1-43-43</prop>
+  <prop type="xliff-segment">1487844331-1-42-42</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>SRX Files</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Archivos SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-43-43">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-42-42</prop>
+  <prop type="next-en-es">1487844331-1-44-44</prop>
+  <prop type="xliff-segment">1487844331-1-43-43</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>No</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-44-44">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-43-43</prop>
+  <prop type="next-en-es">1487844331-1-45-45</prop>
+  <prop type="xliff-segment">1487844331-1-44-44</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Server status: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Estado del Servidor: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-45-45">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-44-44</prop>
+  <prop type="next-en-es">1487844331-1-46-46</prop>
+  <prop type="xliff-segment">1487844331-1-45-45</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Save SRX File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Guardar Archivo SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-46-46">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-45-45</prop>
+  <prop type="next-en-es">1487844331-1-47-47</prop>
+  <prop type="xliff-segment">1487844331-1-46-46</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Save</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Guardar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-47-47">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-46-46</prop>
+  <prop type="next-en-es">1487844331-1-48-48</prop>
+  <prop type="xliff-segment">1487844331-1-47-47</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Loading SRX...</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Cargando SRX...</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-48-48">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-47-47</prop>
+  <prop type="next-en-es">1487844331-1-49-49</prop>
+  <prop type="xliff-segment">1487844331-1-48-48</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Error</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Error</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-49-49">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-48-48</prop>
+  <prop type="next-en-es">1487844331-1-50-50</prop>
+  <prop type="xliff-segment">1487844331-1-49-49</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Language removed</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Idioma eliminado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-5-5">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-4-4</prop>
+  <prop type="next-en-es">1487844331-1-6-6</prop>
+  <prop type="xliff-segment">1487844331-1-5-5</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Check for Updates</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Buscar Actualizaciones</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-50-50">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-49-49</prop>
+  <prop type="next-en-es">1487844331-1-51-51</prop>
+  <prop type="xliff-segment">1487844331-1-50-50</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Missing "version" attribute in <ph x="110904">&lt;ph id="ph0"/&gt;</ph> element</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Falta el atributo "version" en el elemento<ph x="110904">&lt;ph id="ph0"/&gt;</ph></seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-51-51">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-50-50</prop>
+  <prop type="next-en-es">1487844331-1-52-52</prop>
+  <prop type="xliff-segment">1487844331-1-51-51</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Selected file is not a valid SRX document</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El archivo seleccionado no es un documento SRX válido</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-52-52">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-51-51</prop>
+  <prop type="next-en-es">1487844331-1-53-53</prop>
+  <prop type="xliff-segment">1487844331-1-52-52</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Duplicated rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Regla duplicada</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-53-53">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-52-52</prop>
+  <prop type="next-en-es">1487844331-1-54-54</prop>
+  <prop type="xliff-segment">1487844331-1-53-53</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>No language maps defined. Add at least one language</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No hay mapas de idiomas definidos. Añada al menos un idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-54-54">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-53-53</prop>
+  <prop type="next-en-es">1487844331-1-55-55</prop>
+  <prop type="xliff-segment">1487844331-1-54-54</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unknown license</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Licencia desconocida</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-55-55">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-54-54</prop>
+  <prop type="next-en-es">1487844331-1-56-56</prop>
+  <prop type="xliff-segment">1487844331-1-55-55</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Warning</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Atención</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-56-56">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-55-55</prop>
+  <prop type="next-en-es">1487844331-1-57-57</prop>
+  <prop type="xliff-segment">1487844331-1-56-56</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Missing "languagerulename" attribute in <ph x="110904">&lt;ph id="ph0"/&gt;</ph> element</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Falta el atributo "languagerulename" en el elemento <ph x="110904">&lt;ph id="ph0"/&gt;</ph></seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-57-57">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-56-56</prop>
+  <prop type="next-en-es">1487844331-1-58-58</prop>
+  <prop type="xliff-segment">1487844331-1-57-57</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>OK</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Aceptar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-58-58">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-57-57</prop>
+  <prop type="next-en-es">1487844331-1-59-59</prop>
+  <prop type="xliff-segment">1487844331-1-58-58</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>All Files</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Todos los Archivos</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-59-59">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-58-58</prop>
+  <prop type="next-en-es">1487844331-1-60-60</prop>
+  <prop type="xliff-segment">1487844331-1-59-59</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>These languages have no rules: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Estos idiomas no tienen reglas: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-6-6">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-5-5</prop>
+  <prop type="next-en-es">1487844331-1-7-7</prop>
+  <prop type="xliff-segment">1487844331-1-6-6</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Support Group</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Grupo de Soporte</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-60-60">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-59-59</prop>
+  <prop type="next-en-es">1487844331-1-61-61</prop>
+  <prop type="xliff-segment">1487844331-1-60-60</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Open SRX File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Abrir Archivo SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-61-61">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-60-60</prop>
+  <prop type="next-en-es">1487844331-1-62-62</prop>
+  <prop type="xliff-segment">1487844331-1-61-61</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Save Anyway</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Guardar de todos modos</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-62-62">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-61-61</prop>
+  <prop type="next-en-es">1487844331-1-63-63</prop>
+  <prop type="xliff-segment">1487844331-1-62-62</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>No children found in the document</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se encontraron elementos en el documento</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-63-63">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-62-62</prop>
+  <prop type="next-en-es">1487844331-1-64-64</prop>
+  <prop type="xliff-segment">1487844331-1-63-63</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Language name "{0}" already exists</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El nombre de idioma "{0}" ya existe</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-64-64">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-63-63</prop>
+  <prop type="next-en-es">1487844331-1-65-65</prop>
+  <prop type="xliff-segment">1487844331-1-64-64</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Selected file is not an SRX document</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El archivo seleccionado no es un documento SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-65-65">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-64-64</prop>
+  <prop type="next-en-es">1487844331-1-66-66</prop>
+  <prop type="xliff-segment">1487844331-1-65-65</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Language not found</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Idioma no encontrado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-66-66">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-65-65</prop>
+  <prop type="next-en-es">1487844331-1-67-67</prop>
+  <prop type="xliff-segment">1487844331-1-66-66</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unable to open SRXEditor User Guide</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se puede abrir la Guía del Usuario de SRXEditor</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-67-67">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-66-66</prop>
+  <prop type="next-en-es">1487844331-1-68-68</prop>
+  <prop type="xliff-segment">1487844331-1-67-67</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Untitled.srx</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Sin título.srx</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-68-68">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-67-67</prop>
+  <prop type="next-en-es">1487844331-1-69-69</prop>
+  <prop type="xliff-segment">1487844331-1-68-68</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>No SRX file is currently loaded</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se ha cargado ningún archivo SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-69-69">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-68-68</prop>
+  <prop type="next-en-es">1487844331-1-70-70</prop>
+  <prop type="xliff-segment">1487844331-1-69-69</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Language rule names should be unique: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Los nombres de las reglas de idioma deben ser únicos: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-7-7">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-6-6</prop>
+  <prop type="next-en-es">1487844331-1-8-8</prop>
+  <prop type="xliff-segment">1487844331-1-7-7</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Select language</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Seleccione idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-70-70">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-69-69</prop>
+  <prop type="next-en-es">1487844331-1-71-71</prop>
+  <prop type="xliff-segment">1487844331-1-70-70</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Don't Save</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No Guardar</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-71-71">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-70-70</prop>
+  <prop type="next-en-es">1487844331-1-72-72</prop>
+  <prop type="xliff-segment">1487844331-1-71-71</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Yes</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Si</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-72-72">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-71-71</prop>
+  <prop type="next-en-es">1487844331-1-73-73</prop>
+  <prop type="xliff-segment">1487844331-1-72-72</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Some language entries have missing name or pattern: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Algunas entradas de idioma tienen nombre o patrón faltante: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-73-73">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-72-72</prop>
+  <prop type="next-en-es">1487844331-1-74-74</prop>
+  <prop type="xliff-segment">1487844331-1-73-73</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Your changes will be lost if you don't save them</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Sus cambios se perderán si no los guarda</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-74-74">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-73-73</prop>
+  <prop type="next-en-es">1487844331-1-75-75</prop>
+  <prop type="xliff-segment">1487844331-1-74-74</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>There are {0} invalid rules. Test results will ignore them</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Hay {0} reglas no válidas. Los resultados de la prueba las ignorarán</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-75-75">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-74-74</prop>
+  <prop type="next-en-es">1487844331-1-76-76</prop>
+  <prop type="xliff-segment">1487844331-1-75-75</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>File saved</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Archivo guardado</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-76-76">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-75-75</prop>
+  <prop type="next-en-es">1487844331-1-77-77</prop>
+  <prop type="xliff-segment">1487844331-1-76-76</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unable to open SRX Specification</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se puede abrir la especificación de SRX</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-77-77">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-76-76</prop>
+  <prop type="next-en-es">1487844331-1-78-78</prop>
+  <prop type="xliff-segment">1487844331-1-77-77</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>These languages contain invalid rules (both beforebreak and afterbreak are empty): {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Estos idiomas contienen reglas no válidas: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-78-78">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-77-77</prop>
+  <prop type="next-en-es">1487844331-1-79-79</prop>
+  <prop type="xliff-segment">1487844331-1-78-78</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unsupported SRX version: {0}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Versión de SRX no compatible: {0}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-79-79">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-78-78</prop>
+  <prop type="next-en-es">1487844331-1-80-80</prop>
+  <prop type="xliff-segment">1487844331-1-79-79</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Unable to open support group page</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>No se puede abrir la página del grupo de soporte</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-8-8">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-7-7</prop>
+  <prop type="next-en-es">1487844331-1-9-9</prop>
+  <prop type="xliff-segment">1487844331-1-8-8</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Select rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Seleccione regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-80-80">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-79-79</prop>
+  <prop type="next-en-es">1487844331-1-81-81</prop>
+  <prop type="xliff-segment">1487844331-1-80-80</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>The SRX file has validation issues:
+{0}
+
+Saving anyway may produce an SRX file that is not schema-compliant.
+
+Do you want to save anyway?</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>El archivo SRX tiene problemas de validación:
+{0}
+
+Guardar de todos modos puede producir un archivo SRX que no cumple con el esquema.
+
+¿Desea guardar de todos modos?</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-81-81">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-80-80</prop>
+  <prop type="next-en-es">1487844331-1-82-82</prop>
+  <prop type="xliff-segment">1487844331-1-81-81</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>{0} - {1}</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>{0} - {1}</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-82-82">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-81-81</prop>
+  <prop type="next-en-es">1487844331-1-83-83</prop>
+  <prop type="xliff-segment">1487844331-1-82-82</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Add Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Añadir Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-83-83">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-82-82</prop>
+  <prop type="next-en-es">1487844331-1-84-84</prop>
+  <prop type="xliff-segment">1487844331-1-83-83</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Move Rule Down</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Mover regla hacia abajo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-84-84">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-83-83</prop>
+  <prop type="next-en-es">1487844331-1-85-85</prop>
+  <prop type="xliff-segment">1487844331-1-84-84</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Remove Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Eliminar Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-85-85">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-84-84</prop>
+  <prop type="next-en-es">1487844331-1-86-86</prop>
+  <prop type="xliff-segment">1487844331-1-85-85</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Test Rules</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Probar Reglas</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-86-86">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-85-85</prop>
+  <prop type="next-en-es">1487844331-1-87-87</prop>
+  <prop type="xliff-segment">1487844331-1-86-86</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Edit Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Editar Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-87-87">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-86-86</prop>
+  <prop type="next-en-es">1487844331-1-88-88</prop>
+  <prop type="xliff-segment">1487844331-1-87-87</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Add Language</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Añadir Idioma</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-88-88">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-87-87</prop>
+  <prop type="next-en-es">1487844331-1-89-89</prop>
+  <prop type="xliff-segment">1487844331-1-88-88</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Edit Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Editar Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-89-89">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-88-88</prop>
+  <prop type="next-en-es">1487844331-1-90-90</prop>
+  <prop type="xliff-segment">1487844331-1-89-89</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Remove Rule</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Eliminar Regla</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-9-9">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-8-8</prop>
+  <prop type="next-en-es">1487844331-1-10-10</prop>
+  <prop type="xliff-segment">1487844331-1-9-9</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>About...</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Acerca de...</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-90-90">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-89-89</prop>
+  <prop type="next-en-es">1487844331-1-91-91</prop>
+  <prop type="xliff-segment">1487844331-1-90-90</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Move Rule Up</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Mover regla hacia arriba</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-91-91">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-90-90</prop>
+  <prop type="next-en-es">1487844331-1-92-92</prop>
+  <prop type="xliff-segment">1487844331-1-91-91</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Move Language Down</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Mover idioma hacia abajo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-92-92">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-91-91</prop>
+  <prop type="next-en-es">1487844331-1-93-93</prop>
+  <prop type="xliff-segment">1487844331-1-92-92</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Move Language Up</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Mover idioma hacia arriba</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-93-93">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-92-92</prop>
+  <prop type="next-en-es">1487844331-1-94-94</prop>
+  <prop type="xliff-segment">1487844331-1-93-93</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>About...</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Acerca de...</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-94-94">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-93-93</prop>
+  <prop type="next-en-es">1487844331-1-95-95</prop>
+  <prop type="xliff-segment">1487844331-1-94-94</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Quit</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Salir</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-95-95">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-94-94</prop>
+  <prop type="next-en-es">1487844331-1-96-96</prop>
+  <prop type="xliff-segment">1487844331-1-95-95</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Save File As...</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Guardar Archivo Como...</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-96-96">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-95-95</prop>
+  <prop type="next-en-es">1487844331-1-97-97</prop>
+  <prop type="xliff-segment">1487844331-1-96-96</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Open File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Abrir Archivo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-97-97">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-96-96</prop>
+  <prop type="next-en-es">1487844331-1-98-98</prop>
+  <prop type="xliff-segment">1487844331-1-97-97</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Close File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Cerrar Archivo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-98-98">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-97-97</prop>
+  <prop type="next-en-es">1487844331-1-99-99</prop>
+  <prop type="xliff-segment">1487844331-1-98-98</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>New File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Nuevo Archivo</seg>
+  </tuv>
+</tu><tu creationdate="20260323T111953Z" creationtool="Swordfish" creationtoolversion="5.20.0" tuid="1487844331-1-99-99">
+  <prop type="project">Documents/GitHub/SRXEditorPRO/i18n/srxeditor_en.json</prop>
+  <prop type="prev-en-es">1487844331-1-98-98</prop>
+  <prop type="next-en-es">1487844331-1-100-100</prop>
+  <prop type="xliff-segment">1487844331-1-99-99</prop>
+  <tuv creationdate="20260323T111953Z" xml:lang="en">
+    <seg>Save File</seg>
+  </tuv>
+  <tuv creationdate="20260323T111953Z" xml:lang="es">
+    <seg>Guardar Archivo</seg>
+  </tuv>
+</tu></body>
+</tmx>

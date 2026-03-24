@@ -43,6 +43,9 @@ export class Main {
         (document.getElementById('saveFile') as HTMLAnchorElement).addEventListener('click', () => {
             ipcRenderer.send('save-file');
         });
+        (document.getElementById('editHeader') as HTMLAnchorElement).addEventListener('click', () => {
+            ipcRenderer.send('edit-header');
+        });
         (document.getElementById('testRules') as HTMLAnchorElement).addEventListener('click', () => {
             ipcRenderer.send('show-test-rules');
         });
@@ -63,6 +66,9 @@ export class Main {
         });
         ipcRenderer.on('set-language-map', (event: IpcRendererEvent, languageMap: Array<LanguageMap>) => {
             this.setLanguageMap(languageMap);
+        });
+        ipcRenderer.on('set-document-loaded', (event: IpcRendererEvent, loaded: boolean) => {
+            this.languagesLoaded = loaded;
         });
         ipcRenderer.on('set-language-rules', (event: IpcRendererEvent, rules: Rule[]) => {
             this.setLanguageRules(rules);
@@ -145,11 +151,13 @@ export class Main {
     }
 
     setLanguageMap(languageMap: Array<LanguageMap>) {
-        this.languagesLoaded = languageMap.length > 0;
+        this.selectedLanguageMap = '';
+        this.selectedRule = undefined;
         let table: HTMLTableSectionElement = (document.getElementById('LanguageMap') as HTMLTableSectionElement);
         let LanguageMap: HTMLTableSectionElement = table;
         LanguageMap.innerHTML = '';
-        for (let i = 0; i < languageMap.length; i++) {
+        this.setLanguageRules([]);
+        for (let i: number = 0; i < languageMap.length; i++) {
             let row: HTMLTableRowElement = LanguageMap.insertRow(i);
             row.dataset.lang = languageMap[i].langName;
             let cell1: HTMLTableCellElement = row.insertCell(0);
@@ -159,6 +167,7 @@ export class Main {
             row.addEventListener('click', () => {
                 if (this.selectedLanguageMap !== languageMap[i].langName) {
                     this.selectedLanguageMap = languageMap[i].langName;
+                    this.selectedRule = undefined;
                     ipcRenderer.send('get-language-rules', this.selectedLanguageMap);
                 }
                 table.getElementsByClassName('selected')[0]?.classList.remove('selected');
@@ -168,6 +177,9 @@ export class Main {
     }
 
     selectLanguage(languageName: string) {
+        if (this.selectedLanguageMap !== languageName) {
+            this.selectedRule = undefined;
+        }
         this.selectedLanguageMap = languageName;
         document.querySelectorAll('#LanguageMap tr').forEach((row) => {
             row.classList.remove('selected');
@@ -183,7 +195,7 @@ export class Main {
         let table: HTMLTableSectionElement = (document.getElementById('LanguageRules') as HTMLTableSectionElement);
         let LanguageRules: HTMLTableSectionElement = table;
         LanguageRules.innerHTML = '';
-        for (let i = 0; i < rules.length; i++) {
+        for (let i: number = 0; i < rules.length; i++) {
             let row: HTMLTableRowElement = LanguageRules.insertRow(i);
             row.dataset.rule = JSON.stringify(rules[i]);
             let cell1: HTMLTableCellElement = row.insertCell(0);

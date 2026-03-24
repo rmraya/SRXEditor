@@ -10,14 +10,16 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-import { app, BrowserWindow, ClientRequest, dialog, IncomingMessage, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, session, shell } from 'electron';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { app, BrowserWindow, ClientRequest, dialog, IncomingMessage, MessageBoxReturnValue, ipcMain, IpcMainEvent, Menu, MenuItem, nativeTheme, net, OpenDialogReturnValue, session, shell } from 'electron';
+import { appendFileSync, existsSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
+import { Catalog, ContentHandler, DOMBuilder, Indenter, SAXParser, XMLAttribute, XMLComment, XMLDocument, XMLElement, XMLWriter } from 'typesxml';
+import type { HeaderValues } from './headerDialog.js';
 import { I18n } from './i18n.js';
 import { Message } from './messageTypes.js';
 import { LanguageMap, Pair, Rule } from './model.js';
 import { Preferences } from './preferences.js';
+import { Segmenter } from './segmenter.js';
 
 export class SRXEditor {
 
@@ -28,7 +30,9 @@ export class SRXEditor {
     static licensesWindow: BrowserWindow;
     static ruleWindow: BrowserWindow;
     static languageWindow: BrowserWindow;
+    static headerWindow: BrowserWindow;
     static testRulesWindow: BrowserWindow;
+    static testResultsWindow: BrowserWindow;
     static appHome: string;
     static appIcon: string;
     static lang = 'en';
@@ -47,6 +51,8 @@ export class SRXEditor {
     rulesMap: Map<string, Rule[]> = new Map<string, Rule[]>();
     header: XMLElement | undefined = undefined;
     changed: boolean = false;
+    isQuitting: boolean = false;
+    segments: string[] = [];
 
     constructor() {
         if (!app.requestSingleInstanceLock()) {
@@ -86,14 +92,32 @@ export class SRXEditor {
         ipcMain.on('save-file', () => {
             this.saveFile();
         });
+        ipcMain.on('edit-header', () => {
+            this.editHeader();
+        });
+        ipcMain.on('get-header', (event: IpcMainEvent) => {
+            event.sender.send('set-header', this.getHeaderValues());
+        });
+        ipcMain.on('save-header', (event: IpcMainEvent, header: HeaderValues) => {
+            this.saveHeader(header);
+        });
         ipcMain.on('open-help', () => {
             this.showHelp();
         });
         ipcMain.on('show-message', (event: IpcMainEvent, arg: Message) => {
-            dialog.showMessageBox(SRXEditor.mainWindow, {
+            const parentWindow: BrowserWindow = arg.window === 'languageDialog' && SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()
+                ? SRXEditor.languageWindow
+                : arg.window === 'rulesDialog' && SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()
+                    ? SRXEditor.ruleWindow
+                    : SRXEditor.mainWindow;
+            dialog.showMessageBox(parentWindow, {
                 type: arg.type,
                 message: this.i18n.getString(arg.window, arg.messageId),
                 buttons: [this.i18n.getString('srxeditor', 'OK')]
+            }).then(() => {
+                if (!parentWindow.isDestroyed()) {
+                    parentWindow.focus();
+                }
             });
         });
         ipcMain.on('close-about', () => {
@@ -179,6 +203,9 @@ export class SRXEditor {
         ipcMain.on('test-rules', (event: IpcMainEvent, arg: { text: string; srcLang: string; }) => {
             this.testRules(arg.text, arg.srcLang);
         });
+        ipcMain.on('get-segments', () => {
+            SRXEditor.testResultsWindow.webContents.send('set-segments', this.segments);
+        });
         nativeTheme.on('updated', () => {
             let dark: string = 'file://' + join(app.getAppPath(), 'css', 'dark.css');
             let light: string = 'file://' + join(app.getAppPath(), 'css', 'light.css');
@@ -200,7 +227,6 @@ export class SRXEditor {
             BrowserWindow.getAllWindows().forEach((window: BrowserWindow) => {
                 window.webContents.send('set-theme', SRXEditor.currentCss);
             });
-            // Rebuild the application menu so icons reflect the current theme
             this.createMenu();
         });
         ipcMain.on('get-versions', (event: IpcMainEvent) => {
@@ -235,6 +261,11 @@ export class SRXEditor {
                 SRXEditor.currentPreferences = { language: 'en', theme: 'system' };
                 writeFileSync(preferencesPath, JSON.stringify(SRXEditor.currentPreferences, null, 2), 'utf8');
             }
+            if (SRXEditor.lang !== SRXEditor.currentPreferences.language) {
+                SRXEditor.lang = SRXEditor.currentPreferences.language;
+                this.i18n = new I18n(join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
+            }
+
             if (SRXEditor.currentPreferences.theme === 'system') {
                 if (nativeTheme.shouldUseDarkColors) {
                     SRXEditor.currentCss = dark;
@@ -258,7 +289,7 @@ export class SRXEditor {
                 window.webContents.send('set-theme', SRXEditor.currentCss);
             });
             this.createMenu();
-        } catch (error: any) {
+        } catch (error: unknown) {
             if (error instanceof Error) {
                 dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'), error.message);
             } else {
@@ -269,11 +300,25 @@ export class SRXEditor {
 
     savePreferences(preferences: Preferences): void {
         try {
+            let oldLanguage = SRXEditor.lang;
             let preferencesPath: string = join(app.getPath('appData'), app.getName(), 'preferences.json');
             writeFileSync(preferencesPath, JSON.stringify(preferences, null, 2), 'utf8');
             SRXEditor.settingsWindow.close();
+            if (oldLanguage !== preferences.language) {
+                dialog.showMessageBox({
+                    type: 'question',
+                    message: this.i18n.getString('srxeditor', 'languageChanged'),
+                    buttons: [this.i18n.getString('srxeditor', 'restart'), this.i18n.getString('srxeditor', 'dismiss')],
+                    cancelId: 1
+                }).then((value: MessageBoxReturnValue) => {
+                    if (value.response == 0) {
+                        app.relaunch();
+                        app.quit();
+                    }
+                });
+            }
             this.loadPreferences();
-        } catch (error: any) {
+        } catch (error: unknown) {
             if (error instanceof Error) {
                 dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'), error.message);
             } else {
@@ -301,6 +346,9 @@ export class SRXEditor {
         if ('languageDialog' === arg.window) {
             SRXEditor.languageWindow.setContentSize(arg.width, arg.height, true);
         }
+        if ('headerDialog' === arg.window) {
+            SRXEditor.headerWindow.setContentSize(arg.width, arg.height, true);
+        }
         if ('testRules' === arg.window) {
             SRXEditor.testRulesWindow.setContentSize(arg.width, arg.height, true);
         }
@@ -322,6 +370,14 @@ export class SRXEditor {
             }
         });
         SRXEditor.mainWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'index.html'));
+        SRXEditor.mainWindow.on('close', (event) => {
+            if (this.isQuitting) {
+                return;
+            }
+            if (!this.confirmProceedWithUnsavedChanges()) {
+                event.preventDefault();
+            }
+        });
         SRXEditor.mainWindow.on('resize', () => {
             SRXEditor.mainWindow.webContents.send('set-height', SRXEditor.mainWindow.getContentBounds().height);
         });
@@ -334,7 +390,9 @@ export class SRXEditor {
             { label: this.i18n.getString('fileMenu', 'openFile'), accelerator: 'CmdOrCtrl+O', click: () => { this.showOpenDialog(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'open.png') },
             { label: this.i18n.getString('fileMenu', 'closeFile'), accelerator: 'CmdOrCtrl+W', click: () => { this.closeFile(); } },
             { label: this.i18n.getString('fileMenu', 'saveFile'), accelerator: 'CmdOrCtrl+S', click: () => { this.saveFile(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'save.png') },
-            { label: this.i18n.getString('fileMenu', 'saveFileAs'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFileAs(); } }
+            { label: this.i18n.getString('fileMenu', 'saveFileAs'), accelerator: 'CmdOrCtrl+Shift+S', click: () => { this.saveFileAs(); } },
+            new MenuItem({ type: 'separator' }),
+            { label: this.i18n.getString('fileMenu', 'editHeader'), accelerator: 'CmdOrCtrl+E', click: () => { this.editHeader(); }, icon: join(app.getAppPath(), 'img', iconFolder, 'header.png') },
         ]);
         let editMenu: Menu = Menu.buildFromTemplate([
             { label: this.i18n.getString('editMenu', 'undo'), accelerator: 'CmdOrCtrl+Z', role: 'undo' },
@@ -394,7 +452,7 @@ export class SRXEditor {
                 ]
             }),
             new MenuItem({ type: 'separator' }),
-            new MenuItem({ label: this.i18n.getString('appleMenu', 'quit'), accelerator: 'Cmd+Q', role: 'quit', click: () => { app.quit(); } })
+            new MenuItem({ label: this.i18n.getString('appleMenu', 'quit'), accelerator: 'Cmd+Q', role: 'quit', click: () => { this.quitApplication(); } })
         ]);
 
         let template: MenuItem[] = process.platform === 'darwin' ?
@@ -417,7 +475,7 @@ export class SRXEditor {
         if (process.platform === 'win32') {
             let file: MenuItem = template[0];
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'quit'), accelerator: 'Alt+F4', role: 'quit', click: () => { app.quit(); } }));
+            (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'quit'), accelerator: 'Alt+F4', role: 'quit', click: () => { this.quitApplication(); } }));
             let help: MenuItem = template[5];
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('windowsMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
@@ -425,12 +483,20 @@ export class SRXEditor {
         if (process.platform === 'linux') {
             let file: MenuItem = template[0];
             (file.submenu as Menu).append(new MenuItem({ type: 'separator' }));
-            (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'quit'), accelerator: 'Ctrl+Q', role: 'quit', click: () => { app.quit(); } }));
+            (file.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'quit'), accelerator: 'Ctrl+Q', role: 'quit', click: () => { this.quitApplication(); } }));
             let help: MenuItem = template[5];
             (help.submenu as Menu).append(new MenuItem({ type: 'separator' }));
             (help.submenu as Menu).append(new MenuItem({ label: this.i18n.getString('linuxMenu', 'about'), click: () => { SRXEditor.showAbout(); } }));
         }
         Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    }
+
+    quitApplication(): void {
+        if (!this.confirmProceedWithUnsavedChanges()) {
+            return;
+        }
+        this.isQuitting = true;
+        app.quit();
     }
 
     moveLanguageUp(languageName: string): void {
@@ -473,6 +539,8 @@ export class SRXEditor {
                 rules[index] = temp;
                 this.rulesMap.set(pair.langName, rules);
                 SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
+                this.changed = true;
+                SRXEditor.mainWindow.documentEdited = true;
             }
         }
     }
@@ -487,12 +555,14 @@ export class SRXEditor {
                 rules[index] = temp;
                 this.rulesMap.set(pair.langName, rules);
                 SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
+                this.changed = true;
+                SRXEditor.mainWindow.documentEdited = true;
             }
         }
     }
 
     findRule(rules: Rule[], ruleToFind: Rule): number {
-        for (let i = 0; i < rules.length; i++) {
+        for (let i: number = 0; i < rules.length; i++) {
             let rule: Rule = rules[i];
             if (rule.break === ruleToFind.break &&
                 rule.beforeBreak === ruleToFind.beforeBreak &&
@@ -511,6 +581,8 @@ export class SRXEditor {
                 rules.splice(index, 1);
                 this.rulesMap.set(pair.langName, rules);
                 SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
+                this.changed = true;
+                SRXEditor.mainWindow.documentEdited = true;
             }
         }
     }
@@ -527,7 +599,7 @@ export class SRXEditor {
             height: 200,
             minimizable: false,
             maximizable: false,
-            resizable: true,
+            resizable: false,
             show: false,
             icon: SRXEditor.appIcon,
             webPreferences: {
@@ -578,6 +650,7 @@ export class SRXEditor {
         let index: number = this.languageList?.findIndex((map: LanguageMap) => map.langName === languageName) ?? -1;
         if (index !== -1 && this.languageList) {
             this.languageList.splice(index, 1);
+            this.rulesMap.delete(languageName);
             SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: 'info',
@@ -594,10 +667,6 @@ export class SRXEditor {
 
     editLanguage(languageName: string): void {
         let languageMap: LanguageMap | undefined = this.languageList?.find((map: LanguageMap) => map.langName === languageName);
-        if (!languageMap) {
-            dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'),
-                this.i18n.getString('srxeditor', 'languageNotFound'));
-        }
         if (SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()) {
             SRXEditor.languageWindow.focus();
             SRXEditor.languageWindow.webContents.send('set-language', languageMap);
@@ -659,6 +728,123 @@ export class SRXEditor {
         });
     }
 
+    editHeader(): void {
+        if (!this.doc || !this.root) {
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: 'warning',
+                message: this.i18n.getString('srxeditor', 'noSrxLoaded'),
+                buttons: [this.i18n.getString('srxeditor', 'OK')]
+            }).then(() => {
+                if (!SRXEditor.mainWindow.isDestroyed()) {
+                    SRXEditor.mainWindow.focus();
+                }
+            });
+            return;
+        }
+        if (SRXEditor.headerWindow && !SRXEditor.headerWindow.isDestroyed()) {
+            SRXEditor.headerWindow.focus();
+            SRXEditor.headerWindow.webContents.send('set-header', this.getHeaderValues());
+            return;
+        }
+        SRXEditor.headerWindow = new BrowserWindow({
+            parent: SRXEditor.mainWindow,
+            width: 300,
+            height: 230,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.headerWindow.setMenu(null);
+        SRXEditor.headerWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'header.html'));
+        SRXEditor.headerWindow.once('ready-to-show', () => {
+            SRXEditor.headerWindow.show();
+        });
+        SRXEditor.headerWindow.on('close', () => {
+            SRXEditor.mainWindow.focus();
+        });
+    }
+
+    getHeaderValues(): HeaderValues {
+        const header: XMLElement | undefined = this.header;
+        const getIncludeValue = (type: 'start' | 'end' | 'isolated', fallback: 'yes' | 'no'): 'yes' | 'no' => {
+            const formathandle: XMLElement | undefined = header?.getChildren().find((child: XMLElement) => {
+                return child.getName() === 'formathandle' && child.getAttribute('type')?.getValue() === type;
+            });
+            const include: string | undefined = formathandle?.getAttribute('include')?.getValue();
+            return include === 'yes' || include === 'no' ? include : fallback;
+        };
+
+        const cascade: string | undefined = header?.getAttribute('cascade')?.getValue();
+        const segmentsubflows: string | undefined = header?.getAttribute('segmentsubflows')?.getValue();
+
+        return {
+            cascade: cascade === 'no' ? 'no' : 'yes',
+            segmentsubflows: segmentsubflows === 'no' ? 'no' : 'yes',
+            includeStart: getIncludeValue('start', 'no'),
+            includeEnd: getIncludeValue('end', 'yes'),
+            includeIsolated: getIncludeValue('isolated', 'no')
+        };
+    }
+
+    saveHeader(headerValues: HeaderValues): void {
+        if (!this.root) {
+            return;
+        }
+        if (!this.header) {
+            const body: XMLElement | undefined = this.root.getChild('body');
+            if (body) {
+                this.root.removeChild(body);
+            }
+            this.header = new XMLElement('header');
+            this.root.addElement(this.header);
+            if (body) {
+                this.root.addElement(body);
+            }
+        }
+
+        this.header.setAttribute(new XMLAttribute('cascade', headerValues.cascade));
+        this.header.setAttribute(new XMLAttribute('segmentsubflows', headerValues.segmentsubflows));
+
+        const preservedChildren: XMLElement[] = [];
+        for (const child of [...this.header.getChildren()]) {
+            if (child.getName() !== 'formathandle') {
+                preservedChildren.push(child);
+            }
+            this.header.removeChild(child);
+        }
+
+        const startHandle: XMLElement = new XMLElement('formathandle');
+        startHandle.setAttribute(new XMLAttribute('type', 'start'));
+        startHandle.setAttribute(new XMLAttribute('include', headerValues.includeStart));
+        this.header.addElement(startHandle);
+
+        const endHandle: XMLElement = new XMLElement('formathandle');
+        endHandle.setAttribute(new XMLAttribute('type', 'end'));
+        endHandle.setAttribute(new XMLAttribute('include', headerValues.includeEnd));
+        this.header.addElement(endHandle);
+
+        const isolatedHandle: XMLElement = new XMLElement('formathandle');
+        isolatedHandle.setAttribute(new XMLAttribute('type', 'isolated'));
+        isolatedHandle.setAttribute(new XMLAttribute('include', headerValues.includeIsolated));
+        this.header.addElement(isolatedHandle);
+
+        for (const child of preservedChildren) {
+            this.header.addElement(child);
+        }
+
+        this.changed = true;
+        SRXEditor.mainWindow.documentEdited = true;
+        if (SRXEditor.headerWindow && !SRXEditor.headerWindow.isDestroyed()) {
+            SRXEditor.headerWindow.close();
+        }
+    }
+
     static showSettings(): void {
         SRXEditor.settingsWindow = new BrowserWindow({
             parent: SRXEditor.mainWindow,
@@ -710,7 +896,7 @@ export class SRXEditor {
     }
 
     showSupportGroup(): void {
-        shell.openExternal('https://groups.io/g/maxprograms/').catch((reason: any) => {
+        shell.openExternal('https://groups.io/g/maxprograms/').catch((reason: unknown) => {
             if (reason instanceof Error) {
                 console.error(reason.message);
             }
@@ -744,8 +930,8 @@ export class SRXEditor {
     }
 
     openLicense(type: string) {
-        let licenseFile = '';
-        let title = '';
+        let licenseFile: string = '';
+        let title: string = '';
         if (type === 'SRXEditor' || type === 'TypesXML' || type === 'TypesBCP47') {
             licenseFile = 'EclipsePublicLicense1.0.html';
             title = 'Eclipse Public License 1.0';
@@ -756,7 +942,7 @@ export class SRXEditor {
             dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'), this.i18n.getString('srxeditor', 'unknownLicense'));
             return;
         }
-        let licenseWindow = new BrowserWindow({
+        let licenseWindow: BrowserWindow = new BrowserWindow({
             parent: SRXEditor.licensesWindow,
             width: 680,
             height: 400,
@@ -769,7 +955,7 @@ export class SRXEditor {
             }
         });
         licenseWindow.setMenu(null);
-        let filePath = join(app.getAppPath(), 'html', 'licenses', licenseFile);
+        let filePath: string = join(app.getAppPath(), 'html', 'licenses', licenseFile);
         let fileUrl: URL = new URL('file://' + filePath);
         licenseWindow.loadURL(fileUrl.href);
         licenseWindow.once('ready-to-show', () => {
@@ -807,7 +993,7 @@ export class SRXEditor {
                 });
                 response.on('end', () => {
                     try {
-                        let parsedData = JSON.parse(responseData);
+                        let parsedData: any = JSON.parse(responseData);
                         if (app.getVersion() !== parsedData.version) {
                             SRXEditor.latestVersion = parsedData.version;
                             switch (process.platform) {
@@ -847,7 +1033,7 @@ export class SRXEditor {
                             if (!silent) {
                                 dialog.showMessageBoxSync(SRXEditor.mainWindow, {
                                     type: 'info',
-                                    message: this.i18n.getString('SRXEditor', 'noUpdates')
+                                    message: this.i18n.getString('srxeditor', 'noUpdates')
                                 });
                             }
                         }
@@ -875,7 +1061,7 @@ export class SRXEditor {
 
     showHelp(): void {
         shell.openExternal('file://' + join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch(() => {
-            shell.openPath(join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch((reason: any) => {
+            shell.openPath(join(app.getAppPath(), 'srxeditor_' + SRXEditor.lang + '.pdf')).catch((reason: unknown) => {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }
@@ -887,7 +1073,7 @@ export class SRXEditor {
 
     showSpecification(): void {
         shell.openExternal('file://' + join(app.getAppPath(), 'srx20.pdf')).catch(() => {
-            shell.openPath(join(app.getAppPath(), 'srx20.pdf')).catch((reason: any) => {
+            shell.openPath(join(app.getAppPath(), 'srx20.pdf')).catch((reason: unknown) => {
                 if (reason instanceof Error) {
                     console.error(reason.message);
                 }
@@ -899,10 +1085,14 @@ export class SRXEditor {
 
     saveFile(): void {
         if (this.doc) {
+            if (!this.canSaveDocument()) {
+                return;
+            }
             if (this.currentFile === this.i18n.getString('srxeditor', 'untitled')) {
                 this.saveFileAs();
                 return;
             }
+            this.syncDocumentFromState();
             XMLWriter.writeDocument(this.doc, this.currentFile);
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: 'info',
@@ -916,9 +1106,15 @@ export class SRXEditor {
 
     saveFileAs(): void {
         if (this.doc) {
+            if (!this.canSaveDocument()) {
+                return;
+            }
+            const defaultSavePath: string = this.currentFile === this.i18n.getString('srxeditor', 'untitled')
+                ? 'untitled.srx'
+                : this.currentFile;
             let savePath: string | undefined = dialog.showSaveDialogSync(SRXEditor.mainWindow, {
                 title: this.i18n.getString('srxeditor', 'saveSrxFile'),
-                defaultPath: this.currentFile === this.i18n.getString('srxeditor', 'untitled') ? 'untitled.srx' : this.currentFile,
+                defaultPath: defaultSavePath,
                 filters: [
                     { name: this.i18n.getString('srxeditor', 'srxFiles'), extensions: ['srx'] },
                     { name: this.i18n.getString('srxeditor', 'allFiles'), extensions: ['*'] }
@@ -929,6 +1125,7 @@ export class SRXEditor {
             }
             this.currentFile = savePath;
             SRXEditor.mainWindow.setTitle(this.i18n.format(this.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), this.currentFile]));
+            this.syncDocumentFromState();
             XMLWriter.writeDocument(this.doc, this.currentFile);
             dialog.showMessageBox(SRXEditor.mainWindow, {
                 type: 'info',
@@ -940,11 +1137,57 @@ export class SRXEditor {
         }
     }
 
+    confirmProceedWithUnsavedChanges(): boolean {
+        if (!this.changed) {
+            return true;
+        }
+        let response: number = dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+            type: 'warning',
+            message: this.i18n.getString('srxeditor', 'unsavedChanges'),
+            buttons: [
+                this.i18n.getString('srxeditor', 'dontSave'),
+                this.i18n.getString('srxeditor', 'cancel'),
+                this.i18n.getString('srxeditor', 'save')
+            ],
+            defaultId: 2,
+            cancelId: 1
+        });
+
+        if (response === 1) {
+            return false;
+        }
+
+        if (response === 2) {
+            this.saveFile();
+            return !this.changed;
+        }
+
+        return true;
+    }
+
     closeFile(): void {
-        throw new Error('Method not implemented.');
+        if (!this.confirmProceedWithUnsavedChanges()) {
+            return;
+        }
+        this.doc = undefined;
+        this.root = undefined;
+        this.header = undefined;
+        this.languageList = [];
+        this.rulesMap = new Map<string, Rule[]>();
+        this.segments = [];
+        this.currentFile = '';
+        SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
+        SRXEditor.mainWindow.webContents.send('set-language-rules', []);
+        SRXEditor.mainWindow.webContents.send('set-document-loaded', false);
+        SRXEditor.mainWindow.setTitle(app.getName());
+        this.changed = false;
+        SRXEditor.mainWindow.documentEdited = false;
     }
 
     showOpenDialog(): void {
+        if (!this.confirmProceedWithUnsavedChanges()) {
+            return;
+        }
         dialog.showOpenDialog(SRXEditor.mainWindow, {
             title: this.i18n.getString('srxeditor', 'openSrxFile'),
             filters: [
@@ -952,11 +1195,11 @@ export class SRXEditor {
                 { name: this.i18n.getString('srxeditor', 'allFiles'), extensions: ['*'] }
             ],
             properties: ['openFile']
-        }).then(result => {
+        }).then((result: OpenDialogReturnValue) => {
             if (!result.canceled) {
                 this.openFile(result.filePaths[0]);
             }
-        }).catch((err) => {
+        }).catch((err: unknown) => {
             if (err instanceof Error) {
                 dialog.showErrorBox(this.i18n.getString('srxeditor', 'error'), err.message);
             }
@@ -966,7 +1209,9 @@ export class SRXEditor {
 
     openFile(filePath: string): void {
         let contentHandler: ContentHandler = new DOMBuilder();
-        let xmlParser = new SAXParser();
+        let catalog: Catalog = new Catalog(join(app.getAppPath(), 'catalog', 'catalog.xml'));
+        let xmlParser: SAXParser = new SAXParser();
+        xmlParser.setCatalog(catalog);
         xmlParser.setContentHandler(contentHandler);
 
         // build the document from a file
@@ -1004,6 +1249,7 @@ export class SRXEditor {
             SRXEditor.mainWindow.webContents.send('set-status', '');
             this.currentFile = filePath;
             SRXEditor.mainWindow.setTitle(this.i18n.format(this.i18n.getString('srxeditor', 'mainWindowTitle'), [app.getName(), this.currentFile]));
+            SRXEditor.mainWindow.webContents.send('set-document-loaded', true);
             this.changed = false;
             SRXEditor.mainWindow.documentEdited = false;
         } catch (error: any) {
@@ -1037,7 +1283,7 @@ export class SRXEditor {
                                             let breakAttribute: XMLAttribute | undefined = ruleElement.getAttribute('break');
                                             let beforeBreak: XMLElement | undefined = ruleElement.getChild('beforebreak');
                                             let afterBreak: XMLElement | undefined = ruleElement.getChild('afterbreak');
-                                            let breaks: boolean = breakAttribute ? breakAttribute.getValue() === 'yes' : false;
+                                            let breaks: boolean = breakAttribute ? breakAttribute.getValue() === 'yes' : true;
                                             let rule: Rule = {
                                                 break: breaks,
                                                 beforeBreak: beforeBreak ? beforeBreak.getText() : undefined,
@@ -1083,6 +1329,9 @@ export class SRXEditor {
     }
 
     newFile(): void {
+        if (!this.confirmProceedWithUnsavedChanges()) {
+            return;
+        }
         this.doc = new XMLDocument();
         this.root = new XMLElement('srx');
         this.root.setAttribute(new XMLAttribute('version', '2.0'));
@@ -1112,13 +1361,113 @@ export class SRXEditor {
         this.languageList = [];
         this.rulesMap = new Map<string, Rule[]>();
         SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
+        SRXEditor.mainWindow.webContents.send('set-document-loaded', true);
         this.changed = true;
         SRXEditor.mainWindow.documentEdited = true;
     }
 
+    canSaveDocument(): boolean {
+        if (!this.languageList || this.languageList.length === 0) {
+            return this.confirmSaveWithIssues([this.i18n.getString('srxeditor', 'noLanguages')]);
+        }
+
+        const missingLanguageData: string[] = [];
+        const duplicateLanguageNames: string[] = [];
+        const languagesWithoutRules: string[] = [];
+        const languagesWithInvalidRules: string[] = [];
+        const seenLanguageNames: Set<string> = new Set<string>();
+        const saveIssues: string[] = [];
+
+        for (const language of this.languageList) {
+            language.langName = (language.langName ?? '').trim();
+            language.pattern = (language.pattern ?? '').trim();
+
+            if (!language.langName || !language.pattern) {
+                missingLanguageData.push(language.langName || '(empty)');
+                continue;
+            }
+
+            if (seenLanguageNames.has(language.langName)) {
+                duplicateLanguageNames.push(language.langName);
+            } else {
+                seenLanguageNames.add(language.langName);
+            }
+
+            const rules: Rule[] = this.rulesMap.get(language.langName) ?? [];
+            const hasInvalidRule: boolean = rules.some((rule: Rule) => {
+                const before: string = (rule.beforeBreak ?? '').trim();
+                const after: string = (rule.afterBreak ?? '').trim();
+                return before.length === 0 && after.length === 0;
+            });
+            if (hasInvalidRule) {
+                languagesWithInvalidRules.push(language.langName);
+            }
+            if (rules.length === 0) {
+                languagesWithoutRules.push(language.langName);
+            }
+        }
+
+        if (languagesWithInvalidRules.length > 0) {
+            saveIssues.push(this.i18n.format(this.i18n.getString('srxeditor', 'invalidRules'), [languagesWithInvalidRules.join(', ')]));
+        }
+
+        if (missingLanguageData.length > 0) {
+            saveIssues.push(this.i18n.format(this.i18n.getString('srxeditor', 'missingLanguageData'), [missingLanguageData.join(', ')]));
+        }
+
+        if (duplicateLanguageNames.length > 0) {
+            saveIssues.push(this.i18n.format(this.i18n.getString('srxeditor', 'duplicateLanguageNames'), [duplicateLanguageNames.join(', ')]));
+        }
+
+        if (languagesWithoutRules.length > 0) {
+            saveIssues.push(this.i18n.format(this.i18n.getString('srxeditor', 'languagesWithoutRules'), [languagesWithoutRules.join(', ')]));
+        }
+
+        if (saveIssues.length > 0) {
+            return this.confirmSaveWithIssues(saveIssues);
+        }
+
+        return true;
+    }
+
+    confirmSaveWithIssues(saveIssues: string[]): boolean {
+        const details: string = saveIssues.join('\n- ');
+        const message: string = this.i18n.format(this.i18n.getString('srxeditor', 'saveWithIssuesPrompt'), ['- ' + details]);
+        const response: number = dialog.showMessageBoxSync(SRXEditor.mainWindow, {
+            type: 'warning',
+            message: message,
+            buttons: [
+                this.i18n.getString('srxeditor', 'cancel'),
+                this.i18n.getString('srxeditor', 'saveAnyway')
+            ],
+            defaultId: 1,
+            cancelId: 0
+        });
+        return response === 1;
+    }
+
     saveLanguage(language: LanguageMap): void {
         if (this.languageList) {
+            const duplicatedName: boolean = this.languageList.some((map: LanguageMap) => map.langName === language.langName);
+            if (duplicatedName) {
+                const parentWindow: BrowserWindow = SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()
+                    ? SRXEditor.languageWindow
+                    : SRXEditor.mainWindow;
+                dialog.showMessageBox(parentWindow, {
+                    type: 'warning',
+                    message: this.i18n.format(this.i18n.getString('srxeditor', 'duplicateLanguageName'), [language.langName]),
+                    buttons: [this.i18n.getString('srxeditor', 'OK')]
+                }).then(() => {
+                    if (!parentWindow.isDestroyed()) {
+                        parentWindow.focus();
+                    }
+                });
+                return;
+            }
             this.languageList.push(language);
+            if (!this.rulesMap.has(language.langName)) {
+                this.rulesMap.set(language.langName, []);
+            }
             SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
             this.changed = true;
             SRXEditor.mainWindow.documentEdited = true;
@@ -1131,8 +1480,30 @@ export class SRXEditor {
 
     updateLanguage(oldLanguage: LanguageMap, language: LanguageMap): void {
         if (this.languageList) {
+            const duplicatedName: boolean = oldLanguage.langName !== language.langName
+                && this.languageList.some((map: LanguageMap) => map.langName === language.langName);
+            if (duplicatedName) {
+                const parentWindow: BrowserWindow = SRXEditor.languageWindow && !SRXEditor.languageWindow.isDestroyed()
+                    ? SRXEditor.languageWindow
+                    : SRXEditor.mainWindow;
+                dialog.showMessageBox(parentWindow, {
+                    type: 'warning',
+                    message: this.i18n.format(this.i18n.getString('srxeditor', 'duplicateLanguageName'), [language.langName]),
+                    buttons: [this.i18n.getString('srxeditor', 'OK')]
+                }).then(() => {
+                    if (!parentWindow.isDestroyed()) {
+                        parentWindow.focus();
+                    }
+                });
+                return;
+            }
             let index: number = this.languageList.findIndex((map: LanguageMap) => map.langName === oldLanguage.langName);
             if (index !== -1) {
+                if (oldLanguage.langName !== language.langName && this.rulesMap.has(oldLanguage.langName)) {
+                    let rules: Rule[] = this.rulesMap.get(oldLanguage.langName) ?? [];
+                    this.rulesMap.delete(oldLanguage.langName);
+                    this.rulesMap.set(language.langName, rules);
+                }
                 this.languageList[index] = language;
                 SRXEditor.mainWindow.webContents.send('set-language-map', this.languageList);
                 this.changed = true;
@@ -1151,13 +1522,25 @@ export class SRXEditor {
             if (rules.findIndex((rule: Rule) => rule.break === pair.rule.break &&
                 rule.beforeBreak === pair.rule.beforeBreak &&
                 rule.afterBreak === pair.rule.afterBreak) !== -1) {
-                dialog.showErrorBox(this.i18n.getString('srxeditor', 'warning'),
-                    this.i18n.getString('srxeditor', 'duplicateRule'));
+                const parentWindow: BrowserWindow = SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()
+                    ? SRXEditor.ruleWindow
+                    : SRXEditor.mainWindow;
+                dialog.showMessageBox(parentWindow, {
+                    type: 'warning',
+                    message: this.i18n.getString('srxeditor', 'duplicateRule'),
+                    buttons: [this.i18n.getString('srxeditor', 'OK')]
+                }).then(() => {
+                    if (!parentWindow.isDestroyed()) {
+                        parentWindow.focus();
+                    }
+                });
             }
             rules.push(pair.rule);
             this.rulesMap.set(pair.langName, rules);
             SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
             SRXEditor.mainWindow.webContents.send('select-rule', pair.rule);
+            this.changed = true;
+            SRXEditor.mainWindow.documentEdited = true;
             if (SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()) {
                 SRXEditor.ruleWindow.close();
             }
@@ -1173,6 +1556,8 @@ export class SRXEditor {
                 this.rulesMap.set(oldPair.langName, rules);
                 SRXEditor.mainWindow.webContents.send('set-language-rules', rules);
                 SRXEditor.mainWindow.webContents.send('select-rule', newPair.rule);
+                this.changed = true;
+                SRXEditor.mainWindow.documentEdited = true;
                 if (SRXEditor.ruleWindow && !SRXEditor.ruleWindow.isDestroyed()) {
                     SRXEditor.ruleWindow.close();
                 }
@@ -1180,40 +1565,199 @@ export class SRXEditor {
         }
     }
 
+    syncDocumentFromState(): void {
+        if (!this.root) {
+            return;
+        }
+        let body: XMLElement | undefined = this.root.getChild('body');
+        if (!body) {
+            body = new XMLElement('body');
+            this.root.addElement(body);
+        }
+        for (const child of [...body.getChildren()]) {
+            if (child.getName() === 'languagerules' || child.getName() === 'maprules') {
+                body.removeChild(child);
+            }
+        }
+
+        const languageRulesElement: XMLElement = new XMLElement('languagerules');
+        for (const language of this.languageList ?? []) {
+            const languageRuleElement: XMLElement = new XMLElement('languagerule');
+            languageRuleElement.setAttribute(new XMLAttribute('languagerulename', language.langName));
+            for (const rule of this.rulesMap.get(language.langName) ?? []) {
+                const ruleElement: XMLElement = new XMLElement('rule');
+                ruleElement.setAttribute(new XMLAttribute('break', rule.break ? 'yes' : 'no'));
+                if (rule.beforeBreak) {
+                    const beforeBreak: XMLElement = new XMLElement('beforebreak');
+                    beforeBreak.addString(rule.beforeBreak);
+                    ruleElement.addElement(beforeBreak);
+                }
+                if (rule.afterBreak) {
+                    const afterBreak: XMLElement = new XMLElement('afterbreak');
+                    afterBreak.addString(rule.afterBreak);
+                    ruleElement.addElement(afterBreak);
+                }
+                languageRuleElement.addElement(ruleElement);
+            }
+            languageRulesElement.addElement(languageRuleElement);
+        }
+        body.addElement(languageRulesElement);
+
+        const mapRulesElement: XMLElement = new XMLElement('maprules');
+        for (const language of this.languageList ?? []) {
+            const languageMapElement: XMLElement = new XMLElement('languagemap');
+            languageMapElement.setAttribute(new XMLAttribute('languagepattern', language.pattern));
+            languageMapElement.setAttribute(new XMLAttribute('languagerulename', language.langName));
+            mapRulesElement.addElement(languageMapElement);
+        }
+        body.addElement(mapRulesElement);
+
+        const indenter: Indenter = new Indenter(2);
+        indenter.indent(this.root);
+    }
+
     showTestRules(): void {
-        if (this.languageList) {
-            SRXEditor.testRulesWindow = new BrowserWindow({
-                parent: SRXEditor.mainWindow,
-                width: 500,
-                minWidth: 450,
-                height: 280,
-                minimizable: false,
-                maximizable: false,
-                resizable: true,
-                show: false,
-                icon: SRXEditor.appIcon,
-                webPreferences: {
-                    nodeIntegration: true,
-                    contextIsolation: false
+        if (!this.doc) {
+            dialog.showMessageBox(SRXEditor.mainWindow, {
+                type: 'warning',
+                message: this.i18n.getString('srxeditor', 'noSrxLoaded'),
+                buttons: [this.i18n.getString('srxeditor', 'OK')]
+            }).then(() => {
+                if (!SRXEditor.mainWindow.isDestroyed()) {
+                    SRXEditor.mainWindow.focus();
                 }
             });
-            SRXEditor.testRulesWindow.setMenu(null);
-            SRXEditor.testRulesWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'test.html'));
-            SRXEditor.testRulesWindow.once('ready-to-show', () => {
-                SRXEditor.testRulesWindow.show();
-            });
-            SRXEditor.testRulesWindow.on('close', () => {
-                SRXEditor.mainWindow.focus();
-            });
+            return;
         }
+        SRXEditor.testRulesWindow = new BrowserWindow({
+            parent: SRXEditor.mainWindow,
+            width: 500,
+            minWidth: 450,
+            height: 280,
+            minHeight: 250,
+            minimizable: false,
+            maximizable: false,
+            resizable: true,
+            show: false,
+            icon: SRXEditor.appIcon,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        SRXEditor.testRulesWindow.setMenu(null);
+        SRXEditor.testRulesWindow.loadURL('file://' + join(app.getAppPath(), 'html', SRXEditor.lang, 'test.html'));
+        SRXEditor.testRulesWindow.once('ready-to-show', () => {
+            SRXEditor.testRulesWindow.show();
+        });
+        SRXEditor.testRulesWindow.on('close', () => {
+            SRXEditor.mainWindow.focus();
+        });
     }
 
     testRules(text: string, srcLang: string): void {
-        throw new Error('Method not implemented.');
+        if (this.doc) {
+            let segmenter: Segmenter = new Segmenter(this.doc, srcLang, join(app.getAppPath(), 'i18n', 'srxeditor_' + SRXEditor.lang + '.json'));
+            const invalidRulesCount: number = segmenter.getInvalidRulesCount();
+            if (invalidRulesCount > 0) {
+                const parentWindow: BrowserWindow = SRXEditor.testRulesWindow && !SRXEditor.testRulesWindow.isDestroyed()
+                    ? SRXEditor.testRulesWindow
+                    : SRXEditor.mainWindow;
+                dialog.showMessageBox(parentWindow, {
+                    type: 'warning',
+                    message: this.i18n.format(this.i18n.getString('srxeditor', 'invalidRulesIgnored'), [invalidRulesCount.toString()]),
+                    buttons: [this.i18n.getString('srxeditor', 'OK')]
+                }).then(() => {
+                    if (!parentWindow.isDestroyed()) {
+                        parentWindow.focus();
+                    }
+                });
+            }
+            this.segments = segmenter.segment(text);
+            if (SRXEditor.testResultsWindow && !SRXEditor.testResultsWindow.isDestroyed()) {
+                SRXEditor.testResultsWindow.focus();
+                SRXEditor.testResultsWindow.webContents.send('set-segments', this.segments);
+            } else {
+                SRXEditor.testResultsWindow = new BrowserWindow({
+                    parent: SRXEditor.testRulesWindow,
+                    width: 450,
+                    minWidth: 400,
+                    height: 400,
+                    minHeight: 300,
+                    show: false,
+                    icon: SRXEditor.appIcon,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false
+                    }
+                });
+                SRXEditor.testResultsWindow.setMenu(null);
+                let filePath: string = join(app.getAppPath(), 'html', SRXEditor.lang, 'testResults.html');
+                let fileUrl: URL = new URL('file://' + filePath);
+                SRXEditor.testResultsWindow.loadURL(fileUrl.href);
+                SRXEditor.testResultsWindow.once('ready-to-show', () => {
+                    SRXEditor.testResultsWindow.show();
+                });
+                SRXEditor.testResultsWindow.on('close', () => {
+                    SRXEditor.testRulesWindow.focus();
+                });
+            }
+        }
     }
 
     downloadLatest(): void {
-        throw new Error('Method not implemented.');
+        let downloadsFolder: string = app.getPath('downloads');
+        let url: URL = new URL(SRXEditor.downloadLink);
+        let path: string = url.pathname;
+        path = path.substring(path.lastIndexOf('/') + 1);
+        let file: string = downloadsFolder + (process.platform === 'win32' ? '\\' : '/') + path;
+        if (existsSync(file)) {
+            unlinkSync(file);
+        }
+        let request: ClientRequest = net.request({
+            url: SRXEditor.downloadLink,
+            session: session.defaultSession
+        });
+        SRXEditor.mainWindow.webContents.send('set-status', 'Downloading...');
+        SRXEditor.updatesWindow.close();
+        request.on('response', (response: IncomingMessage) => {
+            let fileSize: number = Number.parseInt(response.headers['content-length'] as string);
+            let received: number = 0;
+            response.on('data', (chunk: Buffer) => {
+                received += chunk.length;
+                if (process.platform === 'win32' || process.platform === 'darwin') {
+                    SRXEditor.mainWindow.setProgressBar(received / fileSize);
+                }
+                SRXEditor.mainWindow.webContents.send('set-status', 'Downloaded: ' + Math.trunc(received * 100 / fileSize) + '%');
+                appendFileSync(file, chunk);
+            });
+            response.on('end', () => {
+                SRXEditor.mainWindow.webContents.send('set-status', '');
+                dialog.showMessageBox({
+                    type: 'info',
+                    message: 'Update downloaded'
+                });
+                if (process.platform === 'win32' || process.platform === 'darwin') {
+                    SRXEditor.mainWindow.setProgressBar(0);
+                    shell.openPath(file).then(() => {
+                        this.quitApplication();
+                    }).catch((reason: string) => {
+                        dialog.showErrorBox('Error', reason);
+                    });
+                }
+                if (process.platform === 'linux') {
+                    shell.showItemInFolder(file);
+                }
+            });
+            response.on('error', (error: Error) => {
+                SRXEditor.mainWindow.webContents.send('set-status', '');
+                dialog.showErrorBox('Error', error.message);
+                if (process.platform === 'win32' || process.platform === 'darwin') {
+                    SRXEditor.mainWindow.setProgressBar(0);
+                }
+            });
+        });
+        request.end();
     }
 }
 

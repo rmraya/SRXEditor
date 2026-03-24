@@ -15,14 +15,10 @@ import { I18n } from './i18n.js';
 
 export class Segmenter {
 
-    static readonly STARTIGNORE = '@#$%~';
-    static readonly ENDIGNORE = '~%$#@';
-
     root: XMLElement;
     cascade: boolean;
     rules: Array<XMLElement> = [];
-    tags: Map<string, string> = new Map<string, string>();
-    tagId = 0;
+    invalidRulesCount: number = 0;
     i18n: I18n;
 
     constructor(srx: string | XMLDocument, srcLanguage: string, i18nPath: string, catalog?: Catalog) {
@@ -55,31 +51,22 @@ export class Segmenter {
         this.validateRoot();
         this.cascade = this.isCascading();
         this.buildRulesList(srcLanguage);
-    }
-
-    segmentRawString(text: string): string[] {
-        return this.segmentString(text, false);
+        this.validateRulesList();
     }
 
     segment(text: string): string[] {
-        return this.segmentString(text, true);
-    }
-
-    private segmentString(text: string, prepare: boolean): string[] {
         if (!text) {
             return [];
         }
-        this.tags = new Map<string, string>();
-        this.tagId = 0;
-        let pureText: string = prepare ? this.prepareString(text) : text;
         const parts: Array<string> = new Array<string>();
-        for (let pos = 0; pos < pureText.length; pos++) {
-            const left: string = this.hideTags(pureText.substring(0, pos));
-            const right: string = this.hideTags(pureText.substring(pos));
+        let remaining: string = text;
+        for (let pos: number = 0; pos < remaining.length; pos++) {
+            const left: string = remaining.substring(0, pos);
+            const right: string = remaining.substring(pos);
             if (left.length === 0) {
                 continue;
             }
-            for (let i = 0; i < this.rules.length; i++) {
+            for (let i: number = 0; i < this.rules.length; i++) {
                 const rule: XMLElement = this.rules[i];
                 const breaks: boolean = rule.getAttribute('break')?.getValue() === 'yes' || !rule.getAttribute('break');
                 const before: XMLElement | undefined = rule.getChild('beforebreak');
@@ -89,50 +76,35 @@ export class Segmenter {
                 if (beforexp && afterxp) {
                     if (this.endsWith(left, beforexp) && this.startsWith(right, afterxp)) {
                         if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
+                            parts.push(remaining.substring(0, pos));
+                            remaining = remaining.substring(pos);
+                            pos = -1;
                         }
                         break;
                     }
                 } else if (beforexp) {
                     if (this.endsWith(left, beforexp)) {
                         if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
+                            parts.push(remaining.substring(0, pos));
+                            remaining = remaining.substring(pos);
+                            pos = -1;
                         }
                         break;
                     }
                 } else {
                     if (this.startsWith(right, afterxp)) {
                         if (breaks) {
-                            parts.push(pureText.substring(0, pos));
-                            pureText = pureText.substring(pos);
-                            pos = 0;
+                            parts.push(remaining.substring(0, pos));
+                            remaining = remaining.substring(pos);
+                            pos = -1;
                         }
                         break;
                     }
                 }
             }
         }
-        parts.push(pureText);
-        const result: Array<string> = new Array<string>(parts.length);
-        for (let i = 0; i < parts.length; i++) {
-            result[i] = this.cleanup(parts[i]);
-        }
-        return result;
-    }
-
-    private hideTags(text: string): string {
-        let result: string = text;
-        for (const key of this.tags.keys()) {
-            const index: number = result.indexOf(key);
-            if (index !== -1) {
-                result = result.substring(0, index) + result.substring(index + 1);
-            }
-        }
-        return result;
+        parts.push(remaining);
+        return parts;
     }
 
     private endsWith(text: string, exp: string): boolean {
@@ -154,102 +126,6 @@ export class Segmenter {
         const pattern: RegExp = new RegExp(exp, 'u');
         const match: RegExpExecArray | null = pattern.exec(text);
         return !!match && match.index === 0;
-    }
-
-    private prepareString(raw: string): string {
-        let text: string = raw;
-        this.tags = new Map<string, string>();
-        let k = 0;
-
-        let start: number = text.indexOf(Segmenter.STARTIGNORE);
-        let end: number = text.indexOf(Segmenter.ENDIGNORE);
-
-        while (start !== -1 && end !== -1) {
-            if (start > end) {
-                break;
-            }
-            const tag: string = text.substring(start + Segmenter.STARTIGNORE.length, end);
-            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + Segmenter.ENDIGNORE.length);
-            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
-            k++;
-            start = text.indexOf(Segmenter.STARTIGNORE);
-            end = text.indexOf(Segmenter.ENDIGNORE);
-        }
-
-        start = text.indexOf('<mrk ');
-        end = text.indexOf('</mrk>');
-        let e: number = text.indexOf('<mrk ', text.indexOf('>', start));
-        while (e !== -1 && e < end) {
-            end = text.indexOf('</mrk>', end + 1);
-            e = text.indexOf('<mrk ', text.indexOf('>', e + 1));
-        }
-
-        while (start !== -1 && end !== -1) {
-            if (start > end) {
-                break;
-            }
-            const tag: string = text.substring(start, end + 6);
-            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + 6);
-            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
-            k++;
-            start = text.indexOf('<mrk ');
-            end = text.indexOf('</mrk>');
-        }
-
-        start = text.indexOf('<ph');
-        end = text.indexOf('</ph>');
-
-        while (start !== -1 && end !== -1) {
-            if (start > end) {
-                break;
-            }
-            const tag: string = text.substring(start, end + 5);
-            text = text.substring(0, start) + String.fromCodePoint(0xE000 + k) + text.substring(end + 5);
-            this.tags.set(String.fromCodePoint(0xE000 + k), tag);
-            k++;
-            start = text.indexOf('<ph');
-            end = text.indexOf('</ph>');
-        }
-
-        let buffer: string = '';
-        let element: string = '';
-        const length: number = text.length;
-        let inElement = false;
-        for (let i = 0; i < length; i++) {
-            const c: string = text.charAt(i);
-            if (c === '<' && text.indexOf('>', i) !== -1) {
-                inElement = true;
-                const a: number = text.indexOf('<', i + 1);
-                const b: number = text.indexOf('>', i + 1);
-                if (a !== -1 && a < b) {
-                    inElement = false;
-                }
-                if (i < length - 1 && !(/[A-Za-z]/.test(text.charAt(i + 1)) || text.charAt(i + 1) === '/')) {
-                    inElement = false;
-                }
-            }
-            if (inElement) {
-                element += c;
-            } else {
-                buffer += c;
-            }
-            if (c === '>' && inElement) {
-                inElement = false;
-                this.tags.set(String.fromCodePoint(0xE000 + k), element);
-                buffer += String.fromCodePoint(0xE000 + k);
-                element = '';
-                k++;
-            }
-        }
-        return buffer;
-    }
-
-    private cleanup(text: string): string {
-        let result: string = text;
-        for (const [key, value] of this.tags.entries()) {
-            result = result.split(key).join(value);
-        }
-        return result;
     }
 
     private buildRulesList(srcLanguage: string): void {
@@ -285,6 +161,37 @@ export class Segmenter {
                     }
                 }
             }
+        }
+    }
+
+    private validateRulesList(): void {
+        const validRules: Array<XMLElement> = new Array<XMLElement>();
+        this.invalidRulesCount = 0;
+        for (const rule of this.rules) {
+            const beforexp: string = rule.getChild('beforebreak')?.getText() ?? '';
+            const afterxp: string = rule.getChild('afterbreak')?.getText() ?? '';
+            if (this.isValidRegexp(beforexp) && this.isValidRegexp(afterxp)) {
+                validRules.push(rule);
+            } else {
+                this.invalidRulesCount++;
+            }
+        }
+        this.rules = validRules;
+    }
+
+    getInvalidRulesCount(): number {
+        return this.invalidRulesCount;
+    }
+
+    private isValidRegexp(exp: string): boolean {
+        if (!exp) {
+            return true;
+        }
+        try {
+            new RegExp(exp, 'u');
+            return true;
+        } catch {
+            return false;
         }
     }
 

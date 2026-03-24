@@ -8,7 +8,7 @@
 }
 
 body {
-	background: var(--gray10);
+	background: var(--gray20);
 	color: var(--gray190);
 	fill: var(--gray190);
 	stroke: var(--gray190);
@@ -103,6 +103,10 @@ td.list {
 
 .mainTable td {
 	padding: 0px;
+}
+
+.highlight {
+	background: var(--themeTertiary);
 }
 
 .dialogTable {
@@ -253,8 +257,8 @@ option {
 	background: var(--gray50);
 	color: var(--black);
 	border: none;
-	margin-left: 8px;
-	margin-right: 8px;
+	margin-left: 2px;
+	margin-right: 2px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;

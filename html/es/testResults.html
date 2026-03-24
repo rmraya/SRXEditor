@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es"> <head> <title>Resultados</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" style="height: 100vh;">
+    <div id="container" class="bordered" style="width: 100%; height: calc(100% - 16px); overflow:auto;">
+        <table id="resultsTable" class="fill_width">
+
+        </table>
+    </div>
+    <script>
+        const { TestResults } = require('../../js/testResults.js');
+        new TestResults();
+    </script>
+</body>
+
+</html>

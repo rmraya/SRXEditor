@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Header</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+    <table class="fill_width">
+        <tr>
+            <td class="middle noWrap">
+                <label for="cascade">Cascade Rules</label>
+            </td>
+            <td class="fill_width">
+                <select id="cascade" class="table_select">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="segmentsubflows">Segment Subflows</label>
+            </td>
+            <td class="fill_width">
+                <select id="segmentsubflows" class="table_select">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeStart">Format Handle: Start</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeStart" class="table_select">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeEnd">Format Handle: End</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeEnd" class="table_select">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeIsolated">Format Handle: Isolated</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeIsolated" class="table_select">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <button id="saveHeader">Save Header</button>
+    </div>
+
+    <script>
+        const { HeaderDialog } = require('../../js/headerDialog.js');
+        new HeaderDialog();
+    </script>
+</body>
+
+</html>

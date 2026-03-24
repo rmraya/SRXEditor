@@ -9,12 +9,18 @@
         "fileSaved": "File saved",
         "OK": "OK",
         "cancel": "Cancel",
+        "save": "Save",
+        "saveAnyway": "Save Anyway",
+        "dontSave": "Don't Save",
+        "saveWithIssuesPrompt": "The SRX file has validation issues:\n{0}\n\nSaving anyway may produce an SRX file that is not schema-compliant.\n\nDo you want to save anyway?",
+        "unsavedChanges": "Your changes will be lost if you don't save them",
         "error": "Error",
         "warning": "Warning",
         "yes": "Yes",
         "no": "No",
         "languageRemoved": "Language removed",
         "languageNotFound": "Language not found",
+        "duplicateLanguageName": "Language name \"{0}\" already exists",
         "srxFiles": "SRX Files",
         "allFiles": "All Files",
         "notSrx": "Selected file is not an SRX document",
@@ -28,7 +34,17 @@
         "supportError": "Unable to open support group page",
         "unknownLicense": "Unknown license",
         "untitled": "Untitled.srx",
-        "duplicateRule": "Duplicated rule"
+        "duplicateRule": "Duplicated rule",
+        "noSrxLoaded": "No SRX file is currently loaded",
+        "invalidRulesIgnored": "There are {0} invalid rules. Test results will ignore them",
+        "noLanguages": "No language maps defined. Add at least one language",
+        "invalidRules": "These languages contain invalid rules (both beforebreak and afterbreak are empty): {0}",
+        "missingLanguageData": "Some language entries have missing name or pattern: {0}",
+        "duplicateLanguageNames": "Language rule names should be unique: {0}",
+        "languagesWithoutRules": "These languages have no rules: {0}",
+        "languageChanged": "Application language settings will be applied on next start",
+        "restart": "Restart Now",
+        "dismiss": "Dismiss"        
     },
     "menu": {
         "fileMenu": "&File",
@@ -51,7 +67,8 @@
         "openFile": "Open File",
         "saveFile": "Save File",
         "saveFileAs": "Save File As...",
-        "closeFile": "Close File"
+        "closeFile": "Close File",
+        "editHeader": "Edit Header"
     },
     "editMenu": {
         "undo": "Undo",
@@ -108,10 +125,12 @@
     },
     "languageDialog": {
         "emptyLangName": "Enter language name",
-        "emptyPattern": "Enter language pattern"
+        "emptyPattern": "Enter language pattern",
+        "invalidPattern": "Language pattern is not a valid regular expression"
     },
     "rulesDialog": {
-        "emptyBeforeAfter": "Before and After Break fields cannot be both empty"
+        "emptyBeforeAfter": "Before and After Break fields cannot be both empty",
+        "invalidRegexp": "One or more regular expressions appear to be invalid and may fail during segmentation"
     },
     "testRules": {
         "emptyText": "Enter sample text"

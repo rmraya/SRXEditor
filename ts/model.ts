@@ -1,0 +1,31 @@
+/*******************************************************************************
+ * Copyright (c) 2008-2026 Maxprograms.
+ *
+ * This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 1.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/org/documents/epl-v10.html
+ *
+ * Contributors:
+ *     Maxprograms - initial API and implementation
+ *******************************************************************************/
+
+export interface Rule {
+    break: boolean;
+    beforeBreak?: string;
+    afterBreak?: string;
+}
+
+export interface LanguageRule {
+    rules: Rule[];
+}
+
+export interface LanguageMap {
+    langName: string;
+    pattern: string;
+}
+
+export interface Pair {
+    langName: string;
+    rule: Rule;
+}

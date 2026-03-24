@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es"> <head> <title>Regla</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+
+    <table>
+        <tr>
+            <td class="middle row">
+                <input type="checkbox" id="breaks" class="middle">
+                <label for="breaks" class="middle">Quiebra segmento</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="beforeBreak">Antes del quiebre</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="beforeBreak" class="fill_width">
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="afterBreak">Despu&eacute;s de quiebre</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="afterBreak" class="fill_width">
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <button id="save">Guardar Regla</button>
+    </div>
+    <script>
+        const { RulesDialog } = require('../../js/rulesDialog.js');
+        new RulesDialog();
+    </script>
+</body>
+
+</html>

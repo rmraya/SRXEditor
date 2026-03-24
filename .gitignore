@@ -1,3 +1,8 @@
-bin/
 .DS_Store
-docs/out/
+.scannerwork/
+docs/en/out/
+node_modules/
+js/
+srxeditor-darwin-arm64/
+srxeditor-win32-x64/
+SRXEditor-linux-x64/

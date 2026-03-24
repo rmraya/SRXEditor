@@ -1,0 +1,35 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Licencias</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fonts.css">
+</head>
+
+<body class="dialogBody">
+    <table>
+        <tr class="noWrap">
+            <td>SRXEditor</td>
+            <td><a id="SRXEditor">Eclipse Public License 1.0</a></td>
+        </tr>
+        <tr class="noWrap">
+            <td>Electron</td>
+            <td><a id="electron">Licencia MIT</a></td>
+        </tr>
+        <tr class="noWrap">
+            <td>TypesXML</td>
+            <td><a id="TypesXML">Eclipse Public License 1.0</a></td>
+        </tr>
+        <tr class="noWrap">
+            <td>TypesBCP47</td>
+            <td><a id="TypesBCP47">Eclipse Public License 1.0</a></td>
+        </tr>
+    </table>
+    <script>
+        const { Licenses } = require('../../js/licenses.js');
+        new Licenses();
+    </script>
+</body>
+
+</html>

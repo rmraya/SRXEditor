@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Language</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+
+    <table>
+        <tr>
+            <td class="middle">
+                <label for="langName">Language Name</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="langName" class="fill_width">
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="pattern">Language Pattern</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="pattern" class="fill_width">
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <button id="save">Save Language</button>
+    </div>
+    <script>
+        const { LanguageDialog } = require('../../js/languageDialog.js');
+        new LanguageDialog();
+    </script>
+</body>
+
+</html>

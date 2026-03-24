@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es"> <head> <title>Encabezado</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+    <table class="fill_width">
+        <tr>
+            <td class="middle noWrap">
+                <label for="cascade">Reglas en cascada</label>
+            </td>
+            <td class="fill_width">
+                <select id="cascade" class="table_select">
+                    <option value="yes">Si</option> <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="segmentsubflows">Segmentar subflujos</label>
+            </td>
+            <td class="fill_width">
+                <select id="segmentsubflows" class="table_select">
+                    <option value="yes">Si</option> <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeStart">Manejo de formato: Inicio</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeStart" class="table_select">
+                    <option value="no">No</option> <option value="yes">Si</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeEnd">Manejo de formato: Fin</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeEnd" class="table_select">
+                    <option value="yes">Si</option> <option value="no">No</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap">
+                <label for="includeIsolated">Manejo de formato: Aislado</label>
+            </td>
+            <td class="fill_width">
+                <select id="includeIsolated" class="table_select">
+                    <option value="no">No</option> <option value="yes">Si</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <button id="saveHeader">Guardar Encabezado</button>
+    </div>
+
+    <script>
+        const { HeaderDialog } = require('../../js/headerDialog.js');
+        new HeaderDialog();
+    </script>
+</body>
+
+</html>

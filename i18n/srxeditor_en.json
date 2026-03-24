@@ -1,0 +1,138 @@
+{
+    "srxeditor": {
+        "mainWindowTitle": "{0} - {1}",
+        "serverStatus": "Server status: {0}",
+        "openSrxFile": "Open SRX File",
+        "saveSrxFile": "Save SRX File",
+        "loadingSRX": "Loading SRX...",
+        "noUpdates": "There are currently no updates available",
+        "fileSaved": "File saved",
+        "OK": "OK",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saveAnyway": "Save Anyway",
+        "dontSave": "Don't Save",
+        "saveWithIssuesPrompt": "The SRX file has validation issues:\n{0}\n\nSaving anyway may produce an SRX file that is not schema-compliant.\n\nDo you want to save anyway?",
+        "unsavedChanges": "Your changes will be lost if you don't save them",
+        "error": "Error",
+        "warning": "Warning",
+        "yes": "Yes",
+        "no": "No",
+        "languageRemoved": "Language removed",
+        "languageNotFound": "Language not found",
+        "duplicateLanguageName": "Language name \"{0}\" already exists",
+        "srxFiles": "SRX Files",
+        "allFiles": "All Files",
+        "notSrx": "Selected file is not an SRX document",
+        "missingVersion": "Missing \"version\" attribute in <srx> element",
+        "unsupportedVersion": "Unsupported SRX version: {0}",
+        "missingLanguageRuleName": "Missing \"languagerulename\" attribute in <languagerules> element",
+        "noChildren": "No children found in the document",
+        "notValidSrx": "Selected file is not a valid SRX document",
+        "helpError": "Unable to open SRXEditor User Guide",
+        "specificationError": "Unable to open SRX Specification",
+        "supportError": "Unable to open support group page",
+        "unknownLicense": "Unknown license",
+        "untitled": "Untitled.srx",
+        "duplicateRule": "Duplicated rule",
+        "noSrxLoaded": "No SRX file is currently loaded",
+        "invalidRulesIgnored": "There are {0} invalid rules. Test results will ignore them",
+        "noLanguages": "No language maps defined. Add at least one language",
+        "invalidRules": "These languages contain invalid rules (both beforebreak and afterbreak are empty): {0}",
+        "missingLanguageData": "Some language entries have missing name or pattern: {0}",
+        "duplicateLanguageNames": "Language rule names should be unique: {0}",
+        "languagesWithoutRules": "These languages have no rules: {0}",
+        "languageChanged": "Application language settings will be applied on next start",
+        "restart": "Restart Now",
+        "dismiss": "Dismiss"        
+    },
+    "menu": {
+        "fileMenu": "&File",
+        "editMenu": "&Edit",
+        "viewMenu": "&View",
+        "tasksMenu": "&Tasks",
+        "helpMenu": "&Help",
+        "settingsMenu": "&Settings"
+    },
+    "appleMenu": {
+        "about": "About SRXEditor",
+        "preferences": "Preferences",
+        "settings": "Settings",
+        "services": "Services",
+        "noServices": "No services available",
+        "quit": "Quit SRXEditor"
+    },
+    "fileMenu": {
+        "newFile": "New File",
+        "openFile": "Open File",
+        "saveFile": "Save File",
+        "saveFileAs": "Save File As...",
+        "closeFile": "Close File",
+        "editHeader": "Edit Header"
+    },
+    "editMenu": {
+        "undo": "Undo",
+        "redo": "Redo",
+        "cut": "Cut",
+        "copy": "Copy",
+        "paste": "Paste",
+        "selectAll": "Select All"
+    },
+    "helpMenu": {
+        "userGuide": "SRXEditor User Guide",
+        "specification": "SRX Specification",
+        "checkUpdates": "Check for Updates",
+        "viewLicenses": "View Licenses",
+        "supportGroup": "Support Group"
+    },
+    "viewMenu": {
+        "toggleFullScreen": "Toggle Full Screen",
+        "toggleDeveloperTools": "Toggle Developer Tools"
+    },
+    "tasksMenu": {
+        "addLanguage": "Add Language",
+        "editLanguage": "Edit Language",
+        "removeLanguage": "Remove Language",
+        "moveLanguageUp": "Move Language Up",
+        "moveLanguageDown": "Move Language Down",
+        "addRule": "Add Rule",
+        "editRule": "Edit Rule",
+        "removeRule": "Remove Rule",
+        "moveRuleUp": "Move Rule Up",
+        "moveRuleDown": "Move Rule Down",
+        "testRules": "Test Rules"
+    },
+    "windowsMenu": {
+        "quit": "Exit",
+        "about": "About..."
+    },
+    "linuxMenu": {
+        "quit": "Quit",
+        "about": "About..."
+    },
+    "main": {
+        "noLanguageSelected": "Select language",
+        "noRuleSelected": "Select rule"
+    },
+    "settingsMenu": {
+        "preferences": "Preferences"
+    },
+    "segmenter": {
+        "unableToParse": "Unable to parse SRX document",
+        "missingRoot": "SRX document has no root element",
+        "notSrxDocument": "Not an SRX document",
+        "unsupportedVersion": "Unsupported SRX version: {0}"
+    },
+    "languageDialog": {
+        "emptyLangName": "Enter language name",
+        "emptyPattern": "Enter language pattern",
+        "invalidPattern": "Language pattern is not a valid regular expression"
+    },
+    "rulesDialog": {
+        "emptyBeforeAfter": "Before and After Break fields cannot be both empty",
+        "invalidRegexp": "One or more regular expressions appear to be invalid and may fail during segmentation"
+    },
+    "testRules": {
+        "emptyText": "Enter sample text"
+    }
+}

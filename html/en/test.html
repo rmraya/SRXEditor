@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Test</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody" style="height: 100vh;">
+    <table id="testTable" class="fill_width" style="height:200px;">
+        <tr>
+            <td class="middle">
+                <label for="testBox">Sample Text</label>
+            </td>
+        <tr>
+            <td class="middle fill_width" style="height: 100%">
+                <textarea id="testBox" class="fill_width fill_height"></textarea>
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <td class="middle row" style="margin-top: 8px;">
+                <label for="srcLangSelect">Source Language</label>
+                <select id="srcLangSelect" class="table_select fill_width"></select>
+            </td>
+        </tr>
+    </table>
+
+    <div id="buttonArea" class="buttonArea">
+        <button id="testButton">Test Rules</button>
+    </div>
+    <script>
+        const { TestRules } = require('../../js/testRules.js');
+        new TestRules();
+    </script>
+</body>
+
+</html>

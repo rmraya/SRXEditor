@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es"> <head> <title>Configuraci&oacute;n</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+    <table>
+        <tr>
+            <td class="middle noWrap"><label for="appLangSelect">Idioma de la aplicaci&oacute;n</label></td>
+            <td class="fill_width">
+                <select id="appLangSelect" class="table_select">
+                    <option value="en">Ingl&eacute;s</option> <option value="es">Espa&ntilde;ol</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle noWrap"><label for="themeColor">Tema</label></td>
+            <td class="fill_width">
+                <select id="themeColor" class="table_select">
+                    <option value="system">Predeterminado del Sistema</option> <option value="dark">Oscuro</option> <option value="light">Claro</option> <option value="highcontrast">Alto Contraste</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <div class="buttonArea">
+        <button id="saveSettings">Guardar Configuraci&oacute;n</button>
+    </div>
+    <script>
+        const { Settings } = require('../../js/settings.js');
+        new Settings();
+    </script>
+</body>
+
+</html>

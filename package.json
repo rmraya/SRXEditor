@@ -1,0 +1,40 @@
+{
+    "name": "srxeditor",
+    "productName": "SRXEditor",
+    "version": "2.0.0",
+    "description": "Editor for SRX (Segmentation Rules eXchange) files",
+    "keywords": [
+        "SRX",
+        "Editor",
+        "i18n",
+        "l10n"
+    ],
+    "homepage": "https://www.maxprograms.com/products/srxeditor.html",
+    "bugs": {
+        "url": "https://github.com/rmraya/SRXEditor/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rmraya/SRXEditor.git"
+    },
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && electron ."
+    },
+    "license": "EPL-1.0",
+    "author": {
+        "name": "Rodolfo M. Raya",
+        "email": "rmraya@maxprograms.com",
+        "url": "https://www.maxprograms.com"
+    },
+    "type": "module",
+    "main": "js/srxeditor.js",
+    "devDependencies": {
+        "electron": "^41.0.3",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "typesbcp47": "^1.18.1",
+        "typesxml": "^1.18.0"
+    }
+}

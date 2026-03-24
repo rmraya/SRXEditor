@@ -1,0 +1,134 @@
+{
+  "viewMenu": {
+    "toggleDeveloperTools": "Herramientas Para Desarrolladores",
+    "toggleFullScreen": "Pantalla Completa"
+  },
+  "helpMenu": {
+    "viewLicenses": "Ver Licencias",
+    "specification": "Especificación de SRX",
+    "userGuide": "Manual del Usuario de SRXEditor",
+    "checkUpdates": "Buscar Actualizaciones",
+    "supportGroup": "Grupo de Soporte"
+  },
+  "main": {
+    "noLanguageSelected": "Seleccione idioma",
+    "noRuleSelected": "Seleccione regla"
+  },
+  "windowsMenu": {
+    "about": "Acerca de...",
+    "quit": "Salir"
+  },
+  "menu": {
+    "editMenu": "&Editar",
+    "settingsMenu": "&Configuración",
+    "viewMenu": "&Ver",
+    "helpMenu": "A&yuda",
+    "tasksMenu": "&Tareas",
+    "fileMenu": "&Archivo"
+  },
+  "editMenu": {
+    "undo": "Deshacer",
+    "selectAll": "Seleccionar Todo",
+    "cut": "Cortar",
+    "redo": "Rehacer",
+    "copy": "Copiar",
+    "paste": "Pegar"
+  },
+  "appleMenu": {
+    "settings": "Configuración",
+    "preferences": "Preferencias",
+    "noServices": "No hay servicios disponibles",
+    "about": "Acerca de SRXEditor",
+    "quit": "Salir de SRXEditor",
+    "services": "Servicios"
+  },
+  "settingsMenu": {"preferences": "Preferencias"},
+  "rulesDialog": {
+    "emptyBeforeAfter": "Los campos Antes y Después del quiebre no pueden estar ambos vacíos",
+    "invalidRegexp": "Una o más expresiones regulares parecen ser inválidas y pueden fallar durante la segmentación"
+  },
+  "testRules": {"emptyText": "Ingrese texto de prueba"},
+  "segmenter": {
+    "notSrxDocument": "No es un documento SRX",
+    "missingRoot": "El documento SRX no tiene elemento raíz",
+    "unsupportedVersion": "Versión de SRX no compatible: {0}",
+    "unableToParse": "No se pudo analizar el documento SRX"
+  },
+  "languageDialog": {
+    "emptyLangName": "Ingrese el nombre del idioma",
+    "emptyPattern": "Ingrese el patrón de idioma",
+    "invalidPattern": "El patrón de idioma no es una expresión regular válida"
+  },
+  "srxeditor": {
+    "noUpdates": "No hay actualizaciones disponibles",
+    "cancel": "Cancelar",
+    "srxFiles": "Archivos SRX",
+    "no": "No",
+    "serverStatus": "Estado del Servidor: {0}",
+    "saveSrxFile": "Guardar Archivo SRX",
+    "save": "Guardar",
+    "loadingSRX": "Cargando SRX...",
+    "error": "Error",
+    "languageRemoved": "Idioma eliminado",
+    "missingVersion": "Falta el atributo \"version\" en el elemento<srx>",
+    "notValidSrx": "El archivo seleccionado no es un documento SRX válido",
+    "duplicateRule": "Regla duplicada",
+    "noLanguages": "No hay mapas de idiomas definidos. Añada al menos un idioma",
+    "unknownLicense": "Licencia desconocida",
+    "warning": "Atención",
+    "missingLanguageRuleName": "Falta el atributo \"languagerulename\" en el elemento <languagerules>",
+    "OK": "Aceptar",
+    "allFiles": "Todos los Archivos",
+    "languagesWithoutRules": "Estos idiomas no tienen reglas: {0}",
+    "openSrxFile": "Abrir Archivo SRX",
+    "saveAnyway": "Guardar de todos modos",
+    "noChildren": "No se encontraron elementos en el documento",
+    "duplicateLanguageName": "El nombre de idioma \"{0}\" ya existe",
+    "notSrx": "El archivo seleccionado no es un documento SRX",
+    "languageNotFound": "Idioma no encontrado",
+    "helpError": "No se puede abrir la Guía del Usuario de SRXEditor",
+    "untitled": "Sin título.srx",
+    "noSrxLoaded": "No se ha cargado ningún archivo SRX",
+    "duplicateLanguageNames": "Los nombres de las reglas de idioma deben ser únicos: {0}",
+    "dontSave": "No Guardar",
+    "yes": "Si",
+    "missingLanguageData": "Algunas entradas de idioma tienen nombre o patrón faltante: {0}",
+    "unsavedChanges": "Sus cambios se perderán si no los guarda",
+    "invalidRulesIgnored": "Hay {0} reglas no válidas. Los resultados de la prueba las ignorarán",
+    "fileSaved": "Archivo guardado",
+    "specificationError": "No se puede abrir la especificación de SRX",
+    "invalidRules": "Estos idiomas contienen reglas no válidas: {0}",
+    "unsupportedVersion": "Versión de SRX no compatible: {0}",
+    "supportError": "No se puede abrir la página del grupo de soporte",
+    "saveWithIssuesPrompt": "El archivo SRX tiene problemas de validación:\n{0}\n\nGuardar de todos modos puede producir un archivo SRX que no cumple con el esquema.\n\n¿Desea guardar de todos modos?",
+    "mainWindowTitle": "{0} - {1}",
+    "languageChanged": "El cambio de idioma se aplicará en el siguiente inicio",
+    "restart": "Reiniciar Ahora",
+    "dismiss": "Ignorar"
+  },
+  "tasksMenu": {
+    "addRule": "Añadir Regla",
+    "moveRuleDown": "Mover regla hacia abajo",
+    "removeLanguage": "Eliminar Idioma",
+    "testRules": "Probar Reglas",
+    "editLanguage": "Editar Idioma",
+    "addLanguage": "Añadir Idioma",
+    "editRule": "Editar Regla",
+    "removeRule": "Eliminar Regla",
+    "moveRuleUp": "Mover regla hacia arriba",
+    "moveLanguageDown": "Mover idioma hacia abajo",
+    "moveLanguageUp": "Mover idioma hacia arriba"
+  },
+  "linuxMenu": {
+    "about": "Acerca de...",
+    "quit": "Salir"
+  },
+  "fileMenu": {
+    "saveFileAs": "Guardar Archivo Como...",
+    "openFile": "Abrir Archivo",
+    "closeFile": "Cerrar Archivo",
+    "newFile": "Nuevo Archivo",
+    "saveFile": "Guardar Archivo",
+    "editHeader": "Editar Encabezado"
+  }
+}

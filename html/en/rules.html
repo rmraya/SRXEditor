@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Rule</title>
+    <link id="theme" rel="stylesheet" type="text/css" href="../../css/light.css">
+</head>
+
+<body class="dialogBody">
+
+    <table>
+        <tr>
+            <td class="middle row">
+                <input type="checkbox" id="breaks" class="middle">
+                <label for="breaks" class="middle">Breaks Segment</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="beforeBreak">Before Break</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="beforeBreak" class="fill_width">
+            </td>
+        </tr>
+        <tr>
+            <td class="middle">
+                <label for="afterBreak">After Break</label>
+            </td>
+            <td class="middle fill_width">
+                <input id="afterBreak" class="fill_width">
+            </td>
+        </tr>
+    </table>
+
+    <div class="buttonArea">
+        <button id="save">Save Rule</button>
+    </div>
+    <script>
+        const { RulesDialog } = require('../../js/rulesDialog.js');
+        new RulesDialog();
+    </script>
+</body>
+
+</html>

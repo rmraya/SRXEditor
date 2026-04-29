@@ -21,11 +21,11 @@ Ready to use installers are available at [SRXEditor's Home Page](https://www.max
 
 ### Build Procedure
 
-- Checkout this repository
+- Clone this repository
 - Run `npm install`
 
 ```bash
-git clone https://github.com/rmraya/SRXEditor.git
+git clone https://github.com/maxprograms-com/SRXEditor.git
 cd SRXEditor
 npm install
 ```

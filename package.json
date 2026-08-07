@@ -30,7 +30,7 @@
     "type": "module",
     "main": "js/srxeditor.js",
     "devDependencies": {
-        "electron": "^41.3.0",
+        "electron": "^41.10.3",
         "typescript": "^6.0.3"
     },
     "dependencies": {
